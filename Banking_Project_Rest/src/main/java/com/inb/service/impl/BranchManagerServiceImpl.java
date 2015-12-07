@@ -10,4 +10,14 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		
 	}
 
+	public boolean login() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean logout() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
