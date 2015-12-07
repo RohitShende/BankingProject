@@ -1,10 +1,12 @@
 package com.inb.mongo.collections;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="branch")
 public class Branch {
 	
+	@Id
 	private String ifscCode;
 	private String branchName;
 	private String address;
