@@ -1,0 +1,35 @@
+package com.inb.exceptions;
+
+public class NotAdminException  extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 100; 
+	private String message;
+	
+	public NotAdminException(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public String getMessage() {
+		return "ERROR CODE : "+serialVersionUID +"->"+message+" "+super.getMessage() ;
+	}
+
+	@Override
+	public synchronized Throwable getCause() {
+		// TODO Auto-generated method stub
+		return super.getCause();
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "ERROR CODE : "+serialVersionUID +"->"+message+" "+super.toString() ;
+	}
+	
+	
+	
+	
+}
