@@ -2,7 +2,7 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
-abstract public class Person {
+abstract public class PersonPOJO {
 
 	private String firstName;
 	private String lastName;
@@ -13,13 +13,13 @@ abstract public class Person {
 	
 	
 	
-	public Person() {
+	public PersonPOJO() {
 		super();
 	}
 
 
 
-	public Person(String firstName, String lastName, String email, long phone,
+	public PersonPOJO(String firstName, String lastName, String email, long phone,
 			String address, Date dateOfBirth) {
 		super();
 		this.firstName = firstName;

@@ -2,13 +2,13 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
-public class Admin extends Employee {
+public class AdminPOJO extends EmployeePOJO {
 
-	public Admin() {
+	public AdminPOJO() {
 		super();
 	}
 
-	public Admin(String firstName, String lastName, String email, long phone,
+	public AdminPOJO(String firstName, String lastName, String email, long phone,
 			String address, Date dateOfBirth, String username, String password) {
 		super(firstName, lastName, email, phone, address, dateOfBirth, username,
 				password);

@@ -1,5 +1,7 @@
 package com.inb.service.interfaces;
 
-public interface BranchManagerService {
+import com.inb.mongo.collections.BranchManager;
 
+public interface BranchManagerService {
+	void save(BranchManager branchManager);
 }

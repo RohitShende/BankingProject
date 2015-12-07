@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Date;
 
 
-public class RegisteredCustomer extends Customer {
+public class RegisteredCustomer extends CustomerPOJO {
 
 	long customerId;
 	String username;

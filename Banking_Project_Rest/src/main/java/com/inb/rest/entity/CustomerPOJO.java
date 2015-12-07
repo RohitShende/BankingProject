@@ -3,17 +3,17 @@ package com.inb.rest.entity;
 import java.io.File;
 import java.util.Date;
 
-public abstract class Customer extends Person {
+public abstract class CustomerPOJO extends PersonPOJO {
 
 	private File addressProof;
 	private File ageProof;
 
-	public Customer() {
+	public CustomerPOJO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String firstName, String lastName, String email,
+	public CustomerPOJO(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, File addressProof,
 			File ageProof) {
 		super(firstName, lastName, email, phone, address, dateOfBirth);
