@@ -1,21 +1,21 @@
 package com.inb.rest.entity;
 
-public class Branch {
+public class BranchPOJO {
 	
 	private String ifscCode;
 	private String branchName;
 	private String address;
 	private long contact;
-	private BranchManager branchManager;
+	private BranchManagerPOJO branchManager;
 	
 	
 	
-	public Branch() {
+	public BranchPOJO() {
 		super();
 	}
 	
-	public Branch(String ifscCode, String branchName, String address,
-			long contact, BranchManager branchManager) {
+	public BranchPOJO(String ifscCode, String branchName, String address,
+			long contact, BranchManagerPOJO branchManager) {
 		super();
 		this.ifscCode = ifscCode;
 		this.branchName = branchName;
@@ -47,10 +47,10 @@ public class Branch {
 	public void setContact(long contact) {
 		this.contact = contact;
 	}
-	public BranchManager getBranchManager() {
+	public BranchManagerPOJO getBranchManager() {
 		return branchManager;
 	}
-	public void setBranchManager(BranchManager branchManager) {
+	public void setBranchManager(BranchManagerPOJO branchManager) {
 		this.branchManager = branchManager;
 	}
 

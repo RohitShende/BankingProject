@@ -2,27 +2,27 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
-public class BranchManager extends Employee{
+public class BranchManagerPOJO extends EmployeePOJO{
 
-	private Branch branch;
+	private BranchPOJO branch;
 	
-	public BranchManager() {
+	public BranchManagerPOJO() {
 		super();
 	}
 
-	public BranchManager(String firstName, String lastName, String email,
+	public BranchManagerPOJO(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, String username,
-			String password, Branch branch) {
+			String password, BranchPOJO branch) {
 		super(firstName, lastName, email, phone, address, dateOfBirth,
 				username, password);
 		this.branch = branch;
 	}
 
-	public Branch getBranch() {
+	public BranchPOJO getBranch() {
 		return branch;
 	}
 
-	public void setBranch(Branch branch) {
+	public void setBranch(BranchPOJO branch) {
 		this.branch = branch;
 	}
 

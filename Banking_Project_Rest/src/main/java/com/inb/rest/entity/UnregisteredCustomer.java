@@ -3,7 +3,7 @@ package com.inb.rest.entity;
 import java.io.File;
 import java.util.Date;
 
-public class UnregisteredCustomer extends Customer {
+public class UnregisteredCustomer extends CustomerPOJO {
 	long enqId;
 
 	public UnregisteredCustomer() {

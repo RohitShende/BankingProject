@@ -2,19 +2,19 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
-public abstract class Employee extends Person {
+public abstract class EmployeePOJO extends PersonPOJO {
 	
 	private String username;
 	private String password;
 	
 	
 	
-	public Employee() {
+	public EmployeePOJO() {
 		super();
 	}
 	
 	
-	public Employee(String firstName, String lastName, String email,
+	public EmployeePOJO(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, String username,
 			String password) {
 		super(firstName, lastName, email, phone, address, dateOfBirth);
