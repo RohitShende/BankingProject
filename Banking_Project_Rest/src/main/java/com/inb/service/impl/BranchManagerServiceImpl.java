@@ -5,6 +5,7 @@ import com.inb.service.interfaces.BranchManagerService;
 
 public class BranchManagerServiceImpl implements BranchManagerService {
 
+	
 	public void save(BranchManager branchManager) {
 		// TODO Auto-generated method stub
 		

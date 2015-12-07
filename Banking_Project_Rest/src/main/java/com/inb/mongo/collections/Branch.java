@@ -17,8 +17,8 @@ public class Branch {
 		super();
 	}
 	
-	public Branch(String ifscCode, String branchName, String address,
-			long contact, BranchManager branchManager) {
+	
+	public Branch(String ifscCode, String branchName, String address, long contact, BranchManager branchManager) {
 		super();
 		this.ifscCode = ifscCode;
 		this.branchName = branchName;
@@ -26,6 +26,8 @@ public class Branch {
 		this.contact = contact;
 		this.branchManager = branchManager;
 	}
+
+
 	public String getIfscCode() {
 		return ifscCode;
 	}
