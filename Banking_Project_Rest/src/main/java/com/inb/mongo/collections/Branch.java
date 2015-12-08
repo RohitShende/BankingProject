@@ -7,12 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Branch {
 	
 	@Id
+	private String id;
+	
 	private String ifscCode;
 	private String branchName;
 	private String address;
 	private long contact;
 	private BranchManager branchManager;
-	
 	
 	
 	public Branch() {
@@ -29,6 +30,14 @@ public class Branch {
 		this.branchManager = branchManager;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getIfscCode() {
 		return ifscCode;
