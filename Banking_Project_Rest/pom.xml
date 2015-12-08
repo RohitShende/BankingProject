@@ -27,6 +27,40 @@
 </dependency>
   
 <!-- **************************END************************************ -->
+  
+  
+  
+<!--   *****************************ADDED BY PALAKH FOR NEW JUNIT VERSION*****************************  -->
+  
+  <dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.11</version>
+	 <scope>test</scope>
+</dependency>
+  
+<!-- **************************END************************************ -->
+    
+ <!--   *****************************ADDED BY PALAKH FOR JAX-RS*****************************  -->   
+ <dependency>
+	<groupId>javax.ws.rs</groupId>
+	<artifactId>javax.ws.rs-api</artifactId>
+	<version>2.0</version>
+</dependency>
+    
+   <!-- **************************END************************************ --> 
+   
+  <!--   *****************************ADDED BY PALAKH FOR Jersey*****************************  -->    
+<dependency>
+	<groupId>org.glassfish.jersey.core</groupId>
+	<artifactId>jersey-client</artifactId>
+	<version>2.22.1</version>
+</dependency>
+   <!-- **************************END************************************ --> 
+  
+  
+  
+  
     
     <dependency>
 	<groupId>org.springframework</groupId>

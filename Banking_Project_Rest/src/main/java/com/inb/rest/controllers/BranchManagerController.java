@@ -27,8 +27,13 @@ public class BranchManagerController {
 	@Autowired
 	private BranchManagerService branchManagerService;
 	
+	@RequestMapping("/helloAll")
+	public String sayHi(@RequestParam(value="name", defaultValue="Ivan") String name) {
+		return "Hello " + name;
+	}
+	
 	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST)
-	public boolean createBranchManager(@ModelAttribute BranchManagerPOJO branchManager) {
+	public String createBranchManager(@ModelAttribute BranchManagerPOJO branchManager) {
 		
 		System.out.println("BranchManager*******"+branchManager.getDateOfBirth());
 		System.out.println(branchManager.getDateOfBirth().getDate());
@@ -38,7 +43,7 @@ public class BranchManagerController {
 		branchManagerService.save(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
 				branchManager.getPhone(), branchManager.getAddress(), isoDate, branchManager.getUsername(), 
 				branchManager.getPassword())); 
-		return true;
+		return "true";
 
 	}
 	
