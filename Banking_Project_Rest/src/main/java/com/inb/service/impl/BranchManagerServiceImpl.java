@@ -1,6 +1,5 @@
 package com.inb.service.impl;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,9 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	@Autowired
 	private BranchManagerRepository branchManagerRepository;
 	
-	public void save(BranchManager branchManager) {
-		branchManagerRepository.save(branchManager);
-		
+	public String save(BranchManager branchManager)  {
+		branchManagerRepository.insert(branchManager);
+		return "Branch Manager Added";
 	}
 
 	public boolean login(String username, String password) {

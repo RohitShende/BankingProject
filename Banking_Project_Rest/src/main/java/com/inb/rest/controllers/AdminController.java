@@ -3,12 +3,6 @@
  */
 package com.inb.rest.controllers;
 
-//import org.json.JSONObject;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,8 +18,6 @@ import com.inb.exceptions.NotAdminException;
 import com.inb.mongo.collections.Admin;
 import com.inb.rest.entity.AdminPOJO;
 import com.inb.service.interfaces.AdminService;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
 
 /**
  * @author Navin Maheshwari
