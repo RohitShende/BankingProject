@@ -37,8 +37,6 @@ public class BranchManagerController {
 	@Autowired
 	private BranchManagerService branchManagerService;
 	
-	@SuppressWarnings("deprecation")
-	
 	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) {
 		String result="";
@@ -48,6 +46,7 @@ public class BranchManagerController {
 		Calendar calendar=Calendar.getInstance();
 		calendar.setTime(branchManager.getDateOfBirth());
 		
+		@SuppressWarnings("static-access")
 		Calendar calendar2=new GregorianCalendar(calendar.get(calendar.YEAR),calendar.get(calendar.MONTH),calendar.get(calendar.DAY_OF_MONTH)+1);
 		
 		Date isoDate=calendar2.getTime();
@@ -79,7 +78,7 @@ public class BranchManagerController {
 		return branchManagerJson;
 		}catch(NotBranchManagerException e)
 		{
-			String str =  "{ \"error\" :" + e.getMessage() +" -> NotBranchManagerException }";
+			String str =  "{ \"error\" :" + e.getMessage() +" , \"Exception\" : \"NotBranchManagerException\" }";
 			return str;
 		}
 	}
