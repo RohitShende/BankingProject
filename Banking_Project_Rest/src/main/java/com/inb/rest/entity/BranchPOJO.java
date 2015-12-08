@@ -8,20 +8,17 @@ public class BranchPOJO {
 	private long contact;
 	private BranchManagerPOJO branchManager;
 	
-	
-	
 	public BranchPOJO() {
 		super();
 	}
 	
 	public BranchPOJO(String ifscCode, String branchName, String address,
-			long contact, BranchManagerPOJO branchManager) {
+			long contact) {
 		super();
 		this.ifscCode = ifscCode;
 		this.branchName = branchName;
 		this.address = address;
 		this.contact = contact;
-		this.branchManager = branchManager;
 	}
 	public String getIfscCode() {
 		return ifscCode;
