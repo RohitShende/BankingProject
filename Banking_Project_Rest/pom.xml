@@ -28,18 +28,6 @@
   
 <!-- **************************END************************************ -->
   
-  
-  
-<!--   *****************************ADDED BY PALAKH FOR NEW JUNIT VERSION*****************************  -->
-  
-  <dependency>
-	<groupId>junit</groupId>
-	<artifactId>junit</artifactId>
-	<version>4.11</version>
-	 <scope>test</scope>
-</dependency>
-  
-<!-- **************************END************************************ -->
     
  <!--   *****************************ADDED BY PALAKH FOR JAX-RS*****************************  -->   
  <dependency>
