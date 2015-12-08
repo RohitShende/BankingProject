@@ -17,14 +17,19 @@ app.controller("AdminController", function($scope, $log, $stateParams,
 			}
 		}).then(function successCallback(response) {
 			var data = response.data;
-			$rootScope.role = "Admin";
-			$rootScope.id = response.data.id;
-			console.log("AdminHome");
-			$location.path("/AdminHome");
+			if (response.data.id != null) {
+				$rootScope.role = "Admin";
+				$rootScope.id = response.data.id;
+				$rootScope.$apply();
+				console.log("-->"+$rootScope.role);
+				$location.path("/AdminHome");
+			} else {
+				$scope.errormsg = "Invalid Creditnals";
+				$location.path("/AdminLogin");
+			}
 		}, function errorCallback(response) {
 			console.log("error : " + response.data.error);
-			$scope.errormsg = "Invalid Creditnals";
-			$location.path("/AdminLogin");
+
 		});
 	}
 
