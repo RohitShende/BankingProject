@@ -5,9 +5,11 @@ package com.inb.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +17,8 @@ import com.inb.mongo.collections.Branch;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
 import com.inb.rest.entity.BranchPOJO;
+import com.inb.rest.entity.LoginDetails;
+import com.inb.service.impl.BranchManagerServiceImpl;
 import com.inb.service.interfaces.BranchManagerService;
 
 /**
@@ -30,7 +34,6 @@ public class BranchManagerController {
 	@RequestMapping(value="/register", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody BranchManagerPOJO registerUser(@RequestBody BranchManagerPOJO branchManager) {
 		
-		Branch branch=new Branch();
 		
 		BranchManager branchManagerObject=new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
 								branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUsername(), 
@@ -38,6 +41,18 @@ public class BranchManagerController {
 		
 		// branchManagerService.save()
 		return branchManager;
+	}
+	
+	@RequestMapping("/hellosss")
+	public String sayHello(@RequestParam(value="name", defaultValue="Ivan") String name) {
+		return "Hellosss " + name;
+	}
+	
+	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST)
+	public boolean loginBranchManager(@ModelAttribute LoginDetails loginDetails) {
+		System.out.println("Inside loginBranchManager");;
+		BranchManagerServiceImpl branchManagerService = new BranchManagerServiceImpl();
+		return branchManagerService.login(loginDetails.getUsername(), loginDetails.getPassword());
 	}
 	
 	public BranchManager convertBranchManagerPojoToBranchManager(BranchManagerPOJO branchManagerPojo)
@@ -53,4 +68,5 @@ public class BranchManagerController {
 				branchPojo.getContact(),
 				convertBranchManagerPojoToBranchManager(branchPojo.getBranchManager()));
 	}
+	
 }
