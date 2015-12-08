@@ -39,17 +39,17 @@ public class CreateBranchManagerTest {
 	   
 	}
 
-	@Test
-	public void testAddBranchManagerError(){
-		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
-				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
-	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
-	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{\"result\":\"Error\"}";
-	    System.out.println("Form response " + response);
-	    System.out.println("Form result " + result);
-	    Assert.assertEquals(expected,result);
-	}
+//	@Test
+//	public void testAddBranchManagerError(){
+//		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
+//				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
+//	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+//	    String result=target.accept("application/json").type("application/json").post(String.class,input);
+//	    String expected="{\"result\":\"Error\"}";
+//	    System.out.println("Form response " + response);
+//	    System.out.println("Form result " + result);
+//	    Assert.assertEquals(expected,result);
+//	}
 }
 	
 	
