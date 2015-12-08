@@ -6,17 +6,13 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
-import com.inb.mongo.collections.Admin;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
 /*
@@ -24,13 +20,14 @@ import com.mongodb.MongoClient;
  * */
 
 public class AdminUtil {
-
+	
 	public static void populateAdmin() {
+		
 		try {
 			JSONParser parser = new JSONParser();
 			Object obj = parser
 					.parse(new FileReader(
-							"C:/Users/maheshwari_m/git/BankingProject/Banking_Project_Rest/target/admin.txt"));
+							"init_data/admin.txt"));
 			JSONObject jobj = (JSONObject) obj;
 
 			String jsonFile = jobj.toJSONString();
