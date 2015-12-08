@@ -1,6 +1,8 @@
 /**
  * ngSurveys - main application script file
  */
+   
+
 
 (function() {
 	'use strict';
