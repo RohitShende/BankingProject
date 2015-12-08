@@ -1,4 +1,4 @@
-package Banking_Project.Banking_Project_Rest;
+package com.inb;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
