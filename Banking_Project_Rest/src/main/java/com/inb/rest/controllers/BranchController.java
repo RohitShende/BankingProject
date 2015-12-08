@@ -27,10 +27,6 @@ public class BranchController {
 	private BranchService branchService;
 	
 
-	@RequestMapping("/hello")
-	public String sayHello(@RequestParam(value="name", defaultValue="Ivan") String name) {
-		return "Hello " + name;
-	}
 	
 	@RequestMapping(value="/createBranch", method=RequestMethod.POST)
 	public Branch createBranch(@ModelAttribute BranchPOJO createBranchPOJO)
