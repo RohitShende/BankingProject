@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inb.mongo.collections.Branch;
@@ -26,14 +25,12 @@ public class BranchController {
 	@Autowired
 	private BranchService branchService;
 	
-
-	
 	@RequestMapping(value="/createBranch", method=RequestMethod.POST)
 	public Branch createBranch(@ModelAttribute BranchPOJO createBranchPOJO)
 	{
-		System.out.println("Inside Create Branch..."+ createBranchPOJO.getBranchName());
+		//System.out.println("Inside Create Branch..."+ createBranchPOJO.getBranchName());
 		createBranchPOJO.setBranchManager(new BranchManagerPOJO());
-		branchService.save(convertBranchPojoToBranch(createBranchPOJO));
+		branchService.insert(convertBranchPojoToBranch(createBranchPOJO));
 		return convertBranchPojoToBranch(createBranchPOJO);
 
 	}

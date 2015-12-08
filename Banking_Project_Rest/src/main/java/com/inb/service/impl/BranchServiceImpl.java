@@ -13,8 +13,8 @@ public class BranchServiceImpl implements BranchService {
 	@Autowired
 	private BranchRepository branchRepository;
 	
-	public void save(Branch branch) {
-		branchRepository.save(branch);
+	public void insert(Branch branch) {
+		branchRepository.insert(branch);
 	}
 
 }
