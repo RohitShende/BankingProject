@@ -8,8 +8,8 @@ public class NotAdminException  extends Exception {
 	private static final long serialVersionUID = 100; 
 	private String message;
 	
-	public NotAdminException(String message) {
-		this.message = message;
+	public NotAdminException() {
+		this.message = "USERNAME OR PASSWORD INCORRECT";
 	}
 
 	@Override
@@ -26,10 +26,13 @@ public class NotAdminException  extends Exception {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "ERROR CODE : "+serialVersionUID +"->"+message+" "+super.toString() ;
+		return "{'ERROR_CODE' : '"+serialVersionUID +"' }";                 //   ->"+message+" "+super.toString() ;
 	}
 	
-	
+	public long getSerialVersionUID()
+	{
+		return serialVersionUID;
+	}
 	
 	
 }

@@ -6,4 +6,5 @@ import com.inb.mongo.collections.Admin;
 public interface AdminService {
 	Admin login(String username , String password) throws NotAdminException;
 	void logout(Admin admin); 
+	void save(Admin admin);
 }
