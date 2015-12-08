@@ -50,7 +50,7 @@ public class BranchManagerController {
 	
 	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST)
 	public boolean loginBranchManager(@ModelAttribute LoginDetails loginDetails) {
-		System.out.println("Inside loginBranchManager");
+		System.out.println("Inside loginBranchManager");;
 		BranchManagerServiceImpl branchManagerService = new BranchManagerServiceImpl();
 		return branchManagerService.login(loginDetails.getUsername(), loginDetails.getPassword());
 	}
