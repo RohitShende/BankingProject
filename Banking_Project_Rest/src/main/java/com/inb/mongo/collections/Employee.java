@@ -37,11 +37,7 @@ public abstract class Employee extends Person {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Employee [username=" + username + ", password=" + password
-				+ "]";
-	}
+
 	
 	
 }
