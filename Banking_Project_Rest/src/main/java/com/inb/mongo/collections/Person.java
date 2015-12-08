@@ -35,6 +35,12 @@ abstract public class Person {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	
+
+	public String getId() {
+		return id;
+	}
+
 
 
 	public String getFirstName() {

@@ -14,7 +14,7 @@ public class NotAdminException  extends Exception {
 
 	@Override
 	public String getMessage() {
-		return "ERROR CODE : "+serialVersionUID +"->"+message+" "+super.getMessage() ;
+		return ""+serialVersionUID ;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class NotAdminException  extends Exception {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "{'ERROR_CODE' : '"+serialVersionUID +"' }";                 //   ->"+message+" "+super.toString() ;
+		return "{\"ERROR_CODE\"':"+serialVersionUID +"}";                 //   ->"+message+" "+super.toString() ;
 	}
 	
 	public long getSerialVersionUID()
