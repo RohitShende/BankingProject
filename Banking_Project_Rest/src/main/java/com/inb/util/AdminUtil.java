@@ -57,6 +57,9 @@ public class AdminUtil {
 		}
 
 	}
+	
+	
+	
 
 	public static boolean isAdmin(String id) {
 		try {

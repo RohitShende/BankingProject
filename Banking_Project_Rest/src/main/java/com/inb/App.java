@@ -13,6 +13,8 @@ import com.inb.util.AdminUtil;
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan
+
+
 public class App {
 
 	public static void main(String[] args) throws Exception {
