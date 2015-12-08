@@ -1,5 +1,7 @@
 package com.inb.service.impl;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inb.mongo.collections.BranchManager;
@@ -9,9 +11,11 @@ import com.inb.service.interfaces.BranchManagerService;
 @Service
 public class BranchManagerServiceImpl implements BranchManagerService {
 
-	BranchManagerRepository branchManagerRepository;
+	@Autowired
+	private BranchManagerRepository branchManagerRepository;
+	
 	public void save(BranchManager branchManager) {
-		// TODO Auto-generated method stub
+		branchManagerRepository.save(branchManager);
 		
 	}
 
