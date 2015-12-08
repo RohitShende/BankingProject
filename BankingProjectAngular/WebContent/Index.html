@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Index</title>
+
+
+<link rel="stylesheet" type="text/css" href="scripts/css/MainCSS.css" />
+
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+<!--    Library files           -->
+<script type="text/javascript" src="scripts/libs/angular.js"></script>
+<script type="text/javascript"
+	src="scripts/libs/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="scripts/libs/angular-animate.js"></script>
+<script type="text/javascript" src="scripts/libs/jquery-1.6.1.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+
+</head>
+
+
+
+<body class="bg-primary" ng-app="myapp">
+
+
+
+
+	<div class="container bg-info">
+
+
+
+		<!--NAVIGATION BAR-->
+
+		<app-header></app-header>
+
+
+		<!--BODY PART -->
+		<div class="clear"></div>
+		<div class="container-fluid bg-3 ">
+
+
+
+			<div class="row ">
+
+				<!-- SIDE NAVIGATION-->
+
+
+				<!--WILLL GO IN UI-VIEW-->
+				<div class="col-sm-9 bg-normal fix-height">
+					<div ui-view=""></div>
+				</div>
+
+				<rightnav></rightnav>
+
+
+
+
+			</div>
+
+		</div>
+		<app-footer></app-footer>
+
+	</div>
+
+
+
+	<!-- Include all individual app script files as needed -->
+
+	<script type="text/javascript" src="scripts/js/app.js"></script>
+	<script type="text/javascript" src="scripts/js/common.js"></script>
+	<script type="text/javascript" src="scripts/js/HomeAdmin.js"></script>
+	<script type="text/javascript" src="scripts/js/loginAdmin.js"></script>
+
+</body>
+</html>
