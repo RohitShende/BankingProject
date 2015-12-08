@@ -4,6 +4,6 @@ import com.inb.mongo.collections.Branch;
 
 public interface BranchService {
 	
-	void save(Branch branch);
+	void insert(Branch branch);
 
 }
