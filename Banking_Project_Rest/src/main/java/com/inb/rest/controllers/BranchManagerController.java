@@ -3,13 +3,18 @@
  */
 package com.inb.rest.controllers;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inb.mongo.collections.BranchManager;
@@ -32,18 +37,34 @@ public class BranchManagerController {
 		return "Hello " + name;
 	}
 	
-	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST)
-	public String createBranchManager(@ModelAttribute BranchManagerPOJO branchManager) {
+	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) {
+		String result="";
 		
-		System.out.println("BranchManager*******"+branchManager.getDateOfBirth());
-		System.out.println(branchManager.getDateOfBirth().getDate());
+		branchManager.setDateOfBirth(new Date());					//added for test case
 		
-		Date isoDate=new Date(branchManager.getDateOfBirth().getYear(), branchManager.getDateOfBirth().getMonth(), branchManager.getDateOfBirth().getDate()+1);
-		//System.out.println(isoDate);
-		branchManagerService.save(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
-				branchManager.getPhone(), branchManager.getAddress(), isoDate, branchManager.getUsername(), 
-				branchManager.getPassword())); 
-		return "true";
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(branchManager.getDateOfBirth());
+		
+		Calendar calendar2=new GregorianCalendar(calendar.get(calendar.YEAR),calendar.get(calendar.MONTH),calendar.get(calendar.DAY_OF_MONTH)+1);
+		
+		Date isoDate=calendar2.getTime();
+		System.out.println(isoDate);
+		
+	
+		result=branchManagerService.save(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
+					branchManager.getPhone(), branchManager.getAddress(), isoDate, branchManager.getUsername(), 
+					branchManager.getPassword()));
+			
+		
+		if(result.equals("Branch Manager Added"))
+		{
+			return "{\"result\":\"Success\"}";
+		}
+		else
+		{
+			return "{\"result\":\"Error\"}";
+		}
 
 	}
 	

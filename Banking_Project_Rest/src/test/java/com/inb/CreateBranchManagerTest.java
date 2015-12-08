@@ -1,62 +1,55 @@
 package com.inb;
 
-import java.net.URI;
+import java.util.Date;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-
-import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
+import junit.framework.Assert;
 
 public class CreateBranchManagerTest {
 	
 	
-	ClientConfig config;
-	Client client;
-	WebTarget target;
 	
-	private static URI getBaseURI() {
-		return UriBuilder.fromUri(
-				"http://localhost:8080/addBranchManager").build();
-	}
+	Client client;
+	WebResource target;
 	
 	@Before
 	public void init(){
-		config = new ClientConfig();
+	
+		client = Client.create();
 
-		client = ClientBuilder.newClient(config);
-
-		target = client.target(getBaseURI());	
+		target = client.resource("http://localhost:8080/addBranchManager");
 	}
 	
 	@Test
-	public void testAddBranchManager(){
-
-//	String jsonAnswer = target.request()
-//			.accept(MediaType.APPLICATION_JSON).get(String.class);
-//	
-//	System.out.println(jsonAnswer);
-	
-		Form form =new Form();
-	    form.param("firstName", "Palakh");
-	    form.param("lastName", "Palakh");
-	    form.param("email", "Palakh");
-	    form.param("phone", "32132");
-	    form.param("address", "Palakh");
-	    form.param("dateOfBirth", "Palakh");
-	    form.param("username", "Palakh");
-	    form.param("password", "Palakh");
-	    String response = (String) target.request().post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED),String.class);
+	public void testAddBranchManagerSuccess(){
+		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
+				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
+	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+	    String result=target.accept("application/json").type("application/json").post(String.class,input);
+	    String expected="{\"result\":\"Success\"}";
 	    System.out.println("Form response " + response);
+	    System.out.println("Form result " + result);
+	    Assert.assertEquals(expected,result);
+	   
 	}
 
+	@Test
+	public void testAddBranchManagerError(){
+		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
+				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
+	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+	    String result=target.accept("application/json").type("application/json").post(String.class,input);
+	    String expected="{\"result\":\"Error\"}";
+	    System.out.println("Form response " + response);
+	    System.out.println("Form result " + result);
+	    Assert.assertEquals(expected,result);
+	}
 }
 	
 	
