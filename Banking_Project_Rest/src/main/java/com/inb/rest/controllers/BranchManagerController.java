@@ -28,7 +28,7 @@ public class BranchManagerController {
 	private BranchManagerService branchManagerService;
 	
 	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST)
-	public boolean registerUser(@ModelAttribute BranchManagerPOJO branchManager) {
+	public boolean createBranchManager(@ModelAttribute BranchManagerPOJO branchManager) {
 		
 		System.out.println("BranchManager*******"+branchManager.getDateOfBirth());
 		System.out.println(branchManager.getDateOfBirth().getDate());
