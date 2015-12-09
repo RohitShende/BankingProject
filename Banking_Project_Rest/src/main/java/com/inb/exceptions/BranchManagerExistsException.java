@@ -12,6 +12,10 @@ public class BranchManagerExistsException  extends Exception {
 		this.message = "ERROR IN INPUT DATA";
 	}
 
+	public BranchManagerExistsException(String message) {
+		this.message = message;
+	}
+	
 	@Override
 	public String getMessage() {
 		return ""+serialVersionUID+"";

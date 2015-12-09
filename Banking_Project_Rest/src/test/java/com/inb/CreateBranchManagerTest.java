@@ -1,23 +1,22 @@
 package com.inb;
 
-import org.junit.Before;
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import org.junit.Assert;
-
 public class CreateBranchManagerTest {
 	
 	
 	
-	Client client;
-	WebResource target;
+	static Client client;
+	static WebResource target;
 	
-	@Before
-	public void init(){
+	@BeforeClass
+	public static void init(){
 	
 		client = Client.create();
 
