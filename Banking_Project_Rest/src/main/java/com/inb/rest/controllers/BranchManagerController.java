@@ -36,8 +36,6 @@ public class BranchManagerController {
 	
 	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) throws JsonProcessingException {
-		
-		System.out.println("--->"+branchManager.getDateOfBirth());
 			
 		try {
 			BranchManager branchManagerDetails=branchManagerService.insert(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
@@ -47,7 +45,7 @@ public class BranchManagerController {
 			return branchManagerJson;
 			}catch(BranchManagerExistsException e)
 			{
-				String str =  "{ \"error\" :" + e.getMessage()+" }";
+				String str =  "{ \"error\" :" + e.getMessage() +" , \"Exception\" : \"BranchManagerExistsException\" }";
 				return str;
 			}
 	}
