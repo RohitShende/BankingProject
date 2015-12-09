@@ -8,33 +8,25 @@ public class BranchAlreadyExistException  extends Exception {
 	 */
 	
 	private static final long serialVersionUID = 100; 
-	private String message;
+	private String message="BranchAlreadyExistException";
 	
 	public BranchAlreadyExistException() {
-		this.message = "BRANCH ALREADY EXIST";
+	
+	}
+	
+	public BranchAlreadyExistException(String message) {
+		this.message = this.message+"/"+message;
 	}
 
 	@Override
 	public String getMessage() {
-		return 	this.message+" "+serialVersionUID ;
+		return 	this.message;
 	} 
 
 	@Override
-	public synchronized Throwable getCause() {
-		// TODO Auto-generated method stub
-		return super.getCause();
-	}
-
-	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "{\"ERROR_CODE\"':"+serialVersionUID +"}";                 //   ->"+message+" "+super.toString() ;
+		return "{ \"Exception \": \""+this.message+"\" }";         
 	}
 	
-	public long getSerialVersionUID()
-	{
-		return serialVersionUID;
-	}
-	
-	
+
 }
