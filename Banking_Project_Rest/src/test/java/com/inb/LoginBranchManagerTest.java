@@ -31,12 +31,8 @@ public class LoginBranchManagerTest {
 	@Test
 	public void testLoginBranchManagerSuccess(){
 		String input="{\"username\": \"rohit\",\"password\": \"12345678\"}";
-	    @SuppressWarnings("unused")
-		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
-	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{\"id\":\"5666ab2931130ae17f8ab5e8\",\"firstName\":\"Rohit\",\"lastName\":\"Shende\",\"email\":\"rohitshende16@gmail.com\",\"phone\":8793118499,\"address\":\"Pune\",\"dateOfBirth\":765916200000,\"username\":\"rohit\",\"password\":\"12345678\"}";
-	    assertEquals(expected,result);
-	   
+	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+		assertEquals(200,response.getStatus());
 	}
 	
 	
@@ -44,8 +40,6 @@ public class LoginBranchManagerTest {
 	@Test
 	public void testLoginBranchManagerFailure(){
 		String input="{\"username\": \"rohit\",\"password\": \"2345678\"}";
-	    @SuppressWarnings("unused")
-		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
 	    String expected="{ Exception : \"USERNAME OR PASSWORD INCORRECT/rohit\" }";
 	    assertEquals(expected,result);
