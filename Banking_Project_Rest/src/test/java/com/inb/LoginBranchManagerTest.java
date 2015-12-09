@@ -47,7 +47,7 @@ public class LoginBranchManagerTest {
 	    @SuppressWarnings("unused")
 		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{ \"error\" :USERNAME OR PASSWORD INCORRECT 101 , \"Exception\" : \"NotBranchManagerException\" }";
+	    String expected="{ Exception : \"USERNAME OR PASSWORD INCORRECT/rohit\" }";
 	    assertEquals(expected,result);
 	   
 	}
