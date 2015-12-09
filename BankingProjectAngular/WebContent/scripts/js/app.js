@@ -7,7 +7,7 @@
 	angular.module(
 			'myapp',
 			[ 'ui.router', 'ngAnimate', 'common-elements', 'loginAdmin',
-					'basicModule','createBranchManager', 'createBranch' ])
+					'basicModule','createBranchManager','loginBranchManager', 'createBranch' ])
 
 	// UI Routing
 	.config(function($urlRouterProvider, $stateProvider) {
@@ -21,10 +21,18 @@
 			url : '/AdminLogin',
 			templateUrl : 'Views/AdminLogin.html',
 			controller : 'AdminController'
+		}).state('BranchManagerLogin', {
+			url : '/BranchManagerLogin',
+			templateUrl : 'Views/BranchManagerLogin.html',
+			controller : 'BranchManagerController'
 		}).state('AdminHome', {
 			url : '/AdminHome',
 			templateUrl : 'Views/AdminHome.html',
 			controller : 'AdminHome'
+		}).state('BranchManagerHome', {
+			url : '/BranchManagerHome',
+			templateUrl : 'Views/BranchManagerHome.html',
+			controller : 'BranchManagerHome'
 		}).state('NewBranchManager', {
 			url : '/NewBranchManager',
 			templateUrl : 'Views/NewBranchManager.html',
@@ -44,6 +52,7 @@
 		});
 	}).controller("appcontroller", function($scope, $rootScope) {
 		$rootScope.role = "Common";
+		
 		//$rootScope.baseURI = "http://localhost:8080/";
 		$rootScope.$watch($rootScope.role, function() {
 			$scope.role = $rootScope.role;
