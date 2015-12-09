@@ -41,14 +41,16 @@ public class BranchManagerController {
 		
 		String result="";
 		
+		System.out.println("--->"+branchManager.getDateOfBirth());
+		
 		if(branchManager.getFirstName()!=null)
 		{
 			//branchManager.setDateOfBirth(new Date());					//added for test case
 			
-			Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
+			//Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
 			
 			result=branchManagerService.insert(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
-						branchManager.getPhone(), branchManager.getAddress(), isoDate, branchManager.getUsername(), 
+						branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUsername(), 
 						branchManager.getPassword()));
 		}
 		

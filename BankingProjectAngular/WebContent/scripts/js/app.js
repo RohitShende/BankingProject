@@ -7,7 +7,7 @@
 	angular.module(
 			'myapp',
 			[ 'ui.router', 'ngAnimate', 'common-elements', 'loginAdmin',
-					'basicModule' ])
+					'basicModule','createBranchManager' ])
 
 	// UI Routing
 	.config(function($urlRouterProvider, $stateProvider) {
@@ -40,7 +40,7 @@
 		});
 	}).controller("appcontroller", function($scope, $rootScope) {
 		$rootScope.role = "Common";
-		$rootScope.baseURI = "http://localhost:8080/";
+		//$rootScope.baseURI = "http://localhost:8080/";
 		$rootScope.$watch($rootScope.role, function() {
 			$scope.role = $rootScope.role;
 		});

@@ -8,7 +8,7 @@ app.controller("AdminController", function($scope, $log, $stateParams,
 	$scope.login = function() {
 		$http({
 			method : 'post',
-			url : $root.baseURI+'loginAdmin',
+			url : 'http://localhost:8080/loginAdmin',
 			headers : {
 				'Content-Type' : 'application/json'
 			},
