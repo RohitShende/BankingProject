@@ -1,13 +1,13 @@
 /**
  * ngSurveys - main application script file
  */
-   
-
 
 (function() {
 	'use strict';
-	angular.module('myapp',
-			[ 'ui.router', 'ngAnimate', 'common-elements', 'loginAdmin', 'basicModule' ])
+	angular.module(
+			'myapp',
+			[ 'ui.router', 'ngAnimate', 'common-elements', 'loginAdmin',
+					'basicModule' ])
 
 	// UI Routing
 	.config(function($urlRouterProvider, $stateProvider) {
@@ -29,13 +29,14 @@
 			url : '/error',
 			templateUrl : 'Views/AdminHome.html',
 			controller : 'AdminHome'
-		}).state('logout',{
+		}).state('logout', {
 			url : '/logout',
-			templateUrl : 'Views/Home.html',
-			controller : 'logout'			
+			templateUrl : 'Home.html',
+			controller : 'logout'
 		});
-	}).controller("appcontroller",function($scope, $rootScope) {
+	}).controller("appcontroller", function($scope, $rootScope) {
 		$rootScope.role = "Common";
+		$rootScope.baseURI = "http://localhost:8080/";
 		$rootScope.$watch($rootScope.role, function() {
 			$scope.role = $rootScope.role;
 		});

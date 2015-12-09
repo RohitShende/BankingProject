@@ -5,6 +5,6 @@
 
 	app.controller("logout", function($scope, $rootScope) {
 		$rootScope.id = "";
-		$rootScope.id = "common";
+		$rootScope.role = "Common";
 	});
 })();

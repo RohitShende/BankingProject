@@ -3,12 +3,12 @@
 
 <form ng-submit="login()" class="bg-form">
   <div class="form-group">
-    <label for="UserName : ">Email address</label>
-    <input type="username" class="form-control" ng-model="username" placeholder="UserName">
+    <label for="UserName : ">UserName</label>
+    <input type="text" class="form-control" ng-model="username" placeholder="UserName" autofocus required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password : " class="form-control" ng-model="pass" placeholder="Password">
+    <input type="password" class="form-control" ng-model="pass" placeholder="Password" required >
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>

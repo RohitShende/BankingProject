@@ -2,12 +2,13 @@
 /** * Directives ** */
 
 var app = angular.module('loginAdmin', []);
+
 app.controller("AdminController", function($scope, $log, $stateParams,
 		$location, $state, $rootScope, $http) {
 	$scope.login = function() {
 		$http({
 			method : 'post',
-			url : 'http://localhost:8080/loginAdmin',
+			url : $root.baseURI+'loginAdmin',
 			headers : {
 				'Content-Type' : 'application/json'
 			},
@@ -21,7 +22,6 @@ app.controller("AdminController", function($scope, $log, $stateParams,
 				$rootScope.role = "Admin";
 				$rootScope.id = response.data.id;
 				$rootScope.$apply();
-				console.log("-->"+$rootScope.role);
 				$location.path("/AdminHome");
 			} else {
 				$scope.errormsg = "Invalid Creditnals";
@@ -35,7 +35,5 @@ app.controller("AdminController", function($scope, $log, $stateParams,
 
 });
 app.controller("AdminHome", function($scope, $rootScope) {
-
 	$scope.id = $rootScope.id;
-
 });
