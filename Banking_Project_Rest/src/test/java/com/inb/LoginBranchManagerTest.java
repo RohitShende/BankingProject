@@ -35,8 +35,6 @@ public class LoginBranchManagerTest {
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
 	    String expected="{\"id\":\"5666ab2931130ae17f8ab5e8\",\"firstName\":\"Rohit\",\"lastName\":\"Shende\",\"email\":\"rohitshende16@gmail.com\",\"phone\":8793118499,\"address\":\"Pune\",\"dateOfBirth\":765916200000,\"username\":\"rohit\",\"password\":\"12345678\"}";
-	    System.out.println("Form response " + response);
-	    System.out.println("Form result " + result);
 	    Assert.assertEquals(expected,result);
 	   
 	}

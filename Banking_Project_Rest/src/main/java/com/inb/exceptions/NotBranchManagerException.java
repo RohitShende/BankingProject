@@ -1,11 +1,11 @@
 package com.inb.exceptions;
 
-public class NotBranchManagerException  extends Exception {
+public class NotBranchManagerException extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 100; 
+	private static final long serialVersionUID = 101; 
 	private String message;
 	
 	public NotBranchManagerException() {
@@ -14,13 +14,7 @@ public class NotBranchManagerException  extends Exception {
 
 	@Override
 	public String getMessage() {
-		return ""+serialVersionUID ;
-	}
-
-	@Override
-	public synchronized Throwable getCause() {
-		// TODO Auto-generated method stub
-		return super.getCause();
+		return this.message+serialVersionUID ;
 	}
 
 	@Override

@@ -27,14 +27,11 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 
 	public BranchManager login(String username, String password) throws NotBranchManagerException {
 		
-		System.out.println("From Form..."+username+"...."+password);
 		BasicQuery basicQuery= new BasicQuery("{ username : \""+username+"\" }");
 		BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
-		System.out.println("Branch manager object : "+branchManager);
 		boolean flag=false;
 		if(branchManager!=null)
 		{
-			System.out.println("Inside BranchManagerImpl.. FirstName= "+branchManager.getFirstName());
 			if(branchManager.getUsername().equals(username) && 
 						branchManager.getPassword().equals(password))
 			{
