@@ -27,7 +27,7 @@ app.controller("createBranchManagerController", function($scope, $log, $statePar
 			$location.path("/adminHome");
 		}, function errorCallback(response) {
 			console.log("error : " + response.data.error);
-			$scope.errormsg = "Invalid Creditnals";
+			$scope.errormsg = "Invalid Input";
 			$location.path("/adminLogin");
 		});
 	}

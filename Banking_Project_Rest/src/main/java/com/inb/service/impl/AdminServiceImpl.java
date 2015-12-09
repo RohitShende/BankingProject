@@ -24,11 +24,11 @@ public class AdminServiceImpl implements AdminService {
 			Admin admin = null;
 			List<Admin> list = adminRepository.findByUsernameAndPassword(
 					username, password);
-			if (list == null) {
+			System.out.println("------>"+list);
+			if (list.size()==0) {
 				throw new NotAdminException("Invalid Credentials");
 			}
-			;
-			admin = list == null ? null : list.get(0);
+			admin =list.get(0);
 			ObjectMapper mapper = new ObjectMapper();
 			adminJson = mapper.writeValueAsString(admin);
 		} catch (JsonProcessingException e) {
