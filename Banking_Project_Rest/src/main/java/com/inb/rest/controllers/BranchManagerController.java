@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.inb.exceptions.BranchManagerExistsException;
 import com.inb.exceptions.NotBranchManagerException;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
@@ -34,30 +35,21 @@ public class BranchManagerController {
 	private BranchManagerService branchManagerService;
 	
 	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) {
-		
-		String result="";
+	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) throws JsonProcessingException {
 		
 		System.out.println("--->"+branchManager.getDateOfBirth());
-		
-		if(branchManager.getFirstName()!=null)
-		{
-			//branchManager.setDateOfBirth(new Date());					//added for test case
 			
-			result=branchManagerService.insert(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
-						branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUsername(), 
-						branchManager.getPassword()));
-		}
-		
-		if(result.equals("Branch Manager Added"))
-		{
-			return "{\"result\":\"Success\"}";
-		}
-		else
-		{
-			return "{\"result\":\"Error\"}";
-		}
-
+		try {
+			BranchManager branchManagerDetails=branchManagerService.insert(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
+					branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUsername(), 
+					branchManager.getPassword()));
+			String branchManagerJson = mapper.writeValueAsString(branchManagerDetails);
+			return branchManagerJson;
+			}catch(BranchManagerExistsException e)
+			{
+				String str =  "{ \"error\" :" + e.getMessage()+" }";
+				return str;
+			}
 	}
 	
 	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)

@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Service;
 
+import com.inb.exceptions.BranchManagerExistsException;
 import com.inb.exceptions.NotBranchManagerException;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchManagerRepository;
@@ -20,11 +21,30 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	@Autowired
 	private MongoOperations mongoOperations;
 	
-	public String insert(BranchManager branchManager)  {
-		branchManagerRepository.insert(branchManager);
-		return "Branch Manager Added";
-	}
+//	public String insert(BranchManager branchManager)  {
+//		branchManagerRepository.insert(branchManager);
+//		return "Branch Manager Added";
+//	}
 
+	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException  {
+		
+		BasicQuery basicQuery= new BasicQuery("{ \"username\":\""+branchManager.getUsername()+"\",\"email\":\""+branchManager.getEmail()+"\" }");
+		BranchManager tempBranchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
+		System.out.println("-------------" + tempBranchManager);
+		boolean flag=false;
+		if(tempBranchManager==null)
+		{
+			branchManager=branchManagerRepository.insert(branchManager);
+			flag=true;
+		}
+		if(!flag)
+		{
+			throw new BranchManagerExistsException();
+		}
+		return branchManager;
+	}
+	
+	
 	public BranchManager login(String username, String password) throws NotBranchManagerException {
 		
 		BasicQuery basicQuery= new BasicQuery("{ username : \""+username+"\" }");
