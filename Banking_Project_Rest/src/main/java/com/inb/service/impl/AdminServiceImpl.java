@@ -4,11 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.NotAdminException;
 import com.inb.mongo.collections.Admin;
 import com.inb.mongo.repositories.AdminRepository;
@@ -20,45 +19,45 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
 
-	@Autowired
-	private MongoOperations mongoOperations;
-
-	public Admin login(String username, String password)
-			throws NotAdminException {
-	//	String query = "{username : \"nm\" ,password : \"dsfdnm\"}";
-		Query queryMongo = new Query();
-		queryMongo.addCriteria(Criteria.where("username").regex(username));
-		queryMongo.addCriteria(Criteria.where("password").regex(password));
-		List<Admin> listAdmin = mongoOperations.find(queryMongo, Admin.class);
-
-		// List<Admin> listAdmin = adminRepository.findAll();
-		Iterator<Admin> iterator = listAdmin.iterator();
-		Admin admin = null;
-		while (iterator.hasNext()) {
-			Admin temp = iterator.next();
-
-			if (temp.getUsername().equalsIgnoreCase(username)
-					&& temp.getPassword().equalsIgnoreCase(password)) {
-				admin = new Admin();
-				admin = temp;
-				break;
+	public String login(String username, String password) {
+		String adminJson = "";
+		try {
+			Admin admin = null;
+			List<Admin> list = adminRepository.findByUsernameAndPassword(
+					username, password);
+			if (list == null) {
+				throw new NotAdminException("Invalid Credentials");
 			}
+			;
+			admin = list == null ? null : list.get(0);
+			ObjectMapper mapper = new ObjectMapper();
+			adminJson = mapper.writeValueAsString(admin);
+		} catch (JsonProcessingException e) {
+			adminJson = "{ \"error\" :\"JsonProcessingException\",\"message\": \""
+					+ e.getMessage() + "\"}";
+		} catch (NotAdminException e) {
+			adminJson = "{ \"error\" :" + 100 + ",\"message\": \""
+					+ e.getMessage() + "\"}";
 		}
+		return adminJson;
+	}
 
-		if (admin == null) {
-			throw new NotAdminException();
+	public Admin isAdmin(String id) {
+		List<Admin> list = adminRepository.findById(id);
+		return list == null ? null : list.get(0);
+	}
+
+	public String save(Admin admin) {
+		ObjectMapper mapper = new ObjectMapper();
+		String adminJson = "";
+		try {
+			adminJson = mapper
+					.writeValueAsString(adminRepository.insert(admin));
+		} catch (JsonProcessingException e) {
+			adminJson = "{ \"error\" :\"JsonProcessingException\",\"message\": \""
+					+ e.getMessage() + "\"}";
 		}
-		return admin;
+		return adminJson;
 
 	}
-
-	public void logout(Admin admin) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void save(Admin admin) {
-		adminRepository.insert(admin);
-	}
-
 }

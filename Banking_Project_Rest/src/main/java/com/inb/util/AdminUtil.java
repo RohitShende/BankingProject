@@ -58,21 +58,4 @@ public class AdminUtil {
 
 	}
 
-	public static boolean isAdmin(String id) {
-		try {
-			DBObject query = new BasicDBObject("_id", new ObjectId(id));
-			DBCursor cursor = new MongoClient().getDB("test")
-					.getCollection("admin").find(query);
-			while (cursor.hasNext()) {
-
-					return true;
-
-			}
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return false;
-
-	}
 }

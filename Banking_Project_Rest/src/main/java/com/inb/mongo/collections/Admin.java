@@ -18,11 +18,7 @@ public class Admin extends Employee {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Admin []";
-	}
-
+	
 	
 		
 }

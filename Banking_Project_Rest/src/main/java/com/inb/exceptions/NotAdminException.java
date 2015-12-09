@@ -1,38 +1,25 @@
 package com.inb.exceptions;
 
-public class NotAdminException  extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 100; 
+public class NotAdminException extends Exception {
 	private String message;
-	
-	public NotAdminException() {
-		this.message = "USERNAME OR PASSWORD INCORRECT";
+
+	public NotAdminException(String message) {
+		this.message = message;
 	}
 
 	@Override
 	public String getMessage() {
-		return ""+serialVersionUID ;
+		return message;
 	}
 
 	@Override
 	public synchronized Throwable getCause() {
-		// TODO Auto-generated method stub
 		return super.getCause();
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "{\"ERROR_CODE\"':"+serialVersionUID +"}";                 //   ->"+message+" "+super.toString() ;
+		return message;
 	}
-	
-	public long getSerialVersionUID()
-	{
-		return serialVersionUID;
-	}
-	
-	
+
 }
