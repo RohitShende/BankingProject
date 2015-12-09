@@ -51,7 +51,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 			return branchManagerJson;
 			}catch(BranchManagerExistsException e)
 			{
-				String str =  "{ \"Exception\" : \"BranchManagerExistsException\" }";
+				String str = "{ \"Exception\": \""+ e.getMessage() + "\"}";
 				return str;
 			}
 	}

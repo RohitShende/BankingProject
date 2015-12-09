@@ -1,5 +1,6 @@
 package com.inb;
 
+import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,32 +19,26 @@ public class CreateBranchManagerTest {
 	@BeforeClass
 	public static void init(){
 	
-		client = Client.create();
-
+		client=Client.create();
 		target = client.resource("http://localhost:8080/addBranchManager");
 	}
 	
 	@Test
-	public void testAddBranchManagerSuccess(){
-		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh124343\",\"phone\":123,"
-				+ "\"address\":\"Palakh\",\"dateOfBirth\":\"1993-07-13\",\"username\":\"palakh13442\",\"password\":\"Palakh\"}";
+	public void testAddBranchManagerResponseStatus(){
+		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
+				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
-	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    System.out.println("Form response " + response);
-	    System.out.println("Form result " + result);
-	   Assert.assertEquals(input,result);
+	   Assert.assertEquals(200,response.getStatus());
 	   
 	}
-
+	
 	@Test
 	public void testBranchManagerExists(){
 		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
 				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{ \"Exception\" : \"BranchManagerExistsException\" }";
-	    System.out.println("Form response " + response);
-	    System.out.println("Form result " + result);
+	    String expected="{ \"Exception\": \"BranchManagerExistsException\"}";
 	    Assert.assertEquals(expected,result);
 	}
 }
