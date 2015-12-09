@@ -44,6 +44,7 @@
 		});
 	}).controller("appcontroller", function($scope, $rootScope) {
 		$rootScope.role = "Common";
+		
 		//$rootScope.baseURI = "http://localhost:8080/";
 		$rootScope.$watch($rootScope.role, function() {
 			$scope.role = $rootScope.role;
