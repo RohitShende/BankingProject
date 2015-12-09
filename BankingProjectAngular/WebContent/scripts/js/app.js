@@ -6,7 +6,7 @@
 	'use strict';
 	angular.module(
 			'myapp',
-			[ 'ui.router', 'ngAnimate', 'common-elements', 'loginAdmin',
+			[ 'ui.router', 'ngAnimate', 'common-elements', 'admin',
 					'basicModule','createBranchManager','loginBranchManager', 'createBranch' ])
 
 	// UI Routing
@@ -20,7 +20,7 @@
 		}).state('adminLogin', {
 			url : '/adminLogin',
 			templateUrl : 'htmlpages/adminLogin.html',
-			controller : 'adminController'
+			controller : 'adminLoginController'
 		}).state('branchManagerLogin', {
 			url : '/branchManagerLogin',
 			templateUrl : 'htmlpages/branchManagerLogin.html',
