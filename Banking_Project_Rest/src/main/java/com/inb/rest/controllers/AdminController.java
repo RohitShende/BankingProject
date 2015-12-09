@@ -29,8 +29,7 @@ public class AdminController {
 	private AdminService adminService;
 
 	@RequestMapping(value = "/loginAdmin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String loginAdmin(@RequestBody AdminPOJO adminPOJO,
-			@RequestParam String id) throws JsonProcessingException {
+	public @ResponseBody String loginAdmin(@RequestBody AdminPOJO adminPOJO) throws JsonProcessingException {
 		return adminService.login(adminPOJO.getUsername(),
 				adminPOJO.getPassword());
 	}

@@ -33,10 +33,10 @@
 			url : '/branchManagerHome',
 			templateUrl : 'htmlpages/branchManagerHome.html',
 			controller : 'branchManagerHome'
-		}).state('newBranchManager', {
-			url : '/newBranchManager',
-			templateUrl : 'htmlpages/newBranchManager.html',
-			controller : 'createBranchManagerController'
+		}).state('createNewBranch', {
+			url : '/createNewBranch',
+			templateUrl : 'htmlpages/createNewBranch.html',
+			controller : 'createBranchController'
 		}).state('error', {
 			url : '/error',
 			templateUrl : 'htmlpages/adminHome.html',
@@ -45,10 +45,6 @@
 			url : '/logout',
 			templateUrl : 'home.html',
 			controller : 'logout'
-		}).state('createNewBranch',{
-			url : '/createNewBranch',
-			templateURL : 'htmlpages/createNewBranch.html',
-			controller : 'createBranchController'
 		});
 	}).controller("appcontroller", function($scope, $rootScope) {
 		$rootScope.role = "Common";
