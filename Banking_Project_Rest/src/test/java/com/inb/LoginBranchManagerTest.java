@@ -2,7 +2,7 @@ package com.inb;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
@@ -14,11 +14,11 @@ public class LoginBranchManagerTest {
 	
 	
 	
-	Client client;
-	WebResource target;
+	static Client client;
+	static WebResource target;
 	
-	@Before
-	public void init(){
+	@BeforeClass
+	public static void init(){
 	
 		client = Client.create();
 
@@ -46,7 +46,7 @@ public class LoginBranchManagerTest {
 		String input="{\"username\": \"rohit\",\"password\": \"2345678\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{ \"error\" :100 , \"Exception\" : \"NotBranchManagerException\" }";
+	    String expected="{ \"error\" :USERNAME OR PASSWORD INCORRECT 101 , \"Exception\" : \"NotBranchManagerException\" }";
 	    System.out.println("Form response " + response);
 	    System.out.println("Form result " + result);
 	    Assert.assertEquals(expected,result);

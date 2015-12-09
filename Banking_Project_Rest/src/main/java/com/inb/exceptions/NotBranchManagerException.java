@@ -14,7 +14,7 @@ public class NotBranchManagerException extends Exception {
 
 	@Override
 	public String getMessage() {
-		return this.message+serialVersionUID ;
+		return this.message+" "+serialVersionUID ;
 	}
 
 	@Override
