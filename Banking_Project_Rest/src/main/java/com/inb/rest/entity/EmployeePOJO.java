@@ -40,7 +40,7 @@ public abstract class EmployeePOJO extends PersonPOJO {
 	@Override
 	public String toString() {
 		return "Employee [username=" + username + ", password=" + password
-				+ "]";
+				+ "]["+super.toString()+"]";
 	}
 	
 	

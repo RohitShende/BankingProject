@@ -17,7 +17,7 @@ public class AdminPOJO extends EmployeePOJO {
 
 	@Override
 	public String toString() {
-		return "Admin []";
+		return "Admin ["+super.toString()+"]";
 	}
 
 	

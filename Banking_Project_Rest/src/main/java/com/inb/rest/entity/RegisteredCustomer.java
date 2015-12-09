@@ -64,7 +64,7 @@ public class RegisteredCustomer extends CustomerPOJO {
 		return "RegisteredCustomer [customerId=" + customerId + ", username="
 				+ username + ", password=" + password
 				+ ", authorizedImageName=" + authorizedImageName
-				+ ", authorizedImageText=" + authorizedImageText + "]";
+				+ ", authorizedImageText=" + authorizedImageText + "]"+"["+super.toString()+"]";
 	}
 
 	

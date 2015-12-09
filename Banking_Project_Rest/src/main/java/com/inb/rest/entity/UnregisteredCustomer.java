@@ -27,7 +27,7 @@ public class UnregisteredCustomer extends CustomerPOJO {
 
 	@Override
 	public String toString() {
-		return "UnregisteredCustomer [enqId=" + enqId + "]";
+		return "UnregisteredCustomer [enqId=" + enqId + "]"+"["+super.toString()+"]";
 	}
 
 	

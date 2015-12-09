@@ -40,7 +40,7 @@ public abstract class CustomerPOJO extends PersonPOJO {
 	@Override
 	public String toString() {
 		return "Customer [addressProof=" + addressProof + ", ageProof="
-				+ ageProof + "]";
+				+ ageProof+super.toString()+"]";
 	}
 
 }

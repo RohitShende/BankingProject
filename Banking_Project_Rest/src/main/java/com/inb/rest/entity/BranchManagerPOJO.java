@@ -19,7 +19,7 @@ public class BranchManagerPOJO extends EmployeePOJO{
 
 	@Override
 	public String toString() {
-		return "BranchManagerPOJO []";
+		return "BranchManagerPOJO ["+super.toString()+"]";
 	}
 
 	
