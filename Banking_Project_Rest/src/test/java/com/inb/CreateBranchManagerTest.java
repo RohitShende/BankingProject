@@ -1,7 +1,5 @@
 package com.inb;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +7,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class CreateBranchManagerTest {
 	

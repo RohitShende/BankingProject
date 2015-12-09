@@ -3,8 +3,6 @@
  */
 package com.inb.rest.controllers;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +19,6 @@ import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
 import com.inb.rest.entity.LoginDetails;
 import com.inb.service.interfaces.BranchManagerService;
-import com.inb.util.DateConversionUtil;
 
 /**
  * @author jude_p
@@ -46,8 +43,6 @@ public class BranchManagerController {
 		if(branchManager.getFirstName()!=null)
 		{
 			//branchManager.setDateOfBirth(new Date());					//added for test case
-			
-			//Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
 			
 			result=branchManagerService.insert(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
 						branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUsername(), 
