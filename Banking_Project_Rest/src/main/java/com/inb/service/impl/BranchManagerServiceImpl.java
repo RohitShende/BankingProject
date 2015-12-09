@@ -20,7 +20,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	@Autowired
 	private MongoOperations mongoOperations;
 	
-	public String save(BranchManager branchManager)  {
+	public String insert(BranchManager branchManager)  {
 		branchManagerRepository.insert(branchManager);
 		return "Branch Manager Added";
 	}
