@@ -7,10 +7,12 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
@@ -20,14 +22,12 @@ import com.mongodb.MongoClient;
  * */
 
 public class AdminUtil {
-	
+
 	public static void populateAdmin() {
-		
+
 		try {
 			JSONParser parser = new JSONParser();
-			Object obj = parser
-					.parse(new FileReader(
-							"init_data/admin.txt"));
+			Object obj = parser.parse(new FileReader("init_data/admin.txt"));
 			JSONObject jobj = (JSONObject) obj;
 
 			String jsonFile = jobj.toJSONString();
@@ -57,21 +57,16 @@ public class AdminUtil {
 		}
 
 	}
-	
-	
-	
 
 	public static boolean isAdmin(String id) {
 		try {
+			DBObject query = new BasicDBObject("_id", new ObjectId(id));
 			DBCursor cursor = new MongoClient().getDB("test")
-					.getCollection("admin").find();
+					.getCollection("admin").find(query);
 			while (cursor.hasNext()) {
-				DBObject dbObject = cursor.next();
-				if (dbObject.get("_id").equals(id)) {
+
 					return true;
-				} else {
-					return false;
-				}
+
 			}
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

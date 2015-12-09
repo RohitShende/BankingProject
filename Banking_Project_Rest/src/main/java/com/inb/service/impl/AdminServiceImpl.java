@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.inb.exceptions.NotAdminException;
@@ -17,15 +20,23 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
 
+	@Autowired
+	private MongoOperations mongoOperations;
+
 	public Admin login(String username, String password)
 			throws NotAdminException {
+	//	String query = "{username : \"nm\" ,password : \"dsfdnm\"}";
+		Query queryMongo = new Query();
+		queryMongo.addCriteria(Criteria.where("username").regex(username));
+		queryMongo.addCriteria(Criteria.where("password").regex(password));
+		List<Admin> listAdmin = mongoOperations.find(queryMongo, Admin.class);
 
-		List<Admin> listAdmin = adminRepository.findAll();
+		// List<Admin> listAdmin = adminRepository.findAll();
 		Iterator<Admin> iterator = listAdmin.iterator();
 		Admin admin = null;
 		while (iterator.hasNext()) {
 			Admin temp = iterator.next();
-			
+
 			if (temp.getUsername().equalsIgnoreCase(username)
 					&& temp.getPassword().equalsIgnoreCase(password)) {
 				admin = new Admin();

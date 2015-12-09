@@ -30,11 +30,6 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public String sayHello() {
-		return "Hello ADMIN";
-	}
-
 	@RequestMapping(value = "/loginAdmin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String registerUser(@RequestBody AdminPOJO adminPOJO)
 			throws JsonProcessingException {
@@ -48,7 +43,6 @@ public class AdminController {
 		} catch (NotAdminException e) {
 			//String errorJson = mapper.writeValueAsString(e.getMessage());
 			String str =  "{ \"error\" :" + e.getMessage() + "}";
-			
 			return str;
 		}
 
