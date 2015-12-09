@@ -1,6 +1,5 @@
 package com.inb;
 
-import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,7 +35,6 @@ public class CreateBranchManagerTest {
 	public void testBranchManagerExists(){
 		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
 				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
-	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
 	    String expected="{ \"Exception\": \"BranchManagerExistsException\"}";
 	    Assert.assertEquals(expected,result);
