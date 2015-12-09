@@ -2,9 +2,8 @@ package com.inb.mongo.repositories;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.inb.mongo.collections.Admin;
 

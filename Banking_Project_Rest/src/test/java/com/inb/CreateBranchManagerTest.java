@@ -25,28 +25,27 @@ public class CreateBranchManagerTest {
 	
 	@Test
 	public void testAddBranchManagerSuccess(){
-		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh12\",\"phone\":123,"
-				+ "\"address\":\"Palakh\",\"dateOfBirth\":\"1993-07-13\",\"username\":\"palakh12\",\"password\":\"Palakh\"}";
+		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh124343\",\"phone\":123,"
+				+ "\"address\":\"Palakh\",\"dateOfBirth\":\"1993-07-13\",\"username\":\"palakh13442\",\"password\":\"Palakh\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{\"result\":\"Success\"}";
 	    System.out.println("Form response " + response);
 	    System.out.println("Form result " + result);
-	    Assert.assertEquals(expected,result);
+	   Assert.assertEquals(input,result);
 	   
 	}
 
-//	@Test
-//	public void testAddBranchManagerError(){
-//		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
-//				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
-//	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
-//	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-//	    String expected="{\"result\":\"Error\"}";
-//	    System.out.println("Form response " + response);
-//	    System.out.println("Form result " + result);
-//	    Assert.assertEquals(expected,result);
-//	}
+	@Test
+	public void testBranchManagerExists(){
+		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
+				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
+	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+	    String result=target.accept("application/json").type("application/json").post(String.class,input);
+	    String expected="{ \"Exception\" : \"BranchManagerExistsException\" }";
+	    System.out.println("Form response " + response);
+	    System.out.println("Form result " + result);
+	    Assert.assertEquals(expected,result);
+	}
 }
 	
 	
