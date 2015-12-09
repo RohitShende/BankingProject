@@ -1,6 +1,8 @@
 package com.inb.service.impl;
 
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -26,12 +28,21 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException  {
 		
-		BasicQuery basicQuery= new BasicQuery("{ \"username\":\""+branchManager.getUsername()+"\",\"email\":\""+branchManager.getEmail()+"\" }");
+		//BasicQuery basicQuery= new BasicQuery("{ \"username\":\""+branchManager.getUsername()+"\",\"email\":\""+branchManager.getEmail()+"\" }");
+		
+		BasicQuery basicQuery= 
+				new BasicQuery("{ $or: [ { \"username\": \""+branchManager.getUsername()+"\" }, { \"email\": \""+branchManager.getEmail()+"\" } ] }");
 		BranchManager tempBranchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 	
+		Date currentDate=new Date();
+		Date enteredDate=branchManager.getDateOfBirth();
+		int comparison = currentDate.compareTo(enteredDate);
+		
+		
 		boolean flag=false;
-		if(tempBranchManager==null&&branchManager.getFirstName()!=null)
+		if(tempBranchManager==null&&branchManager.getFirstName()!=null&&comparison!=-1)
 		{
+			
 			branchManager=branchManagerRepository.insert(branchManager);
 			flag=true;
 		}
@@ -45,6 +56,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	public String insertBranchManager(BranchManager branchManager) throws JsonProcessingException
 	{
+		System.out.println("------>from insertBranchManager()"+branchManager.getEmail());
 		try {
 			BranchManager branchManagerDetails=insert(branchManager);
 			String branchManagerJson = mapper.writeValueAsString(branchManagerDetails);

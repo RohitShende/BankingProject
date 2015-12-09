@@ -25,7 +25,7 @@ public class CreateBranchManagerTest {
 	@Test
 	public void testAddBranchManagerResponseStatus(){
 		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
-				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
+				+ "\"address\":\"Palakh\",\"dateOfBirth\":\"1993-07-13\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 	   Assert.assertEquals(200,response.getStatus());
 	   
@@ -34,8 +34,9 @@ public class CreateBranchManagerTest {
 	@Test
 	public void testBranchManagerExists(){
 		String input="{\"firstName\":\"Palakh\",\"lastName\":\"Palakh\",\"email\":\"Palakh\",\"phone\":123,"
-				+ "\"address\":\"Palakh\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
+				+ "\"address\":\"Palakh\",\"dateOfBirth\":\"1993-07-13\",\"username\":\"palakh\",\"password\":\"Palakh\"}";
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
+	    result=target.accept("application/json").type("application/json").post(String.class,input);
 	    String expected="{ \"Exception\": \"BranchManagerExistsException\"}";
 	    Assert.assertEquals(expected,result);
 	}
