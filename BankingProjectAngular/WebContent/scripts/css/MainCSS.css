@@ -49,4 +49,18 @@
 .error
 {
 	color: red;
+}.form-group
+{
+	width:80%;
+}
+.form-input-names
+{
+	display:inline-block;
+}
+.form-input-text
+{
+	width:30%;
+	border-radius:3px;
+	margin-right: 25px;
+
 }
