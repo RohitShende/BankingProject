@@ -39,24 +39,19 @@ public class BranchManagerController {
 	
 	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) {
+		
 		String result="";
-		
-		branchManager.setDateOfBirth(new Date());					//added for test case
-		
-		Calendar calendar=Calendar.getInstance();
-		calendar.setTime(branchManager.getDateOfBirth());
-		
-		@SuppressWarnings("static-access")
-		Calendar calendar2=new GregorianCalendar(calendar.get(calendar.YEAR),calendar.get(calendar.MONTH),calendar.get(calendar.DAY_OF_MONTH)+1);
-		
-		Date isoDate=calendar2.getTime();
-		System.out.println(isoDate);
-		
-	
-		result=branchManagerService.save(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
-					branchManager.getPhone(), branchManager.getAddress(), isoDate, branchManager.getUsername(), 
-					branchManager.getPassword()));
-			
+		System.out.println(branchManager+"************");
+//		if(branchManager!=null)
+//		{
+//			//branchManager.setDateOfBirth(new Date());					//added for test case
+//			
+//			Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
+//			
+//			result=branchManagerService.insert(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
+//						branchManager.getPhone(), branchManager.getAddress(), isoDate, branchManager.getUsername(), 
+//						branchManager.getPassword()));
+//		}
 		
 		if(result.equals("Branch Manager Added"))
 		{
