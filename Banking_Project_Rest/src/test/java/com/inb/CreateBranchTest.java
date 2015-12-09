@@ -1,20 +1,19 @@
 package com.inb;
 
-import org.junit.Before;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-
-import junit.framework.Assert;
 
 public class CreateBranchTest {
 
-	Client client;
+	static Client client;
 	WebResource target;
 	
-	@Before
+	@BeforeClass
 	public void init(){
 		client = Client.create();
 		target = client.resource("http://localhost:8080/createBranch");	
@@ -26,11 +25,8 @@ public class CreateBranchTest {
 	{
 		String testInput="{\"ifscCode\":\"B100\",\"branchName\":\"FCR\",\"contact\":123123,"
 				+ "\"address\":\"FCR\"}";
-		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,testInput);
 		 String testResult=target.accept("application/json").type("application/json").post(String.class,testInput);
 		    String expected="{\"testResult\":\"Success\"}";
-		    System.out.println("Response : " + response);
-		    System.out.println("Result : " + testResult);
 		    Assert.assertEquals(expected,testResult);
 		    
 	/*	Form form =new Form();
