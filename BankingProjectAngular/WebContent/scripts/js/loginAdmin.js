@@ -3,7 +3,7 @@
 
 var app = angular.module('loginAdmin', []);
 
-app.controller("AdminController", function($scope, $log, $stateParams,
+app.controller("adminController", function($scope, $log, $stateParams,
 		$location, $state, $rootScope, $http) {
 	$scope.login = function() {
 		$http({
@@ -22,10 +22,10 @@ app.controller("AdminController", function($scope, $log, $stateParams,
 				$rootScope.role = "Admin";
 				$rootScope.id = response.data.id;
 				$rootScope.$apply();
-				$location.path("/AdminHome");
+				$location.path("/adminHome");
 			} else {
 				$scope.errormsg = "Invalid Creditnals";
-				$location.path("/AdminLogin");
+				$location.path("/adminLogin");
 			}
 		}, function errorCallback(response) {
 			console.log("error : " + response.data.error);
@@ -34,6 +34,6 @@ app.controller("AdminController", function($scope, $log, $stateParams,
 	}
 
 });
-app.controller("AdminHome", function($scope, $rootScope) {
+app.controller("adminHome", function($scope, $rootScope) {
 	$scope.id = $rootScope.id;
 });

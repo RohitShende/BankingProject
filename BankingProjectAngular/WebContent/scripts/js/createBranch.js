@@ -19,12 +19,12 @@ app.controller("createBranchController", function($scope, $log, $stateParams,
 			}
 		}).then(function successCallback(response) {
 			var data = response.data;
-			console.log("Created New Branch"+ response.data);
-			$location.path("/AdminHome");
+			
+			$location.path("/adminHome");
 		}, function errorCallback(response) {
 			console.log("error : " + response.data.error);
 			$scope.errormsg = "Invalid Data Entered";
-			$location.path("/AdminLogin");
+			$location.path("/adminLogin");
 		});
 	}
 

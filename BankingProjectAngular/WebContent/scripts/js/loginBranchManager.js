@@ -3,7 +3,7 @@
 
 var app = angular.module('loginBranchManager', []);
 
-app.controller("BranchManagerController", function($scope, $log, $stateParams,
+app.controller("branchManagerController", function($scope, $log, $stateParams,
 		$location, $state, $rootScope, $http) {
 	$scope.loginBranchManager = function() {
 		$http({
@@ -22,10 +22,10 @@ app.controller("BranchManagerController", function($scope, $log, $stateParams,
 				$rootScope.role = "BranchManager";
 				$rootScope.id = response.data.id;
 				$rootScope.$apply();
-				$location.path("/BranchManagerHome");
+				$location.path("/branchManagerHome");
 			} else {
 				$scope.errormsg = "Invalid Creditnals";
-				$location.path("/BranchManagerLogin");
+				$location.path("/branchManagerLogin");
 			}
 		}, function errorCallback(response) {
 			console.log("error : " + response.data.error);
@@ -34,6 +34,6 @@ app.controller("BranchManagerController", function($scope, $log, $stateParams,
 	}
 
 });
-app.controller("BranchManagerHome", function($scope, $rootScope) {
+app.controller("branchManagerHome", function($scope, $rootScope) {
 	$scope.id = $rootScope.id;
 });

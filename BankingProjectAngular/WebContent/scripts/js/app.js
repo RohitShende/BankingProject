@@ -16,38 +16,38 @@
 
 		$stateProvider.state('home', {
 			url : '/home',
-			templateUrl : 'Home.html',
-		}).state('AdminLogin', {
-			url : '/AdminLogin',
-			templateUrl : 'Views/AdminLogin.html',
-			controller : 'AdminController'
-		}).state('BranchManagerLogin', {
-			url : '/BranchManagerLogin',
-			templateUrl : 'Views/BranchManagerLogin.html',
-			controller : 'BranchManagerController'
-		}).state('AdminHome', {
-			url : '/AdminHome',
-			templateUrl : 'Views/AdminHome.html',
-			controller : 'AdminHome'
-		}).state('BranchManagerHome', {
-			url : '/BranchManagerHome',
-			templateUrl : 'Views/BranchManagerHome.html',
-			controller : 'BranchManagerHome'
-		}).state('NewBranchManager', {
-			url : '/NewBranchManager',
-			templateUrl : 'Views/NewBranchManager.html',
+			templateUrl : 'home.html',
+		}).state('adminLogin', {
+			url : '/adminLogin',
+			templateUrl : 'htmlpages/adminLogin.html',
+			controller : 'adminController'
+		}).state('branchManagerLogin', {
+			url : '/branchManagerLogin',
+			templateUrl : 'htmlpages/branchManagerLogin.html',
+			controller : 'branchManagerController'
+		}).state('adminHome', {
+			url : '/adminHome',
+			templateUrl : 'htmlpages/adminHome.html',
+			controller : 'adminHome'
+		}).state('branchManagerHome', {
+			url : '/branchManagerHome',
+			templateUrl : 'htmlpages/branchManagerHome.html',
+			controller : 'branchManagerHome'
+		}).state('newBranchManager', {
+			url : '/newBranchManager',
+			templateUrl : 'htmlpages/newBranchManager.html',
 			controller : 'createBranchManagerController'
 		}).state('error', {
 			url : '/error',
-			templateUrl : 'Views/AdminHome.html',
-			controller : 'AdminHome'
+			templateUrl : 'htmlpages/adminHome.html',
+			controller : 'adminHome'
 		}).state('logout', {
 			url : '/logout',
-			templateUrl : 'Home.html',
+			templateUrl : 'home.html',
 			controller : 'logout'
-		}).state('CreateNewBranch',{
-			url : '/CreateNewBranch',
-			templateURL : 'Views/CreateNewBranch.html',
+		}).state('createNewBranch',{
+			url : '/createNewBranch',
+			templateURL : 'htmlpages/createNewBranch.html',
 			controller : 'createBranchController'
 		});
 	}).controller("appcontroller", function($scope, $rootScope) {

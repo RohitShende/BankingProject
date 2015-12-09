@@ -24,11 +24,11 @@ app.controller("createBranchManagerController", function($scope, $log, $statePar
 		}).then(function successCallback(response) {
 			var data = response.data;
 			console.log("Create New Manager"+ response.data);
-			$location.path("/AdminHome");
+			$location.path("/adminHome");
 		}, function errorCallback(response) {
 			console.log("error : " + response.data.error);
 			$scope.errormsg = "Invalid Creditnals";
-			$location.path("/AdminLogin");
+			$location.path("/adminLogin");
 		});
 	}
 
