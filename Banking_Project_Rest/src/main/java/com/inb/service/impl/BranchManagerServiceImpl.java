@@ -21,18 +21,13 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	@Autowired
 	private MongoOperations mongoOperations;
 	
-//	public String insert(BranchManager branchManager)  {
-//		branchManagerRepository.insert(branchManager);
-//		return "Branch Manager Added";
-//	}
-
 	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException  {
 		
 		BasicQuery basicQuery= new BasicQuery("{ \"username\":\""+branchManager.getUsername()+"\",\"email\":\""+branchManager.getEmail()+"\" }");
 		BranchManager tempBranchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 		System.out.println("-------------" + tempBranchManager);
 		boolean flag=false;
-		if(tempBranchManager==null)
+		if(tempBranchManager==null&&branchManager.getFirstName()!=null)
 		{
 			branchManager=branchManagerRepository.insert(branchManager);
 			flag=true;

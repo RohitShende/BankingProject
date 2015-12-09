@@ -9,12 +9,12 @@ public class BranchManagerExistsException  extends Exception {
 	private String message;
 	
 	public BranchManagerExistsException() {
-		this.message = "BRANCH MANAGER ALREADY EXISTS";
+		this.message = "ERROR IN INPUT DATA";
 	}
 
 	@Override
 	public String getMessage() {
-		return ""+serialVersionUID ;
+		return ""+serialVersionUID+"";
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class BranchManagerExistsException  extends Exception {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "{\"ERROR_CODE\"':"+serialVersionUID +"}";                 //   ->"+message+" "+super.toString() ;
+		return "{\"ERROR_CODE\"':"+serialVersionUID+"}";                 //   ->"+message+" "+super.toString() ;
 	}
 	
 	public long getSerialVersionUID()
