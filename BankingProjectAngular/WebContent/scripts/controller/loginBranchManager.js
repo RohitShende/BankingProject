@@ -21,6 +21,7 @@ app.controller("branchManagerController", function($scope, $log, $stateParams,
 			if (response.data.id != null) {
 				console.log("success : " );
 				$rootScope.role = "BranchManager";
+				console.log("root : "+$rootScope.role );
 				$rootScope.id = response.data.id;
 				$rootScope.$apply();
 				$location.path("/branchManagerHome");
@@ -38,4 +39,5 @@ app.controller("branchManagerController", function($scope, $log, $stateParams,
 });
 app.controller("branchManagerHome", function($scope, $rootScope) {
 	$scope.id = $rootScope.id;
+	
 });
