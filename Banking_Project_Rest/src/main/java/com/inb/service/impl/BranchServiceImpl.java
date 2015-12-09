@@ -22,9 +22,9 @@ public class BranchServiceImpl implements BranchService{
 	public Branch insert(Branch branch) throws BranchAlreadyExistException{
 	//	branchRepository.insert(branch);
 		BasicQuery basicQuery= new BasicQuery("{ ifscCode : \""+branch.getIfscCode()+"\" }");
-		System.out.println(basicQuery);
+	//	System.out.println(basicQuery);
 		Branch branchResult= mongoOperations.findOne(basicQuery,Branch.class);
-		System.out.println(branchResult);
+	//	System.out.println(branchResult);
 		if(branchResult==null)
 		{
 			branchRepository.insert(branch);

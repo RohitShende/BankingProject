@@ -24,7 +24,7 @@ public class CreateBranchTest {
 	@Test
 	public void testCreateBranch()
 	{
-		String testInput="{\"ifscCode\":\"B111\",\"branchName\":\"FCR\",\"contact\":123123,"
+		String testInput="{\"ifscCode\":\"B100\",\"branchName\":\"FCR\",\"contact\":123123,"
 				+ "\"address\":\"FCR\"}";
 		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,testInput);
 		 String testResult=target.accept("application/json").type("application/json").post(String.class,testInput);
@@ -32,6 +32,7 @@ public class CreateBranchTest {
 		    System.out.println("Response : " + response);
 		    System.out.println("Result : " + testResult);
 		    Assert.assertEquals(expected,testResult);
+		    
 	/*	Form form =new Form();
 	    form.param("ifscCode", "B123");
 	    form.param("branchName", "Baner");
