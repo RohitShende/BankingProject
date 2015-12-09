@@ -23,7 +23,7 @@ public class NotBranchManagerException extends Exception {
 
 	@Override
 	public String toString() {
-		return "{ Exception : \""+this.message+"\" }";         
+		return "{ \"Exception\":\""+this.message+"\"}";         
 	}
 	
 	

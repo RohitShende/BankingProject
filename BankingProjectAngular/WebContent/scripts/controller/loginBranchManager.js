@@ -19,6 +19,7 @@ app.controller("branchManagerController", function($scope, $log, $stateParams,
 		}).then(function successCallback(response) {
 			var data = response.data;
 			if (response.data.id != null) {
+				console.log("success : " );
 				$rootScope.role = "BranchManager";
 				$rootScope.id = response.data.id;
 				$rootScope.$apply();
@@ -28,6 +29,7 @@ app.controller("branchManagerController", function($scope, $log, $stateParams,
 				$location.path("/branchManagerLogin");
 			}
 		}, function errorCallback(response) {
+			console.log("error : " );
 			console.log("error : " + response.data.error);
 
 		});
