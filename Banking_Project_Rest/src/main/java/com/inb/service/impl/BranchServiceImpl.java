@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchAlreadyExistException;
 import com.inb.mongo.collections.Branch;
 import com.inb.mongo.repositories.BranchRepository;
@@ -19,22 +21,29 @@ public class BranchServiceImpl implements BranchService{
 	@Autowired
 	private BranchRepository branchRepository;
 	
-	public Branch insert(Branch branch) throws BranchAlreadyExistException{
-	//	branchRepository.insert(branch);
-		BasicQuery basicQuery= new BasicQuery("{ ifscCode : \""+branch.getIfscCode()+"\" }");
-	//	System.out.println(basicQuery);
-		Branch branchResult= mongoOperations.findOne(basicQuery,Branch.class);
-	//	System.out.println(branchResult);
-		if(branchResult==null)
-		{
-			branchRepository.insert(branch);
-			return branch;
+	ObjectMapper mapper = new ObjectMapper();
 
+	
+	public String insert(Branch branch) throws JsonProcessingException {
+		String branchJson;
+		try{
+			BasicQuery basicQuery= new BasicQuery("{ ifscCode : \""+branch.getIfscCode()+"\" }");
+			Branch branchResult= mongoOperations.findOne(basicQuery,Branch.class);
+			if(branchResult==null)
+			{
+				branchRepository.insert(branch);
+				branchJson = mapper.writeValueAsString(branch);
+			}
+			else
+			{
+				throw new BranchAlreadyExistException();
+			}
 		}
-		else
+		catch(BranchAlreadyExistException e)
 		{
-			throw new BranchAlreadyExistException();
+			branchJson=e.toString();
 		}
+		return branchJson;
 	}
 
 }
