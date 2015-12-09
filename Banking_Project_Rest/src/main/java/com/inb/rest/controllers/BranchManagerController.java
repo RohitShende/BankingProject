@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inb.exceptions.NotBranchManagerException;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
 import com.inb.rest.entity.LoginDetails;
@@ -45,15 +44,7 @@ public class BranchManagerController {
 	
 	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
-		try {
-		BranchManager branchManager=branchManagerService.login(loginDetails.getUsername(), loginDetails.getPassword());
-		String branchManagerJson = mapper.writeValueAsString(branchManager);
-		return branchManagerJson;
-		}catch(NotBranchManagerException e)
-		{
-			String str =  "{ \"error\" :" + e.getMessage() +" , \"Exception\" : \"NotBranchManagerException\" }";
-			return str;
-		}
+		return branchManagerService.login(loginDetails.getUsername(), loginDetails.getPassword());
 	}
 	
 }

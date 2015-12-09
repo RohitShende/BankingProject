@@ -57,25 +57,24 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	}
 	
 	
-	public BranchManager login(String username, String password) throws NotBranchManagerException {
-		
-		BasicQuery basicQuery= new BasicQuery("{ username : \""+username+"\" }");
-		BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
-		boolean flag=false;
-		if(branchManager!=null)
-		{
-			if(branchManager.getUsername().equals(username) && 
-						branchManager.getPassword().equals(password))
+	public String login(String username, String password) throws JsonProcessingException {
+		String branchManagerJson;
+		try {
+				BasicQuery basicQuery= new BasicQuery("{ username : \""+username+"\" , password : \""+password+"\" }");
+				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
+				if(branchManager!=null)
+				{
+					branchManagerJson = mapper.writeValueAsString(branchManager);
+				}
+				else
+				{
+					throw new NotBranchManagerException(username);
+				}
+			}catch(NotBranchManagerException e)
 			{
-				flag=true;
+				branchManagerJson=e.toString();
 			}
-		}
-		if(!flag)
-		{
-			throw new NotBranchManagerException();
-		}
-		return branchManager;
+		return branchManagerJson;
 	}
-
 	
 }

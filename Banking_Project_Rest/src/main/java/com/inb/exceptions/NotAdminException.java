@@ -1,6 +1,10 @@
 package com.inb.exceptions;
 
 public class NotAdminException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String message;
 
 	public NotAdminException(String message) {

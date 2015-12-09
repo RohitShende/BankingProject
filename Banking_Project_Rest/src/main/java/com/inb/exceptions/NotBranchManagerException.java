@@ -6,26 +6,24 @@ public class NotBranchManagerException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 101; 
-	private String message;
+	private String message="USERNAME OR PASSWORD INCORRECT";
 	
 	public NotBranchManagerException() {
-		this.message = "USERNAME OR PASSWORD INCORRECT";
+		
+	}
+	
+	public NotBranchManagerException(String msg) {
+		this.message = this.message+"/"+msg;
 	}
 
 	@Override
 	public String getMessage() {
-		return this.message+" "+serialVersionUID ;
+		return this.message;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "{\"ERROR_CODE\"':"+serialVersionUID +"}";                 //   ->"+message+" "+super.toString() ;
-	}
-	
-	public long getSerialVersionUID()
-	{
-		return serialVersionUID;
+		return "Exception : \""+this.message+"\"";         
 	}
 	
 	
