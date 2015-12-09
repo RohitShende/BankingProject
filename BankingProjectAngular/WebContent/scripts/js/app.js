@@ -33,6 +33,10 @@
 			url : '/branchManagerHome',
 			templateUrl : 'htmlpages/branchManagerHome.html',
 			controller : 'branchManagerHome'
+		}).state('newBranchManager', {
+			url : '/newBranchManager',
+			templateUrl : 'htmlpages/newBranchManager.html',
+			controller : 'createBranchManagerController'
 		}).state('createNewBranch', {
 			url : '/createNewBranch',
 			templateUrl : 'htmlpages/createNewBranch.html',
