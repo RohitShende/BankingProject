@@ -7,7 +7,7 @@
 	angular.module(
 			'myapp',
 			[ 'ui.router', 'ngAnimate', 'common-elements', 'loginAdmin',
-					'basicModule','createBranchManager' ])
+					'basicModule','createBranchManager', 'createBranch' ])
 
 	// UI Routing
 	.config(function($urlRouterProvider, $stateProvider) {
@@ -37,6 +37,10 @@
 			url : '/logout',
 			templateUrl : 'Home.html',
 			controller : 'logout'
+		}).state('CreateNewBranch',{
+			url : '/CreateNewBranch',
+			templateURL : 'Views/CreateNewBranch.html',
+			controller : 'createBranchController'
 		});
 	}).controller("appcontroller", function($scope, $rootScope) {
 		$rootScope.role = "Common";
