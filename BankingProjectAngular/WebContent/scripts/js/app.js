@@ -25,6 +25,10 @@
 			url : '/AdminHome',
 			templateUrl : 'Views/AdminHome.html',
 			controller : 'AdminHome'
+		}).state('NewBranchManager', {
+			url : '/NewBranchManager',
+			templateUrl : 'Views/NewBranchManager.html',
+			controller : 'createBranchManagerController'
 		}).state('error', {
 			url : '/error',
 			templateUrl : 'Views/AdminHome.html',
