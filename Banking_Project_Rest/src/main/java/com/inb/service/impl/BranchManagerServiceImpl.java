@@ -69,10 +69,10 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	}
 	
 	
-	public String login(String username, String password) throws JsonProcessingException {
+	public String login(String userName, String password) throws JsonProcessingException {
 		String branchManagerJson;
 		try {
-				BasicQuery basicQuery= new BasicQuery("{ userName : \""+username+"\" , password : \""+password+"\" }");
+				BasicQuery basicQuery= new BasicQuery("{ userName : \""+userName+"\" , password : \""+password+"\" }");
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{
@@ -80,7 +80,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 				}
 				else
 				{
-					throw new NotBranchManagerException(username);
+					throw new NotBranchManagerException(userName);
 				}
 			}catch(NotBranchManagerException e)
 			{

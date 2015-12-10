@@ -44,7 +44,6 @@ public class BranchManagerController {
 	
 	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
-		
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
