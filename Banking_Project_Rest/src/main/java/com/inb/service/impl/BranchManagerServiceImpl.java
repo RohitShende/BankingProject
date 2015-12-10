@@ -31,7 +31,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		//BasicQuery basicQuery= new BasicQuery("{ \"username\":\""+branchManager.getUsername()+"\",\"email\":\""+branchManager.getEmail()+"\" }");
 		
 		BasicQuery basicQuery= 
-				new BasicQuery("{ $or: [ { \"username\": \""+branchManager.getUsername()+"\" }, { \"email\": \""+branchManager.getEmail()+"\" } ] }");
+				new BasicQuery("{ $or: [ { \"userName\": \""+branchManager.getUserName()+"\" }, { \"email\": \""+branchManager.getEmail()+"\" } ] }");
 		BranchManager tempBranchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 	
 		Date currentDate=new Date();
@@ -56,7 +56,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	public String insertBranchManager(BranchManager branchManager) throws JsonProcessingException
 	{
-		System.out.println("------>from insertBranchManager()"+branchManager.getEmail());
+		
 		try {
 			BranchManager branchManagerDetails=insert(branchManager);
 			String branchManagerJson = mapper.writeValueAsString(branchManagerDetails);
@@ -72,7 +72,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	public String login(String username, String password) throws JsonProcessingException {
 		String branchManagerJson;
 		try {
-				BasicQuery basicQuery= new BasicQuery("{ username : \""+username+"\" , password : \""+password+"\" }");
+				BasicQuery basicQuery= new BasicQuery("{ userName : \""+username+"\" , password : \""+password+"\" }");
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{

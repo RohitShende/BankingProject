@@ -4,7 +4,7 @@ import java.util.Date;
 
 public abstract class Employee extends Person {
 	
-	private String username;
+	private String userName;
 	private String password;
 	
 	
@@ -15,19 +15,19 @@ public abstract class Employee extends Person {
 	
 	
 	public Employee(String firstName, String lastName, String email,
-			long phone, String address, Date dateOfBirth, String username,
+			long phone, String address, Date dateOfBirth, String userName,
 			String password) {
 		super(firstName, lastName, email, phone, address, dateOfBirth);
-		this.username = username;
+		this.userName = userName;
 		this.password = password;
 	}
 
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;

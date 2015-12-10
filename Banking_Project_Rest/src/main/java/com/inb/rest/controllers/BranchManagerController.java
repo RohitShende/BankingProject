@@ -36,7 +36,7 @@ public class BranchManagerController {
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) throws JsonProcessingException {
 			
 			String result=branchManagerService.insertBranchManager(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
-					branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUsername(), 
+					branchManager.getPhone(), branchManager.getAddress(), branchManager.getDateOfBirth(), branchManager.getUserName(), 
 					branchManager.getPassword()));
 			
 			return result;
@@ -44,7 +44,8 @@ public class BranchManagerController {
 	
 	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
-		return branchManagerService.login(loginDetails.getUsername(), loginDetails.getPassword());
+		
+		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
 }

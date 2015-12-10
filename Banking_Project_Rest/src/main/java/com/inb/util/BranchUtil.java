@@ -14,7 +14,7 @@ public class BranchUtil {
 
 	public static BranchManager convertBranchManagerPojoToBranchManager(BranchManagerPOJO branchManagerPojo)
 	{
-		return new BranchManager(branchManagerPojo.getFirstName(), branchManagerPojo.getLastName(), branchManagerPojo.getEmail(), branchManagerPojo.getPhone(), branchManagerPojo.getAddress(), branchManagerPojo.getDateOfBirth(), branchManagerPojo.getUsername(), branchManagerPojo.getPassword());
+		return new BranchManager(branchManagerPojo.getFirstName(), branchManagerPojo.getLastName(), branchManagerPojo.getEmail(), branchManagerPojo.getPhone(), branchManagerPojo.getAddress(), branchManagerPojo.getDateOfBirth(), branchManagerPojo.getUserName(), branchManagerPojo.getPassword());
 	}
 	
 	public static Branch convertBranchPojoToBranch(BranchPOJO branchPojo)

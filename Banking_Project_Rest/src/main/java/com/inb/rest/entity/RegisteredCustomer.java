@@ -7,7 +7,7 @@ import java.util.Date;
 public class RegisteredCustomer extends CustomerPOJO {
 
 	long customerId;
-	String username;
+	String userName;
 	String password;
 	String authorizedImageName;
 	String authorizedImageText;
@@ -19,12 +19,12 @@ public class RegisteredCustomer extends CustomerPOJO {
 	}
 	public RegisteredCustomer(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, File addressProof,
-			File ageProof, long customerId, String username, String password,
+			File ageProof, long customerId, String userName, String password,
 			String authorizedImageName, String authorizedImageText) {
 		super(firstName, lastName, email, phone, address, dateOfBirth,
 				addressProof, ageProof);
 		this.customerId = customerId;
-		this.username = username;
+		this.userName = userName;
 		this.password = password;
 		this.authorizedImageName = authorizedImageName;
 		this.authorizedImageText = authorizedImageText;
@@ -35,11 +35,11 @@ public class RegisteredCustomer extends CustomerPOJO {
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;
@@ -61,8 +61,8 @@ public class RegisteredCustomer extends CustomerPOJO {
 	}
 	@Override
 	public String toString() {
-		return "RegisteredCustomer [customerId=" + customerId + ", username="
-				+ username + ", password=" + password
+		return "RegisteredCustomer [customerId=" + customerId + ", userName="
+				+ userName + ", password=" + password
 				+ ", authorizedImageName=" + authorizedImageName
 				+ ", authorizedImageText=" + authorizedImageText + "]"+"["+super.toString()+"]";
 	}

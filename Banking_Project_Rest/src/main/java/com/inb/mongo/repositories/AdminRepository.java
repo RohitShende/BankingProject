@@ -9,8 +9,8 @@ import com.inb.mongo.collections.Admin;
 
 public interface AdminRepository extends MongoRepository<Admin, String>{
 
-	@Query(value="{username: ?0,password: ?1}")
-	public List<Admin> findByUsernameAndPassword(String username, String password);
+	@Query(value="{userName: ?0,password: ?1}")
+	public List<Admin> findByUsernameAndPassword(String userName, String password);
 	
 	
 	@Query(value="{_id: ?0}")

@@ -1,5 +1,5 @@
 {
-	"username": "nm",
+	"userName": "nm",
 	"password": "nm",
 	"firstName": "Navin",
 	"lastName": "mahesh",

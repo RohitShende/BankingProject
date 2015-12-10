@@ -2,14 +2,14 @@ package com.inb.rest.entity;
 
 public class LoginDetails {
 	
-	String username;
+	String userName;
 	String password;
 	
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {							
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;

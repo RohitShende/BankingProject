@@ -12,10 +12,10 @@ public class BranchManager extends Employee{
 	}
 
 	public BranchManager(String firstName, String lastName, String email,
-			long phone, String address, Date dateOfBirth, String username,
+			long phone, String address, Date dateOfBirth, String userName,
 			String password ) {
 		super(firstName, lastName, email, phone, address, dateOfBirth,
-				username, password);
+				userName, password);
 	
 	}
 

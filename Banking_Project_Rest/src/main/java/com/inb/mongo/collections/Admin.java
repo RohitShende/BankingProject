@@ -12,8 +12,8 @@ public class Admin extends Employee {
 	}
 
 	public Admin(String firstName, String lastName, String email, long phone,
-			String address, Date dateOfBirth, String username, String password) {
-		super(firstName, lastName, email, phone, address, dateOfBirth, username,
+			String address, Date dateOfBirth, String userName, String password) {
+		super(firstName, lastName, email, phone, address, dateOfBirth, userName,
 				password);
 		// TODO Auto-generated constructor stub
 	}

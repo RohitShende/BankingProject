@@ -18,12 +18,15 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
 
-	public String login(String username, String password) {
+	public String login(String userName, String password) {
 		String adminJson = "";
 		try {
 			Admin admin = null;
 			List<Admin> list = adminRepository.findByUsernameAndPassword(
-					username, password);
+					userName, password);
+			
+			System.out.println("------== "+userName);
+			
 			System.out.println("------>"+list);
 			if (list.size()==0) {
 				throw new NotAdminException("Invalid Credentials");
