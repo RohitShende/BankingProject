@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchManagerExistsException;
+import com.inb.exceptions.InvalidInputException;
 import com.inb.exceptions.NotBranchManagerException;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchManagerRepository;
@@ -26,7 +27,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	@Autowired
 	private MongoOperations mongoOperations;
 	
-	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException  {
+	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException, InvalidInputException  {
 		
 		//BasicQuery basicQuery= new BasicQuery("{ \"username\":\""+branchManager.getUsername()+"\",\"email\":\""+branchManager.getEmail()+"\" }");
 		
@@ -39,14 +40,23 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		int comparison = currentDate.compareTo(enteredDate);
 		
 		
-		boolean flag=false;
+		int flag=0;
+		
+		if(comparison==-1)
+		{
+			flag=1;
+		}
 		if(tempBranchManager==null&&branchManager.getFirstName()!=null&&comparison!=-1)
 		{
 			
 			branchManager=branchManagerRepository.insert(branchManager);
-			flag=true;
+			flag=2;
 		}
-		if(!flag)
+		if(flag==1)
+		{
+			throw new InvalidInputException();
+		}
+		if(flag==0)
 		{
 			throw new BranchManagerExistsException();
 		}
@@ -63,6 +73,9 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 			return branchManagerJson;
 			}catch(BranchManagerExistsException e)
 			{
+				String str = "{ \"Exception\": \""+ e.getMessage() + "\"}";
+				return str;
+			} catch (InvalidInputException e) {
 				String str = "{ \"Exception\": \""+ e.getMessage() + "\"}";
 				return str;
 			}
