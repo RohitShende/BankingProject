@@ -1,5 +1,8 @@
 package com.inb.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -44,6 +47,15 @@ public class BranchServiceImpl implements BranchService{
 			branchJson=e.toString();
 		}
 		return branchJson;
+	}
+
+
+	public List<Branch> getAllBranchs() {
+		List<Branch> branch = new ArrayList<Branch>();
+		branch.add(new Branch("456","xyz", "indore",9875, null));
+		branch.add(new Branch("123","abc", "pune",12345, null));
+		return branch;
+		
 	}
 
 }
