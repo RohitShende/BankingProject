@@ -1,6 +1,6 @@
 {
-	"userName": "nm",
-	"password": "nm",
+	"userName": "admin",
+	"password": "password",
 	"firstName": "Navin",
 	"lastName": "mahesh",
 	"email": "nm@gmail.com",
