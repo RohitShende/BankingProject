@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.inb.util.AdminUtil;
+
 /**
  * Hello world!
  *
@@ -15,7 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class App {
 
 	public static void main(String[] args) throws Exception {
-		//AdminUtil.populateAdmin();
+		AdminUtil.populateAdmin();
 		SpringApplication.run(App.class, args);
 	}
 }
