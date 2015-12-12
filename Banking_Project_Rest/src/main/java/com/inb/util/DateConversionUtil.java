@@ -4,11 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.inb.rest.entity.BranchManagerPOJO;
+import com.inb.mongo.collections.BranchManager;
 
 public class DateConversionUtil {
 	
-	public static Date changeDateFormat(BranchManagerPOJO branchManager)
+	public static Date changeDateFormat(BranchManager branchManager)
 	{
 		Calendar calendar=Calendar.getInstance();
 		calendar.setTime(branchManager.getDateOfBirth());

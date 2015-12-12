@@ -21,6 +21,7 @@ import com.inb.exceptions.NotBranchManagerException;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchManagerRepository;
 import com.inb.service.interfaces.BranchManagerService;
+import com.inb.util.DateConversionUtil;
 import com.inb.util.MailMail;
 
 @Service
@@ -73,7 +74,12 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	public String insertBranchManager(BranchManager branchManager) throws JsonProcessingException
 	{
+		System.out.println("*******"+branchManager.getDateOfBirth());
+		Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
+		branchManager.setDateOfBirth(isoDate);
 		
+		
+		System.out.println(branchManager.getDateOfBirth()+"%%%%%%%%");
 		try {
 			BranchManager branchManagerDetails=insert(branchManager);
 			String branchManagerJson = mapper.writeValueAsString(branchManagerDetails);
