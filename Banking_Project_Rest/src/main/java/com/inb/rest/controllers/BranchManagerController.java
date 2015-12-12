@@ -3,16 +3,21 @@
  */
 package com.inb.rest.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
@@ -45,6 +50,20 @@ public class BranchManagerController {
 	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
+	}
+	
+	@RequestMapping(value="/verifyUnregisteredUsers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String verifyUnregisteredUsers() throws JsonProcessingException
+	{
+		return branchManagerService.verifyUnregisteredUsers();
+	}
+	
+	@RequestMapping(value="/sendRegistrationEmail", method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String sendRegistrationEmail(@RequestBody String id) throws JsonParseException, JsonMappingException, IOException
+	{
+		System.out.println(id);
+		branchManagerService.sendEmail(id);
+		return id;
 	}
 	
 }
