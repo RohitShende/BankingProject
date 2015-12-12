@@ -10,9 +10,21 @@ abstract public class PersonPOJO {
 	private long phone;
 	private String address;
 	private Date dateOfBirth;
+	private BranchPOJO branchPOJO;
 	
 	
-	
+	public BranchPOJO getBranchPOJO() {
+		return branchPOJO;
+	}
+
+
+
+	public void setBranchPOJO(BranchPOJO branchPOJO) {
+		this.branchPOJO = branchPOJO;
+	}
+
+
+
 	public PersonPOJO() {
 		super();
 	}

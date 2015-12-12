@@ -1,5 +1,7 @@
 package com.inb.service.interfaces;
 
-public interface UnregisteredCustomerService {
+import com.inb.rest.entity.UnregisteredCustomerPOJO;
 
+public interface UnregisteredCustomerService {
+	String registerEnquiry(UnregisteredCustomerPOJO unregisteredCustomerPOJO);
 }

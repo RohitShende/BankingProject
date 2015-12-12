@@ -15,7 +15,7 @@ abstract public class Person {
 	private long phone;
 	private String address;
 	private Date dateOfBirth;
-	
+	private Branch branch;
 	
 	
 	public Person() {
@@ -114,6 +114,24 @@ abstract public class Person {
 	}
 
 
+
+	public Branch getBranch() {
+		return branch;
+	}
+
+
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
 	
 
 }

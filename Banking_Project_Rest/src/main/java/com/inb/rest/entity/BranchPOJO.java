@@ -6,7 +6,6 @@ public class BranchPOJO {
 	private String branchName;
 	private String address;
 	private long contact;
-	private BranchManagerPOJO branchManager;
 	
 	public BranchPOJO() {
 		super();
@@ -44,18 +43,12 @@ public class BranchPOJO {
 	public void setContact(long contact) {
 		this.contact = contact;
 	}
-	public BranchManagerPOJO getBranchManager() {
-		return branchManager;
-	}
-	public void setBranchManager(BranchManagerPOJO branchManager) {
-		this.branchManager = branchManager;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Branch [ifscCode=" + ifscCode + ", branchName=" + branchName
 				+ ", address=" + address + ", contact=" + contact
-				+ ", branchManager=" + branchManager + "]";
+				+ "]";
 	}
 	
 	

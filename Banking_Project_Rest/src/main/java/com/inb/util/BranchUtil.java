@@ -22,7 +22,6 @@ public class BranchUtil {
 		return new Branch(branchPojo.getIfscCode(), 
 				branchPojo.getBranchName(), 
 				branchPojo.getAddress(),
-				branchPojo.getContact(),
-				convertBranchManagerPojoToBranchManager(branchPojo.getBranchManager()));
+				branchPojo.getContact());
 	}
 }

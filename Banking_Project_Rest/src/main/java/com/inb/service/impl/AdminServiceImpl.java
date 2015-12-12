@@ -25,9 +25,6 @@ public class AdminServiceImpl implements AdminService {
 			List<Admin> list = adminRepository.findByUsernameAndPassword(
 					userName, password);
 			
-			System.out.println("------== "+userName);
-			
-			System.out.println("------>"+list);
 			if (list.size()==0) {
 				throw new NotAdminException("Invalid Credentials");
 			}

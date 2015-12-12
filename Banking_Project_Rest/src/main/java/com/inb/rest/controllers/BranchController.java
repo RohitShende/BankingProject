@@ -33,7 +33,7 @@ public class BranchController {
 	@RequestMapping(value="/createBranch", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranch(@RequestBody BranchPOJO branchPOJO) throws JsonProcessingException
 	{
-		branchPOJO.setBranchManager(new BranchManagerPOJO());
+		
 		return branchService.insert(BranchUtil.convertBranchPojoToBranch(branchPOJO));
 
 	}
