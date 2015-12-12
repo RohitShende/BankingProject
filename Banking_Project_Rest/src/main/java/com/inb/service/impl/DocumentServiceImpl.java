@@ -1,12 +1,10 @@
 package com.inb.service.impl;
 
-import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Autowired
 	private DocumentsRepositiory documentsRepositiory;
+	private FileOutputStream fout;
 
 	public String uploadDocument(Documents documents) {
 		Documents documents2 = documentsRepositiory.save(documents);
@@ -47,10 +46,7 @@ public class DocumentServiceImpl implements DocumentService {
 			List<Documents> documents = documentsRepositiory.findById(id);
 			System.out.println("-->"+documents);
 			byte[] bytes = documents.get(0).getAgeProof();
-			FileOutputStream fout=new FileOutputStream("D:/try.jpg");  
-//			BufferedOutputStream stream = new BufferedOutputStream(
-//					new FileOutputStream(
-//							new java.io.File("D:\navinmaheshwari.txt")));
+			fout = new FileOutputStream("D:/try.jpg");
 			
 			fout.write(bytes);
 			System.out.println("copy done..");

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.inb.rest.entity.BranchManagerPOJO;
 import com.inb.rest.entity.BranchPOJO;
 import com.inb.service.interfaces.BranchService;
 import com.inb.util.BranchUtil;

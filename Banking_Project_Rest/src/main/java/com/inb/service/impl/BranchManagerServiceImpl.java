@@ -32,6 +32,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	@Autowired
 	private MongoOperations mongoOperations;
+	private ApplicationContext context;
 	
 	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException, InvalidInputException  {
 		
@@ -124,7 +125,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	public String sendEmail(String id) {
 		System.out.println("id****"+id);
 		
-		Map jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
         String idValue=(String) jsonJavaRootObject.get("id");
 		
 		//id= "566a66788a2775adbca5964d";
@@ -134,8 +135,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		String receiverEmailId=list.get(0).getEmail();
 		System.out.println(receiverEmailId);
 
-		ApplicationContext context = 
-	             new ClassPathXmlApplicationContext("Spring-Mail.xml");
+		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 		MailMail mm = (MailMail) context.getBean("mailMail");
         mm.sendMail("from@no-spam.com",
         		receiverEmailId,

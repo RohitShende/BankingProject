@@ -1,12 +1,5 @@
 package com.inb.rest.controllers;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Date;
-
-import javax.servlet.annotation.MultipartConfig;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.mongo.collections.Documents;
-import com.inb.rest.entity.Account;
-import com.inb.rest.entity.AccountType;
-import com.inb.rest.entity.DocumentPOJO;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
 import com.inb.service.interfaces.DocumentService;
 import com.inb.service.interfaces.UnregisteredCustomerService;
