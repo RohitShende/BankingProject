@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchAlreadyExistException;
 import com.inb.mongo.collections.Branch;
+import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchRepository;
 import com.inb.service.interfaces.BranchService;
 
@@ -58,4 +59,18 @@ public class BranchServiceImpl implements BranchService{
 		
 	}
 
+	public String viewBranches() throws JsonProcessingException {
+//		String branchJson="No Branches";
+		
+		String branchJson = "{ \"Error\": \"No Branches\"}";
+		List<Branch> listOfBranches=branchRepository.findAll();
+		
+		if(listOfBranches!=null)
+		{
+			
+			if(listOfBranches.size()!=0)
+				branchJson=mapper.writeValueAsString(listOfBranches);
+		}
+		return branchJson;
+	}
 }

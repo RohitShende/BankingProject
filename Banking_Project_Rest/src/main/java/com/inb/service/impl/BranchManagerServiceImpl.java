@@ -74,12 +74,12 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	public String insertBranchManager(BranchManager branchManager) throws JsonProcessingException
 	{
-		System.out.println("*******"+branchManager.getDateOfBirth());
+	
 		Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
 		branchManager.setDateOfBirth(isoDate);
 		
 		
-		System.out.println(branchManager.getDateOfBirth()+"%%%%%%%%");
+	
 		try {
 			BranchManager branchManagerDetails=insert(branchManager);
 			String branchManagerJson = mapper.writeValueAsString(branchManagerDetails);
@@ -129,7 +129,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 
 
 	public String sendEmail(String id) {
-		System.out.println("id****"+id);
+		
 		
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
         String idValue=(String) jsonJavaRootObject.get("id");
@@ -148,6 +148,22 @@ public class BranchManagerServiceImpl implements BranchManagerService {
     		   "Verification Email for bank account", 
     		   "Click this link to complete your sign up process");
 		return "Success";
+	}
+
+
+	public String viewBranchManagers() throws JsonProcessingException {
+//		String branchManagerJson="No Branch Managers";
+		
+		String branchManagerJson = "{ \"Error\": \"No Branch Managers\"}";
+		List<BranchManager> listOfBrancheManagers=branchManagerRepository.findAll();
+		
+		if(listOfBrancheManagers!=null)
+		{
+		
+			if(listOfBrancheManagers.size()!=0)
+				branchManagerJson=mapper.writeValueAsString(listOfBrancheManagers);
+		}
+		return branchManagerJson;
 	}
 	
 }

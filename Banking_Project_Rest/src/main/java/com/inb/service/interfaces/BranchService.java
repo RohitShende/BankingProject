@@ -9,5 +9,6 @@ public interface BranchService {
 	
 	String insert(Branch branch) throws JsonProcessingException;
 	List<Branch> getAllBranchs();
+	String viewBranches() throws JsonProcessingException;
 
 }

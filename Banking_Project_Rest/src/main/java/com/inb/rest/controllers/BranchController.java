@@ -37,5 +37,9 @@ public class BranchController {
 
 	}
 	
-	
+	@RequestMapping(value="/viewBranches", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewBranches() throws JsonProcessingException
+	{
+		return branchService.viewBranches();
+	}
 }

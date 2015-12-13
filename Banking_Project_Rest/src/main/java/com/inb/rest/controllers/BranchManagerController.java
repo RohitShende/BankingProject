@@ -51,6 +51,12 @@ public class BranchManagerController {
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
+	@RequestMapping(value="/viewBranchManagers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewBranchManagers() throws JsonProcessingException
+	{
+		return branchManagerService.viewBranchManagers();
+	}
+	
 	@RequestMapping(value="/verifyUnregisteredUsers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String verifyUnregisteredUsers() throws JsonProcessingException
 	{
