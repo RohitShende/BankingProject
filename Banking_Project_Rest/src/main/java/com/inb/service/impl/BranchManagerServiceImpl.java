@@ -42,7 +42,6 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		Date enteredDate=branchManager.getDateOfBirth();
 		int comparison = currentDate.compareTo(enteredDate);
 		
-		
 		int flag=0;
 		
 		if(comparison==-1)
@@ -158,6 +157,30 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 			if(listOfBrancheManagers.size()!=0)
 				branchManagerJson=mapper.writeValueAsString(listOfBrancheManagers);
 		}
+		return branchManagerJson;
+	}
+
+
+	public String logout(String userName) throws JsonProcessingException {
+		String branchManagerJson;
+		try {
+				BasicQuery basicQuery= new BasicQuery("{ userName : \""+userName+"\" }");
+				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
+				if(branchManager!=null)
+				{
+					branchManager.setLogin(true);
+					mongoOperations.save(branchManager, branchManager.getId());
+					branchManagerJson = mapper.writeValueAsString(branchManager);
+					System.out.println("Branch Manager Logged Out");
+				}
+				else
+				{
+					throw new NotBranchManagerException(userName);
+				}
+			}catch(NotBranchManagerException e)
+			{
+				branchManagerJson=e.toString();
+			}
 		return branchManagerJson;
 	}
 	

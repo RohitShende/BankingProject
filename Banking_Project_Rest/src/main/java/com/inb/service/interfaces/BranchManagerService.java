@@ -14,4 +14,5 @@ public interface BranchManagerService {
 //	String sendEmail(String id) throws JsonParseException, JsonMappingException, IOException;
 	
 	String viewBranchManagers() throws JsonProcessingException ;
+	String logout(String userName) throws JsonProcessingException;
 }

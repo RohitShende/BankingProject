@@ -21,29 +21,24 @@ public class LoginBranchManagerTest {
 	@BeforeClass 
 	public static void init(){
 		client = Client.create();
-		target = client.resource("http://localhost:8080/loginBranchManager");
+		target = client.resource("http://localhost:8080/branchmanager/login");
 	}
-	
-	
 	
 	
 	
 	@Test
 	public void testLoginBranchManagerSuccess(){
-		String input="{\"username\": \"rohit\",\"password\": \"12345678\"}";
+		String input="{\"userName\": \"palakh\",\"password\": \"Palakh\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 		assertEquals(200,response.getStatus());
 	}
 	
-	
-	
 	@Test
 	public void testLoginBranchManagerFailure(){
-		String input="{\"username\": \"rohit\",\"password\": \"2345678\"}";
+		String input="{\"userName\": \"rohitss\",\"password\": \"12345678\"}";
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
-	    String expected="{ Exception : \"USERNAME OR PASSWORD INCORRECT/rohit\" }";
+	    String expected="{ \"Exception\":\"USERNAME OR PASSWORD INCORRECT/rohitss\"}";
 	    assertEquals(expected,result);
-	   
 	}
 
 }

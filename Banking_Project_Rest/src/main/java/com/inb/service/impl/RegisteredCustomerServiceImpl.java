@@ -3,14 +3,12 @@ package com.inb.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.Person;
 import com.inb.mongo.collections.RegisteredCustomer;
-import com.inb.mongo.collections.UnregisteredCustomer;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
@@ -19,7 +17,7 @@ import com.inb.service.interfaces.RegisteredCustomerService;
 @Service
 public class RegisteredCustomerServiceImpl implements RegisteredCustomerService {
 	ObjectMapper mapper = new ObjectMapper();
-	private ApplicationContext context;
+//	private ApplicationContext context;
 	@Autowired
 	RegisteredCustomerRepository registeredCustomerRepository;
 	@Autowired
