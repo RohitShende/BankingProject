@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.collections.Person;
 import com.inb.mongo.collections.UnregisteredCustomer;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
