@@ -23,13 +23,14 @@ import com.inb.util.BranchUtil;
  */
 @CrossOrigin
 @RestController
+@RequestMapping(value="/branch")
 public class BranchController {
 
 		
 	@Autowired
 	private BranchService branchService;
 	
-	@RequestMapping(value="/createBranch", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranch(@RequestBody BranchPOJO branchPOJO) throws JsonProcessingException
 	{
 		
@@ -37,7 +38,7 @@ public class BranchController {
 
 	}
 	
-	@RequestMapping(value="/viewBranches", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranches() throws JsonProcessingException
 	{
 		return branchService.viewBranches();

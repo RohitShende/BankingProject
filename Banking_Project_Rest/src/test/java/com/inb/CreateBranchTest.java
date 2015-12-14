@@ -17,7 +17,7 @@ public class CreateBranchTest {
 	@BeforeClass
 	public static void init(){
 		client = Client.create();
-		target = client.resource("http://localhost:8080/createBranch");	
+		target = client.resource("http://localhost:8080/branch");	
 	}
 	
 	@Test
