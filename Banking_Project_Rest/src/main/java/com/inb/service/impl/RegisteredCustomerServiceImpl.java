@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inb.mongo.collections.Person;
+import com.inb.mongo.collections.Customer;
 import com.inb.mongo.collections.RegisteredCustomer;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
@@ -25,7 +25,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 
 	public String registerEnquiry(RegisteredCustomerPOJO registeredCustomerPOJO) {
 		String email = registeredCustomerPOJO.getEmail();
-		List<Person> list = unregisteredCustomerRepository
+		List<Customer> list = unregisteredCustomerRepository
 				.getUserByEmail(email);
 
 		if (list.size() != 0) {
@@ -35,7 +35,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 					+ list.get(0).getId() + "\" }";
 		}
 
-		Person unregisteredCustomer = unregisteredCustomerRepository
+		Customer unregisteredCustomer = unregisteredCustomerRepository
 				.save(registeredCustomerPOJOToPersonCollection(registeredCustomerPOJO));
 
 		registeredCustomerRepository
@@ -57,7 +57,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		}
 	}
 
-	public Person registeredCustomerPOJOToPersonCollection(
+	public Customer registeredCustomerPOJOToPersonCollection(
 			RegisteredCustomerPOJO registeredCustomerPOJO) {
 		RegisteredCustomer registeredCustomer = new RegisteredCustomer();
 		registeredCustomer.setAccounthash(registeredCustomerPOJO

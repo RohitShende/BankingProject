@@ -9,7 +9,7 @@ import com.inb.rest.entity.Account;
 
 
 @Document(collection="registered_customer")
-public class RegisteredCustomer extends Person
+public class RegisteredCustomer extends Customer
 {
 
 	long customerId;

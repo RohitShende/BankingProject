@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 
-public class UnregisteredCustomerPOJO extends PersonPOJO {
+public class UnregisteredCustomerPOJO extends CustomerPOJO {
 	
 	@Id
 	String id;

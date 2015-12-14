@@ -9,7 +9,7 @@ import com.inb.rest.entity.UnregisteredCustomerPOJO;
 
 public interface UnregisteredCustomerService {
 	String registerEnquiry(UnregisteredCustomerPOJO unregisteredCustomerPOJO);
-	
+	public String isEmailAlreadyExits(String email);
 	String verifyUnregisteredUsers() throws JsonProcessingException;
 	String viewUnregisteredUserDetails(String id) throws JsonProcessingException;
 	String sendEmail(String id) throws JsonParseException, JsonMappingException, IOException;

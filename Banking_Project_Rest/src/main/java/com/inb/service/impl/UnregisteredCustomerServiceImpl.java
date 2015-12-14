@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.inb.mongo.collections.Person;
+import com.inb.mongo.collections.Customer;
 import com.inb.mongo.collections.UnregisteredCustomer;
-import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
 import com.inb.service.interfaces.UnregisteredCustomerService;
 import com.inb.util.MailMail;
-import com.inb.util.RandomNumberGenerator;
 
 @Service
 public class UnregisteredCustomerServiceImpl implements
@@ -26,25 +24,12 @@ public class UnregisteredCustomerServiceImpl implements
 
 	ObjectMapper mapper = new ObjectMapper();
 	private ApplicationContext context;
-	
 	@Autowired
 	UnregisteredCustomerRepository unregisteredCustomerRepository;
 
-	@Autowired
-	RegisteredCustomerRepository registeredCustomerRepository;
-	
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
-		String email = unregisteredCustomerPOJO.getEmail();
-		List<Person> list = unregisteredCustomerRepository
-				.getUserByEmail(email);
-		System.out.println("--->" + list.size());
-		if (list.size() != 0) {
-			return "{ \"Exception\":\"Application with same email is under Process\" , \"EnquiryId\" : \""
-					+ list.get(0).getId() + "\" }";
-		}
-
 		UnregisteredCustomer unregisteredCustomer = unregisteredCustomerRepository
 				.save(unregisteredCustomerPOJOTounregisteredCustomer(unregisteredCustomerPOJO));
 		String json = "";
@@ -60,6 +45,20 @@ public class UnregisteredCustomerServiceImpl implements
 			}
 			return json;
 		}
+	}
+
+	public String isEmailAlreadyExits(String email) {
+		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(email, Map.class);
+		String emailValue = (String) jsonJavaRootObject.get("email");
+		System.out.println("--->"+emailValue);
+		List<Customer> list = unregisteredCustomerRepository
+				.getUserByEmail(emailValue);
+
+		System.out.println("--->" + list.size());
+		if (list.size() != 0) {
+			return "{ \"alreadyExists\":\"true\" }";
+		}
+		return "{\"alreadyExists\" : \"false\"}";
 	}
 
 	public UnregisteredCustomer unregisteredCustomerPOJOTounregisteredCustomer(
@@ -80,65 +79,50 @@ public class UnregisteredCustomerServiceImpl implements
 	}
 
 	public String verifyUnregisteredUsers() throws JsonProcessingException {
-		String unregisteredUsersJson="No Requests";
-		List<Person> listOfUsers=unregisteredCustomerRepository.findAll();
-		
-		if(listOfUsers!=null)
-		{
-			unregisteredUsersJson=mapper.writeValueAsString(listOfUsers);
+
+		String unregisteredUsersJson = "No Requests";
+		List<Customer> listOfUsers = unregisteredCustomerRepository.findAll();
+
+		if (listOfUsers != null) {
+			unregisteredUsersJson = mapper.writeValueAsString(listOfUsers);
 		}
 		return unregisteredUsersJson;
 	}
-	
-	
-	
-	public String viewUnregisteredUserDetails(String id) throws JsonProcessingException {
-		String unregisteredUsersJson="{ \"Error\": \"No Requests\"}";;
-		
-		
+
+	public String viewUnregisteredUserDetails(String id)
+			throws JsonProcessingException {
+		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
+		;
+
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-		
-		List<Person> listOfRequests=unregisteredCustomerRepository.findById(idValue);
-	
-	
-		if(listOfRequests!=null)
-		{
-		
-			if(listOfRequests.size()!=0)
-				unregisteredUsersJson=mapper.writeValueAsString(listOfRequests);
+		String idValue = (String) jsonJavaRootObject.get("id");
+
+		List<Customer> listOfRequests = unregisteredCustomerRepository
+				.findById(idValue);
+
+		if (listOfRequests != null) {
+
+			if (listOfRequests.size() != 0)
+				unregisteredUsersJson = mapper
+						.writeValueAsString(listOfRequests);
 		}
-		
+
 		return unregisteredUsersJson;
 	}
-	
-	
-	
+
 	public String sendEmail(String id) {
-		
-		
+
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-			
-		List<Person> listOfUnregisteredUsers=unregisteredCustomerRepository.findById(idValue);
-			
-		int oneTimePassword=RandomNumberGenerator.randomWithRange(1000, 5000);
-		String clientId=idValue+oneTimePassword;
-		String receiverEmailId=listOfUnregisteredUsers.get(0).getEmail();
-		
-		String emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
-		
-		System.out.println("message body "+emailMessageBody);
-		
-		
-		
-//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-//		MailMail mm = (MailMail) context.getBean("mailMail");
-//        mm.sendMail("from@no-spam.com",
-//        		receiverEmailId,
-//    		   "Verification Email for bank account",
-//    		   emailMessageBody);
-		
+		String idValue = (String) jsonJavaRootObject.get("id");
+
+		List<Customer> list = unregisteredCustomerRepository.findById(idValue);
+		String receiverEmailId = list.get(0).getEmail();
+
+		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+		MailMail mm = (MailMail) context.getBean("mailMail");
+		mm.sendMail("from@no-spam.com", receiverEmailId,
+				"Verification Email for bank account",
+				"Click this link to complete your sign up process");
 		return "Success";
 	}
 }

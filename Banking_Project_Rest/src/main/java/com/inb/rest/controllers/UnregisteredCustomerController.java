@@ -36,6 +36,15 @@ public class UnregisteredCustomerController {
 		return unregisteredCustomerService
 				.registerEnquiry(unregisteredCustomerPOJO);
 	}
+	
+	@RequestMapping(value="/customer",method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getCustomersByEmail(
+			@RequestBody String email) {
+		System.out.println("-->"+email);
+		return unregisteredCustomerService
+				.isEmailAlreadyExits(email);
+	}
+
 
 	@RequestMapping(value = "/uploadDocuments", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String uploadDocuments(

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.inb.rest.entity.Account;
 
 @Document(collection = "unregistered_customer")
-public class UnregisteredCustomer extends Person {
+public class UnregisteredCustomer extends Customer {
 	long enqId;
 
 	Account account;
