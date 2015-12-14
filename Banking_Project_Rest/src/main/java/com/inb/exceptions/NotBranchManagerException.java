@@ -13,7 +13,6 @@ public class NotBranchManagerException extends Exception {
 	}
 	
 	public NotBranchManagerException(String msg) {
-		System.out.println("Inside Exception :- "+msg);
 		this.message = this.message+"/"+msg;
 	}
 
