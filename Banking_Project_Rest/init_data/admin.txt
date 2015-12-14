@@ -1,6 +1,7 @@
 {
 	"userName": "admin",
 	"password": "password123",
+	"isLogin": "false",
 	"firstName": "Navin",
 	"lastName": "mahesh",
 	"email": "nm@gmail.com",

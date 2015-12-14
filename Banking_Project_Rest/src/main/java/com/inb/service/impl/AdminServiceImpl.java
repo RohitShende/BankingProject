@@ -3,6 +3,8 @@ package com.inb.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,6 +20,9 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
 
+	@Autowired
+	MongoOperations mongoOperations;
+	
 	public String login(String userName, String password) {
 		String adminJson = "";
 		try {
@@ -29,6 +34,8 @@ public class AdminServiceImpl implements AdminService {
 				throw new NotAdminException("Invalid Credentials");
 			}
 			admin =list.get(0);
+			admin.setLogin(true);
+			mongoOperations.save(admin);
 			ObjectMapper mapper = new ObjectMapper();
 			adminJson = mapper.writeValueAsString(admin);
 		} catch (JsonProcessingException e) {
@@ -58,5 +65,21 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return adminJson;
 
+	}
+
+	public String logout() throws JsonProcessingException {
+		String adminJson = "";
+		try {
+			BasicQuery basicQuery= new BasicQuery("{ \"userName\" : \"admin\" }");
+			Admin admin=mongoOperations.findOne(basicQuery, Admin.class);
+			ObjectMapper mapper = new ObjectMapper();
+			admin.setLogin(false);
+			mongoOperations.save(admin);
+			adminJson = mapper.writeValueAsString(admin);
+		} catch (JsonProcessingException e) {
+			adminJson = "{ \"error\" :\"JsonProcessingException\",\"message\": \""
+					+ e.getMessage() + "\"}";
+		}
+		return adminJson;
 	}
 }

@@ -25,7 +25,6 @@ abstract public class Person {
 
 
 	public void setLogin(boolean isLogin) {
-		System.out.println("inside isLogin() "+isLogin);
 		this.isLogin = isLogin;
 	}
 

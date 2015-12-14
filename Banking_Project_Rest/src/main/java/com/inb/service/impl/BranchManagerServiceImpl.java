@@ -97,7 +97,6 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 				if(branchManager!=null)
 				{
 					branchManager.setLogin(true);
-					System.out.println("bran "+branchManager.getId());
 					mongoOperations.save(branchManager);
 					branchManagerJson = mapper.writeValueAsString(branchManager);
 				}
@@ -173,7 +172,6 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 					branchManager.setLogin(false);
 					mongoOperations.save(branchManager);
 					branchManagerJson = mapper.writeValueAsString(branchManager);
-					System.out.println("Branch Manager Logged Out");
 				}
 				else
 				{

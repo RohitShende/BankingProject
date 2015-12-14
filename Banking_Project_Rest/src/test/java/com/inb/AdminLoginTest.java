@@ -16,7 +16,7 @@ public class AdminLoginTest {
 	@Before
 	public static void init(){
 		client = Client.create();
-		target = client.resource("http://localhost:8080/loginAdmin");
+		target = client.resource("http://localhost:8080/admin/login");
 	}
 
 	@Test
@@ -24,7 +24,7 @@ public class AdminLoginTest {
 		String input = "{\"username\":\"nm\",\"password\":\"nm\"}";
 		String result = target.accept("application/json")
 				.type("application/json").post(String.class, input);
-		String expected = "{\"id\":\"5666bd07f1bdf2fa152fde6e\",\"firstName\":\"Navin\",\"lastName\":\"mahesh\",\"email\":\"nm@gmail.com\",\"phone\":123,\"address\":\"MYaddress\",\"dateOfBirth\":1417977000000,\"username\":\"nm\",\"password\":\"nm\"}";
+		String expected = "{\"id\":\"5666bd07f1bdf2fa152fde6e\",\"firstName\":\"Navin\",\"lastName\":\"mahesh\",\"email\":\"nm@gmail.com\",\"phone\":123,\"address\":\"MYaddress\",\"dateOfBirth\":1417977000000,\"username\":\"admin\",\"password\":\"password123\"}";
 		Assert.assertEquals(expected, result);
 	}
 
