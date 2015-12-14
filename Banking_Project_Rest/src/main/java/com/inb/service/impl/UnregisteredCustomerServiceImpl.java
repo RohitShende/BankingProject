@@ -30,11 +30,18 @@ public class UnregisteredCustomerServiceImpl implements
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
-		System.out.println("in serviceImpl");
+		List<UnregisteredCustomer> list = unregisteredCustomerRepository
+				.getUserByEmail(unregisteredCustomerPOJO.getEmail());
+		System.out.println("--->" + list.size());
+		if (list.size() != 0) {
+			return "{ \"Exception\":\"Application with same email is under Process\" , \"EnquiryId\" : \""
+					+ list.get(0).getEnqId() + "\" }";
+		}
+
 		UnregisteredCustomer unregisteredCustomer = unregisteredCustomerRepository
-				.save(conversionToCollection(unregisteredCustomerPOJO));
+				.save(unregisteredCustomerPOJOTounregisteredCustomer(unregisteredCustomerPOJO));
 		String json = "";
-		
+
 		if (unregisteredCustomer == null) {
 			return "{ \"Exception\":\"User already Exist\" }";
 		} else {
@@ -48,7 +55,7 @@ public class UnregisteredCustomerServiceImpl implements
 		}
 	}
 
-	public UnregisteredCustomer conversionToCollection(
+	public UnregisteredCustomer unregisteredCustomerPOJOTounregisteredCustomer(
 			UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
 		UnregisteredCustomer unregisteredCustomer = new UnregisteredCustomer();
 		unregisteredCustomer.setAccount(unregisteredCustomerPOJO.getAccount());
@@ -65,64 +72,56 @@ public class UnregisteredCustomerServiceImpl implements
 		return unregisteredCustomer;
 	}
 
-	
 	public String verifyUnregisteredUsers() throws JsonProcessingException {
-		String unregisteredUsersJson="No Requests";
-		List<UnregisteredCustomer> listOfUsers=unregisteredCustomerRepository.findAll();
-		
-		if(listOfUsers!=null)
-		{
-			unregisteredUsersJson=mapper.writeValueAsString(listOfUsers);
+		String unregisteredUsersJson = "No Requests";
+		List<UnregisteredCustomer> listOfUsers = unregisteredCustomerRepository
+				.findAll();
+
+		if (listOfUsers != null) {
+			unregisteredUsersJson = mapper.writeValueAsString(listOfUsers);
 		}
 		return unregisteredUsersJson;
 	}
-	
-	
-	
-	public String viewUnregisteredUserDetails(String id) throws JsonProcessingException {
-		String unregisteredUsersJson="{ \"Error\": \"No Requests\"}";;
-		
-		
+
+	public String viewUnregisteredUserDetails(String id)
+			throws JsonProcessingException {
+		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
+		;
+
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-		
-		List<BranchManager> listOfRequests=unregisteredCustomerRepository.findById(idValue);
+		String idValue = (String) jsonJavaRootObject.get("id");
+
+		List<BranchManager> listOfRequests = unregisteredCustomerRepository
+				.findById(idValue);
 		System.out.println(listOfRequests.get(0).getFirstName());
-		
-		if(listOfRequests!=null)
-		{
-		
-			if(listOfRequests.size()!=0)
-				unregisteredUsersJson=mapper.writeValueAsString(listOfRequests);
+
+		if (listOfRequests != null) {
+
+			if (listOfRequests.size() != 0)
+				unregisteredUsersJson = mapper
+						.writeValueAsString(listOfRequests);
 		}
-		
+
 		return unregisteredUsersJson;
 	}
-	
-	
-	
+
 	public String sendEmail(String id) {
-		
-		
+
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-		
-		//id= "566a66788a2775adbca5964d";
-		
-		
-		List<BranchManager> list=unregisteredCustomerRepository.findById(idValue);
-		String receiverEmailId=list.get(0).getEmail();
+		String idValue = (String) jsonJavaRootObject.get("id");
+
+		// id= "566a66788a2775adbca5964d";
+
+		List<BranchManager> list = unregisteredCustomerRepository
+				.findById(idValue);
+		String receiverEmailId = list.get(0).getEmail();
 		System.out.println(receiverEmailId);
 
 		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 		MailMail mm = (MailMail) context.getBean("mailMail");
-        mm.sendMail("from@no-spam.com",
-        		receiverEmailId,
-    		   "Verification Email for bank account", 
-    		   "Click this link to complete your sign up process");
+		mm.sendMail("from@no-spam.com", receiverEmailId,
+				"Verification Email for bank account",
+				"Click this link to complete your sign up process");
 		return "Success";
 	}
 }
-
-
-

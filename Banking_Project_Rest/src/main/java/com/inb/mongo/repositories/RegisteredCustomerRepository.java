@@ -6,5 +6,6 @@ import com.inb.mongo.collections.RegisteredCustomer;
 
 public interface RegisteredCustomerRepository extends
 		MongoRepository<RegisteredCustomer, String> {
-
+	
+	
 }
