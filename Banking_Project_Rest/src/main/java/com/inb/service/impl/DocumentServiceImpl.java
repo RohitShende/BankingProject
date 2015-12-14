@@ -1,12 +1,14 @@
 package com.inb.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.inb.mongo.collections.Documents;
 import com.inb.mongo.repositories.DocumentsRepositiory;
 import com.inb.service.interfaces.DocumentService;
@@ -18,6 +20,8 @@ public class DocumentServiceImpl implements DocumentService {
 	private DocumentsRepositiory documentsRepositiory;
 //	private FileOutputStream fout;
 
+	ObjectMapper mapper = new ObjectMapper();
+	
 	public String uploadDocument(Documents documents) {
 		Documents documents2 = documentsRepositiory.save(documents);
 
@@ -37,22 +41,45 @@ public class DocumentServiceImpl implements DocumentService {
 
 	}
 
-	public Documents retriveDocumentForClientId(String id) {
-		
-			//id = "123";
-			List<Documents> documents = documentsRepositiory.findById(id);
+	public String retriveAddressProofDocumentForClientId(String id) throws JsonProcessingException {
+	
+		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+        String idValue=(String) jsonJavaRootObject.get("id");
+        
+        
+			List<Documents> documents = documentsRepositiory.findById(idValue);
 			System.out.println("-->"+documents);
-			byte[] bytes = documents.get(0).getAgeProof();
+			byte[] bytes = documents.get(0).getAddressProof();
 			
-			System.out.println(bytes);
+		
 			//fout = new FileOutputStream("D:/try.jpg");
-			
+	
 			//fout.write(bytes);
 			//System.out.println("copy done..");
 			//stream.close();
-
+			String retrieveUserDocumentsJson=mapper.writeValueAsString(bytes);
 		
-		return null;
+		return retrieveUserDocumentsJson;
 	}
 
+	public String retriveAgeProofDocumentForClientId(String id) throws JsonProcessingException {
+
+		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+        String idValue=(String) jsonJavaRootObject.get("id");
+        
+			List<Documents> documents = documentsRepositiory.findById(idValue);
+			System.out.println("-->"+documents);
+			byte[] bytes = documents.get(0).getAgeProof();
+			
+	
+			//fout = new FileOutputStream("D:/try.jpg");
+	
+			//fout.write(bytes);
+			//System.out.println("copy done..");
+			//stream.close();
+			String retrieveUserDocumentsJson=mapper.writeValueAsString(bytes);
+		
+		return retrieveUserDocumentsJson;
+	}
+	
 }

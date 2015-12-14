@@ -20,5 +20,5 @@ public interface UnregisteredCustomerRepository extends
 	public List<Person> getUserByEmail(String email);
 	
 	@Query(value="{_id : ?0}")
-	public List<BranchManager> findById(String id);
+	public List<Person> findById(String id);
 }

@@ -75,54 +75,56 @@ public class UnregisteredCustomerServiceImpl implements
 	}
 
 	public String verifyUnregisteredUsers() throws JsonProcessingException {
-		String unregisteredUsersJson = "No Requests";
-		List<Person> listOfUsers = unregisteredCustomerRepository.findAll();
-
-		if (listOfUsers != null) {
-			unregisteredUsersJson = mapper.writeValueAsString(listOfUsers);
+		String unregisteredUsersJson="No Requests";
+		List<Person> listOfUsers=unregisteredCustomerRepository.findAll();
+		
+		if(listOfUsers!=null)
+		{
+			unregisteredUsersJson=mapper.writeValueAsString(listOfUsers);
 		}
 		return unregisteredUsersJson;
 	}
-
-	public String viewUnregisteredUserDetails(String id)
-			throws JsonProcessingException {
-		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
-		;
-
+	
+	
+	
+	public String viewUnregisteredUserDetails(String id) throws JsonProcessingException {
+		String unregisteredUsersJson="{ \"Error\": \"No Requests\"}";;
+		
+		
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		String idValue = (String) jsonJavaRootObject.get("id");
-
-		List<BranchManager> listOfRequests = unregisteredCustomerRepository
-				.findById(idValue);
-		System.out.println(listOfRequests.get(0).getFirstName());
-
-		if (listOfRequests != null) {
-
-			if (listOfRequests.size() != 0)
-				unregisteredUsersJson = mapper
-						.writeValueAsString(listOfRequests);
+        String idValue=(String) jsonJavaRootObject.get("id");
+		
+		List<Person> listOfRequests=unregisteredCustomerRepository.findById(idValue);
+	
+	
+		if(listOfRequests!=null)
+		{
+		
+			if(listOfRequests.size()!=0)
+				unregisteredUsersJson=mapper.writeValueAsString(listOfRequests);
 		}
-
+		
 		return unregisteredUsersJson;
 	}
-
+	
+	
+	
 	public String sendEmail(String id) {
-
+		
+		
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		String idValue = (String) jsonJavaRootObject.get("id");
+        String idValue=(String) jsonJavaRootObject.get("id");
+			
+		List<Person> list=unregisteredCustomerRepository.findById(idValue);
+		String receiverEmailId=list.get(0).getEmail();
 
-		// id= "566a66788a2775adbca5964d";
-
-		List<BranchManager> list = unregisteredCustomerRepository
-				.findById(idValue);
-		String receiverEmailId = list.get(0).getEmail();
-		System.out.println(receiverEmailId);
 
 		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 		MailMail mm = (MailMail) context.getBean("mailMail");
-		mm.sendMail("from@no-spam.com", receiverEmailId,
-				"Verification Email for bank account",
-				"Click this link to complete your sign up process");
+        mm.sendMail("from@no-spam.com",
+        		receiverEmailId,
+    		   "Verification Email for bank account", 
+    		   "Click this link to complete your sign up process");
 		return "Success";
 	}
 }

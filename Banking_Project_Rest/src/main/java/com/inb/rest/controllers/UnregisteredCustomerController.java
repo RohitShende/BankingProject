@@ -1,5 +1,7 @@
 package com.inb.rest.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.inb.mongo.collections.Documents;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
 import com.inb.service.interfaces.DocumentService;
@@ -71,11 +75,25 @@ public class UnregisteredCustomerController {
 		return unregisteredCustomerService.viewUnregisteredUserDetails(id);
 	}
 	
-//	@RequestMapping(value="/sendRegistrationEmail", method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody String sendRegistrationEmail(@RequestBody String id) throws JsonParseException, JsonMappingException, IOException
-//	{
-//		System.out.println(id);
-//		unregisteredCustomerService.sendEmail(id);
-//		return id;
-//	}
+	@RequestMapping(value="/retrieveAddressProofDocuments",method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String retrieveAddressProofDocuments(@RequestBody String id) throws JsonProcessingException
+	{
+		return documentService.retriveAddressProofDocumentForClientId(id);
+	}
+	
+	@RequestMapping(value="/retrieveAgeProofDocuments",method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String retrieveDocuments(@RequestBody String id) throws JsonProcessingException
+	{
+
+		return documentService.retriveAgeProofDocumentForClientId(id);
+	}
+	
+	
+	@RequestMapping(value="/sendRegistrationEmail", method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String sendRegistrationEmail(@RequestBody String id) throws JsonParseException, JsonMappingException, IOException
+	{
+		
+		unregisteredCustomerService.sendEmail(id);
+		return id;
+	}
 }
