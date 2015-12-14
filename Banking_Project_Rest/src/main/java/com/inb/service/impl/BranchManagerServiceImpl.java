@@ -96,6 +96,9 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{
+					branchManager.setLogin(true);
+					System.out.println("bran "+branchManager.getId());
+					mongoOperations.save(branchManager);
 					branchManagerJson = mapper.writeValueAsString(branchManager);
 				}
 				else
@@ -160,16 +163,15 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		return branchManagerJson;
 	}
 
-
 	public String logout(String userName) throws JsonProcessingException {
 		String branchManagerJson;
 		try {
-				BasicQuery basicQuery= new BasicQuery("{ userName : \""+userName+"\" }");
+				BasicQuery basicQuery= new BasicQuery(userName);
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{
-					branchManager.setLogin(true);
-					mongoOperations.save(branchManager, branchManager.getId());
+					branchManager.setLogin(false);
+					mongoOperations.save(branchManager);
 					branchManagerJson = mapper.writeValueAsString(branchManager);
 					System.out.println("Branch Manager Logged Out");
 				}
