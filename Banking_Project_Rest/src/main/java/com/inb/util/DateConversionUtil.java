@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.inb.mongo.collections.BranchManager;
-import com.inb.mongo.collections.UnregisteredCustomer;
 
 public class DateConversionUtil {
 	
