@@ -3,8 +3,6 @@
  */
 package com.inb.rest.controllers;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
@@ -29,6 +25,7 @@ import com.inb.service.interfaces.BranchManagerService;
  */
 @CrossOrigin
 @RestController
+@RequestMapping(value="/branchmanager")
 public class BranchManagerController {
 	
 	ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +33,7 @@ public class BranchManagerController {
 	@Autowired
 	private BranchManagerService branchManagerService;
 	
-	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) throws JsonProcessingException {
 			
 			String result=branchManagerService.insertBranchManager(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
@@ -46,12 +43,12 @@ public class BranchManagerController {
 			return result;
 	}
 	
-	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/login", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
-	@RequestMapping(value="/viewBranchManagers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranchManagers() throws JsonProcessingException
 	{
 		return branchManagerService.viewBranchManagers();
