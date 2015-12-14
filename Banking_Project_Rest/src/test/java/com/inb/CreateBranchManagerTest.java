@@ -19,7 +19,7 @@ public class CreateBranchManagerTest {
 	public static void init(){
 	
 		client=Client.create();
-		target = client.resource("http://localhost:8080/addBranchManager");
+		target = client.resource("http://localhost:8080/branchmanager/");
 	}
 	
 	@Test
