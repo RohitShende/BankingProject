@@ -29,6 +29,7 @@ import com.inb.service.interfaces.BranchManagerService;
  */
 @CrossOrigin
 @RestController
+@RequestMapping(value="/branchmanager")
 public class BranchManagerController {
 	
 	ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +37,7 @@ public class BranchManagerController {
 	@Autowired
 	private BranchManagerService branchManagerService;
 	
-	@RequestMapping(value="/addBranchManager", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) throws JsonProcessingException {
 			
 			String result=branchManagerService.insertBranchManager(new BranchManager(branchManager.getFirstName(), branchManager.getLastName(), branchManager.getEmail(),
@@ -46,12 +47,12 @@ public class BranchManagerController {
 			return result;
 	}
 	
-	@RequestMapping(value="/loginBranchManager", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/login", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
-	@RequestMapping(value="/viewBranchManagers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranchManagers() throws JsonProcessingException
 	{
 		return branchManagerService.viewBranchManagers();
