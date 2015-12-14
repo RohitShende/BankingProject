@@ -13,10 +13,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.inb.mongo.collections.Person;
 import com.inb.mongo.collections.UnregisteredCustomer;
+import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
 import com.inb.service.interfaces.UnregisteredCustomerService;
 import com.inb.util.MailMail;
+import com.inb.util.RandomNumberGenerator;
 
 @Service
 public class UnregisteredCustomerServiceImpl implements
@@ -24,9 +26,13 @@ public class UnregisteredCustomerServiceImpl implements
 
 	ObjectMapper mapper = new ObjectMapper();
 	private ApplicationContext context;
+	
 	@Autowired
 	UnregisteredCustomerRepository unregisteredCustomerRepository;
 
+	@Autowired
+	RegisteredCustomerRepository registeredCustomerRepository;
+	
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
@@ -114,16 +120,25 @@ public class UnregisteredCustomerServiceImpl implements
 		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
         String idValue=(String) jsonJavaRootObject.get("id");
 			
-		List<Person> list=unregisteredCustomerRepository.findById(idValue);
-		String receiverEmailId=list.get(0).getEmail();
-
-
-		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-		MailMail mm = (MailMail) context.getBean("mailMail");
-        mm.sendMail("from@no-spam.com",
-        		receiverEmailId,
-    		   "Verification Email for bank account", 
-    		   "Click this link to complete your sign up process");
+		List<Person> listOfUnregisteredUsers=unregisteredCustomerRepository.findById(idValue);
+			
+		int oneTimePassword=RandomNumberGenerator.randomWithRange(1000, 5000);
+		String clientId=idValue+oneTimePassword;
+		String receiverEmailId=listOfUnregisteredUsers.get(0).getEmail();
+		
+		String emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
+		
+		System.out.println("message body "+emailMessageBody);
+		
+		
+		
+//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+//		MailMail mm = (MailMail) context.getBean("mailMail");
+//        mm.sendMail("from@no-spam.com",
+//        		receiverEmailId,
+//    		   "Verification Email for bank account",
+//    		   emailMessageBody);
+		
 		return "Success";
 	}
 }
