@@ -17,13 +17,13 @@ public class CreateBranchTest {
 	@BeforeClass
 	public static void init(){
 		client = Client.create();
-		target = client.resource("http://localhost:8080/branch");	
+		target = client.resource("http://localhost:8080/branch/");	
 	}
 	
 	@Test
 	public void testCreateBranch()
 	{
-		String input="{\"ifscCode\":\"BANK00100\",\"branchName\":\"FCRoad\",\"contact\":123123123,"
+		String input="{\"ifscCode\":\"BANK001000\",\"branchName\":\"FCRoad\",\"contact\":123123123,"
 				+ "\"address\":\"FCRoad,Pune\"}";
 		 ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 		 Assert.assertEquals(200,response.getStatus());
@@ -31,7 +31,7 @@ public class CreateBranchTest {
 	
 	@Test
 	public void testBranchExists(){
-		String input="{\"ifscCode\":\"BANK00100\",\"branchName\":\"FCRoad\",\"contact\":123123123,"
+		String input="{\"ifscCode\":\"BANK001000\",\"branchName\":\"FCRoad\",\"contact\":123123123,"
 				+ "\"address\":\"FCRoad,Pune\"}";
 	    String result=target.accept("application/json").type("application/json").post(String.class,input);
 	    String expected="{ \"Exception \": \"BranchAlreadyExistException\" }";
