@@ -165,7 +165,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	public String logout(String userName) throws JsonProcessingException {
 		String branchManagerJson;
 		try {
-				BasicQuery basicQuery= new BasicQuery(userName);
+				BasicQuery basicQuery= new BasicQuery("{\"userName\":\""+userName+"\"}");
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{

@@ -49,8 +49,8 @@ public class BranchManagerController {
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String logoutBranchManager(@RequestBody String userName) throws JsonProcessingException{
-		return branchManagerService.logout(userName);
+	public @ResponseBody String logoutBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
+		return branchManagerService.logout(loginDetails.getUserName());
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
