@@ -1,8 +1,5 @@
 package com.inb.service.impl;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Autowired
 	private DocumentsRepositiory documentsRepositiory;
-	private FileOutputStream fout;
+//	private FileOutputStream fout;
 
 	public String uploadDocument(Documents documents) {
 		Documents documents2 = documentsRepositiory.save(documents);
