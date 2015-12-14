@@ -3,18 +3,14 @@ package com.inb.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.inb.exceptions.BranchManagerExistsException;
 import com.inb.exceptions.InvalidInputException;
 import com.inb.exceptions.NotBranchManagerException;
@@ -22,7 +18,6 @@ import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchManagerRepository;
 import com.inb.service.interfaces.BranchManagerService;
 import com.inb.util.DateConversionUtil;
-import com.inb.util.MailMail;
 
 @Service
 public class BranchManagerServiceImpl implements BranchManagerService {
@@ -33,7 +28,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	@Autowired
 	private MongoOperations mongoOperations;
-	private ApplicationContext context;
+//	private ApplicationContext context;
 	
 	public BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException, InvalidInputException  {
 		
