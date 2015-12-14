@@ -1,7 +1,6 @@
 package com.inb.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.RegisteredCustomer;
@@ -12,7 +11,7 @@ import com.inb.service.interfaces.RegisteredCustomerService;
 
 public class RegisteredCustomerServiceImpl implements RegisteredCustomerService {
 	ObjectMapper mapper = new ObjectMapper();
-	private ApplicationContext context;
+//	private ApplicationContext context;
 	@Autowired
 	RegisteredCustomerRepository registeredCustomerRepository;
 	@Autowired

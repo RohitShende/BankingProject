@@ -16,8 +16,20 @@ abstract public class Person {
 	private String address;
 	private Date dateOfBirth;
 	private Branch branch;
+	private boolean isLogin;
 	
-	
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+
+
+
 	public Person() {
 		super();
 	}

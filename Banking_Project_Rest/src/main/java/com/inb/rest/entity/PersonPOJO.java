@@ -11,8 +11,20 @@ abstract public class PersonPOJO {
 	private String address;
 	private Date dateOfBirth;
 	private BranchPOJO branchPOJO;
+	private boolean isLogin;
 	
-	
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+
+
+
 	public BranchPOJO getBranchPOJO() {
 		return branchPOJO;
 	}
