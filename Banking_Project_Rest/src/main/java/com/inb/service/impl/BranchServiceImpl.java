@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchAlreadyExistException;
 import com.inb.mongo.collections.Branch;
-import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchRepository;
 import com.inb.service.interfaces.BranchService;
 
