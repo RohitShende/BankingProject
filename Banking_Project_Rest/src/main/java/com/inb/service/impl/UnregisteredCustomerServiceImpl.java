@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.inb.mongo.collections.BranchManager;
+import com.inb.mongo.collections.Person;
 import com.inb.mongo.collections.UnregisteredCustomer;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
@@ -30,12 +31,13 @@ public class UnregisteredCustomerServiceImpl implements
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
-		List<UnregisteredCustomer> list = unregisteredCustomerRepository
-				.getUserByEmail(unregisteredCustomerPOJO.getEmail());
+		String email = unregisteredCustomerPOJO.getEmail();
+		List<Person> list = unregisteredCustomerRepository
+				.getUserByEmail(email);
 		System.out.println("--->" + list.size());
 		if (list.size() != 0) {
 			return "{ \"Exception\":\"Application with same email is under Process\" , \"EnquiryId\" : \""
-					+ list.get(0).getEnqId() + "\" }";
+					+ list.get(0).getId() + "\" }";
 		}
 
 		UnregisteredCustomer unregisteredCustomer = unregisteredCustomerRepository
@@ -74,8 +76,7 @@ public class UnregisteredCustomerServiceImpl implements
 
 	public String verifyUnregisteredUsers() throws JsonProcessingException {
 		String unregisteredUsersJson = "No Requests";
-		List<UnregisteredCustomer> listOfUsers = unregisteredCustomerRepository
-				.findAll();
+		List<Person> listOfUsers = unregisteredCustomerRepository.findAll();
 
 		if (listOfUsers != null) {
 			unregisteredUsersJson = mapper.writeValueAsString(listOfUsers);
