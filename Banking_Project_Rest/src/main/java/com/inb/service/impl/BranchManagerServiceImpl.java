@@ -116,39 +116,39 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	}
 
 
-	public String verifyUnregisteredUsers() throws JsonProcessingException {
-		String branchManagerJson="No Requests";
-		List<BranchManager> listOfUsers=branchManagerRepository.findAll();
-		
-		if(listOfUsers!=null)
-		{
-			branchManagerJson=mapper.writeValueAsString(listOfUsers);
-		}
-		return branchManagerJson;
-	}
+//	public String verifyUnregisteredUsers() throws JsonProcessingException {
+//		String branchManagerJson="No Requests";
+//		List<BranchManager> listOfUsers=branchManagerRepository.findAll();
+//		
+//		if(listOfUsers!=null)
+//		{
+//			branchManagerJson=mapper.writeValueAsString(listOfUsers);
+//		}
+//		return branchManagerJson;
+//	}
 
 
-	public String sendEmail(String id) {
-		
-		
-		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-		
-		//id= "566a66788a2775adbca5964d";
-		
-		
-		List<BranchManager> list=branchManagerRepository.findById(idValue);
-		String receiverEmailId=list.get(0).getEmail();
-		System.out.println(receiverEmailId);
-
-		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-		MailMail mm = (MailMail) context.getBean("mailMail");
-        mm.sendMail("from@no-spam.com",
-        		receiverEmailId,
-    		   "Verification Email for bank account", 
-    		   "Click this link to complete your sign up process");
-		return "Success";
-	}
+//	public String sendEmail(String id) {
+//		
+//		
+//		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+//        String idValue=(String) jsonJavaRootObject.get("id");
+//		
+//		//id= "566a66788a2775adbca5964d";
+//		
+//		
+//		List<BranchManager> list=branchManagerRepository.findById(idValue);
+//		String receiverEmailId=list.get(0).getEmail();
+//		System.out.println(receiverEmailId);
+//
+//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+//		MailMail mm = (MailMail) context.getBean("mailMail");
+//        mm.sendMail("from@no-spam.com",
+//        		receiverEmailId,
+//    		   "Verification Email for bank account", 
+//    		   "Click this link to complete your sign up process");
+//		return "Success";
+//	}
 
 
 	public String viewBranchManagers() throws JsonProcessingException {

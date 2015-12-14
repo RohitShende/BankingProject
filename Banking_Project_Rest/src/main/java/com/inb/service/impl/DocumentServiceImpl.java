@@ -41,22 +41,20 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	public Documents retriveDocumentForClientId(String id) {
-		try {
-			id = "123";
+		
+			//id = "123";
 			List<Documents> documents = documentsRepositiory.findById(id);
 			System.out.println("-->"+documents);
 			byte[] bytes = documents.get(0).getAgeProof();
-			fout = new FileOutputStream("D:/try.jpg");
 			
-			fout.write(bytes);
-			System.out.println("copy done..");
+			System.out.println(bytes);
+			//fout = new FileOutputStream("D:/try.jpg");
+			
+			//fout.write(bytes);
+			//System.out.println("copy done..");
 			//stream.close();
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 		return null;
 	}
 
