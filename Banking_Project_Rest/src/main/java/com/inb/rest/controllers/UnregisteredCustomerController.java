@@ -23,6 +23,7 @@ import com.inb.service.interfaces.UnregisteredCustomerService;
 
 @CrossOrigin
 @RestController
+@RequestMapping(value="/unregistereduser")
 public class UnregisteredCustomerController {
 
 	@Autowired
@@ -46,8 +47,8 @@ public class UnregisteredCustomerController {
 	}
 
 	
-	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String verifyUnregisteredUsers() throws JsonProcessingException
+	@RequestMapping(value="/{skip}/{limit}", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String verifyUnregisteredUsers(@PathVariable int skip, @PathVariable int limit) throws JsonProcessingException
 	{
 		return unregisteredCustomerService.verifyUnregisteredUsers();
 	}
