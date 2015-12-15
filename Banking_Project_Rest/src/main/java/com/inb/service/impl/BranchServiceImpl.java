@@ -1,6 +1,5 @@
 package com.inb.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchAlreadyExistException;
 import com.inb.mongo.collections.Branch;
 import com.inb.mongo.repositories.BranchRepository;
-import com.inb.rest.entity.BranchPOJO;
 import com.inb.service.interfaces.BranchService;
 
 @Service
@@ -51,13 +49,13 @@ public class BranchServiceImpl implements BranchService{
 	}
 
 
-	public List<Branch> getAllBranchs() {
+	/*public List<Branch> getAllBranchs() {
 		List<Branch> branch = new ArrayList<Branch>();
-		/*branch.add(new Branch("456","xyz", "indore",9875));
-		branch.add(new Branch("123","abc", "pune",12345));*/
+		branch.add(new Branch("456","xyz", "indore",9875));
+		branch.add(new Branch("123","abc", "pune",12345));
 		return branch;
 		
-	}
+	}*/
 	
 	public String viewBranchRange(int start,int end) throws JsonProcessingException
 	{
