@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchAlreadyExistException;
 import com.inb.mongo.collections.Branch;
 import com.inb.mongo.repositories.BranchRepository;
+import com.inb.rest.entity.BranchPOJO;
 import com.inb.service.interfaces.BranchService;
 
 @Service
@@ -52,9 +53,22 @@ public class BranchServiceImpl implements BranchService{
 
 	public List<Branch> getAllBranchs() {
 		List<Branch> branch = new ArrayList<Branch>();
-		branch.add(new Branch("456","xyz", "indore",9875));
-		branch.add(new Branch("123","abc", "pune",12345));
+		/*branch.add(new Branch("456","xyz", "indore",9875));
+		branch.add(new Branch("123","abc", "pune",12345));*/
 		return branch;
+		
+	}
+	
+	public String viewBranchRange(int start,int end) throws JsonProcessingException
+	{
+		BasicQuery basicQuery= new BasicQuery("{}");
+		basicQuery.skip(start);
+		basicQuery.limit(end);
+		List<Branch> listOfBranches = mongoOperations.find(basicQuery, Branch.class);
+		
+		String result=mapper.writeValueAsString(listOfBranches);	
+		System.out.println(result);
+		return result;
 		
 	}
 
@@ -66,7 +80,6 @@ public class BranchServiceImpl implements BranchService{
 		
 		if(listOfBranches!=null)
 		{
-			
 			if(listOfBranches.size()!=0)
 				branchJson=mapper.writeValueAsString(listOfBranches);
 		}

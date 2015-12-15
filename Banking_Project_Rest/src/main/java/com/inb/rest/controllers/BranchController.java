@@ -6,6 +6,7 @@ package com.inb.rest.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,13 @@ public class BranchController {
 		return branchService.insert(BranchUtil.convertBranchPojoToBranch(branchPOJO));
 
 	}
+	
+	@RequestMapping(value = "/{start}/{end}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewBranchRange(@PathVariable("start") int start, @PathVariable("end") int end) throws JsonProcessingException {
+
+		return branchService.viewBranchRange(start, end);
+	}
+
 	
 	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranches() throws JsonProcessingException
