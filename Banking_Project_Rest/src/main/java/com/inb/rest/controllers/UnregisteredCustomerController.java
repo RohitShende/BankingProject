@@ -38,7 +38,7 @@ public class UnregisteredCustomerController {
 				.registerEnquiry(unregisteredCustomerPOJO);
 	}
 
-	@RequestMapping(value="/",method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getCustomersByEmail(
 			@QueryParam("email") String email) {
 		System.out.println("-->"+email);
