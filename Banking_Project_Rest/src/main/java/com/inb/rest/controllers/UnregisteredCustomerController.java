@@ -23,7 +23,7 @@ import com.inb.service.interfaces.UnregisteredCustomerService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/unregistereduser")
+@RequestMapping(value = "/unregistereduser")
 public class UnregisteredCustomerController {
 
 	@Autowired
@@ -34,38 +34,33 @@ public class UnregisteredCustomerController {
 	@RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String registerEnquiry(
 			@RequestBody UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
+
 		return unregisteredCustomerService
 				.registerEnquiry(unregisteredCustomerPOJO);
 	}
 
-	@RequestMapping(method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getCustomersByEmail(
 			@QueryParam("email") String email) {
-		System.out.println("-->"+email);
-		return unregisteredCustomerService
-				.isEmailAlreadyExits(email);
+
+		return unregisteredCustomerService.isEmailAlreadyExits(email);
 	}
 
-	
-	@RequestMapping(value="/{skip}/{limit}", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String verifyUnregisteredUsers(@PathVariable int skip, @PathVariable int limit) throws JsonProcessingException
-	{
+	@RequestMapping(value = "/{skip}/{limit}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String verifyUnregisteredUsers(@PathVariable int skip,
+			@PathVariable int limit) throws JsonProcessingException {
 		return unregisteredCustomerService.verifyUnregisteredUsers();
 	}
 
-
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String viewUnregisteredUserDetails(@PathVariable String id) throws JsonProcessingException
-	{
-		System.out.println("-->"+id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewUnregisteredUserDetails(
+			@PathVariable String id) throws JsonProcessingException {
 		return unregisteredCustomerService.viewUnregisteredUserDetails(id);
 	}
 
-	
-	@RequestMapping(value="/email/{id}", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String sendRegistrationEmail(@PathVariable String id) throws JsonParseException, JsonMappingException, IOException
-	{
+	@RequestMapping(value = "/email/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String sendRegistrationEmail(@PathVariable String id)
+			throws JsonParseException, JsonMappingException, IOException {
 		unregisteredCustomerService.sendEmail(id);
 		return id;
 	}

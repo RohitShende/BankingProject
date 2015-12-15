@@ -48,16 +48,19 @@ public class UnregisteredCustomerServiceImpl implements
 	}
 
 	public String isEmailAlreadyExits(String email) {
-		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(email, Map.class);
-		// String emailValue = (String) jsonJavaRootObject.get("email");
-		String emailValue = email;
-		System.out.println("--->" + emailValue);
-		List<Customer> list = unregisteredCustomerRepository
-				.getUserByEmail(emailValue);
-
-		System.out.println("--->" + list.size());
-		if (list.size() != 0) {
-			return "{ \"alreadyExists\":\"true\" }";
+		
+		Customer customer = getUserByEmail(email);
+		String json = "";
+		if (customer != null) {
+			
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				json = mapper.writeValueAsString(customer);
+			} catch (JsonProcessingException e) {
+				return "{\"Exception\":\"Parsing Error\"}";
+			}
+			
+			return json;
 		}
 		return "{\"alreadyExists\" : \"false\"}";
 	}
@@ -110,6 +113,22 @@ public class UnregisteredCustomerServiceImpl implements
 		}
 
 		return unregisteredUsersJson;
+	}
+	
+	public Customer  getUserByEmail(String email) {
+		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(email, Map.class);
+		// String emailValue = (String) jsonJavaRootObject.get("email");
+		String emailValue = email;
+		System.out.println("--->" + emailValue);
+		List<Customer> list = unregisteredCustomerRepository
+				.getUserByEmail(emailValue);
+		String json="";
+		System.out.println("--->" + list.size());
+		if (list.size() != 0) {
+			
+			return list.get(0);
+		}
+		return null;
 	}
 
 	public String sendEmail(String id) {

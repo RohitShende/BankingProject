@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.Customer;
 import com.inb.mongo.collections.RegisteredCustomer;
+import com.inb.mongo.collections.UnregisteredCustomer;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
@@ -17,7 +18,7 @@ import com.inb.service.interfaces.RegisteredCustomerService;
 @Service
 public class RegisteredCustomerServiceImpl implements RegisteredCustomerService {
 	ObjectMapper mapper = new ObjectMapper();
-//	private ApplicationContext context;
+	// private ApplicationContext context;
 	@Autowired
 	RegisteredCustomerRepository registeredCustomerRepository;
 	@Autowired
@@ -30,8 +31,6 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 
 		if (list.size() != 0) {
 			return "{ \"Exception\":\"Application with same email is under Process\" , \"EnquiryId\" : \""
-					// + ((UnregisteredCustomer) list.get(0)).getEnqId() +
-					// "\" }";
 					+ list.get(0).getId() + "\" }";
 		}
 
@@ -40,8 +39,8 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 
 		registeredCustomerRepository
 				.save(registeredCustomerPOJOToRegisterCustomer(registeredCustomerPOJO));
-		String json = "";
 
+		String json = "";
 		if (unregisteredCustomer == null) {
 			return "{ \"Exception\":\"User already Exist\" }";
 		} else {
@@ -70,7 +69,8 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		registeredCustomer.setCustomerId(registeredCustomer.getCustomerId());
 		registeredCustomer.setLastName(registeredCustomerPOJO.getLastName());
 		registeredCustomer.setPhone(registeredCustomerPOJO.getPhone());
-		registeredCustomer.setCustomerId(registeredCustomerPOJO.getCustomerId());
+		registeredCustomer
+				.setCustomerId(registeredCustomerPOJO.getCustomerId());
 		return registeredCustomer;
 	}
 
@@ -90,4 +90,22 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return registeredCustomer;
 	}
 
+	public String getRegisteredUserById(String id) {
+		List<UnregisteredCustomer> list = registeredCustomerRepository
+				.findBycustomerId(Long.parseLong(id));
+		String json = "";
+		if (list.size() == 0) {
+			return "{ \"Exception\":\"No such user\" }";
+		} else {
+			ObjectMapper mapper = new ObjectMapper();
+
+			try {
+				json = mapper.writeValueAsString(list.get(0));
+			} catch (JsonProcessingException e) {
+				return "{\"Exception\":\"Parsing Error\"}";
+			}
+		}
+		return json;
+
+	}
 }
