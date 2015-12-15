@@ -48,9 +48,10 @@ public class UnregisteredCustomerServiceImpl implements
 	}
 
 	public String isEmailAlreadyExits(String email) {
-		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(email, Map.class);
-		String emailValue = (String) jsonJavaRootObject.get("email");
-		System.out.println("--->"+emailValue);
+		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(email, Map.class);
+		// String emailValue = (String) jsonJavaRootObject.get("email");
+		String emailValue = email;
+		System.out.println("--->" + emailValue);
 		List<Customer> list = unregisteredCustomerRepository
 				.getUserByEmail(emailValue);
 
@@ -92,11 +93,12 @@ public class UnregisteredCustomerServiceImpl implements
 	public String viewUnregisteredUserDetails(String id)
 			throws JsonProcessingException {
 		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
-		;
 
-		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		String idValue = (String) jsonJavaRootObject.get("id");
+		//
+		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
 
+		// String idValue = (String) jsonJavaRootObject.get("id");
+		String idValue = id;
 		List<Customer> listOfRequests = unregisteredCustomerRepository
 				.findById(idValue);
 
@@ -112,9 +114,9 @@ public class UnregisteredCustomerServiceImpl implements
 
 	public String sendEmail(String id) {
 
-		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		String idValue = (String) jsonJavaRootObject.get("id");
-
+		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+		// String idValue = (String) jsonJavaRootObject.get("id");
+		String idValue = id;
 		List<Customer> list = unregisteredCustomerRepository.findById(idValue);
 		String receiverEmailId = list.get(0).getEmail();
 

@@ -21,12 +21,13 @@ import com.inb.service.interfaces.RegisteredCustomerService;
  */
 @CrossOrigin
 @RestController
+@RequestMapping(value="/registeredcustomer")
 public class RegisteredCustomerController {
 
 	@Autowired
 	private RegisteredCustomerService registeredCustomerService;
 
-	@RequestMapping(value = "/newaccount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String registerEnquiry(
 			@RequestBody RegisteredCustomerPOJO registeredCustomerPOJO) {
 		registeredCustomerPOJO.getCustomerId();

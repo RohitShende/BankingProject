@@ -43,9 +43,9 @@ public class DocumentServiceImpl implements DocumentService {
 
 	public String retriveAddressProofDocumentForClientId(String id) throws JsonProcessingException {
 	
-		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-        
+//		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+//        String idValue=(String) jsonJavaRootObject.get("id");
+        String idValue = id;
         
 			List<Documents> documents = documentsRepositiory.findById(idValue);
 			System.out.println("-->"+documents);
@@ -64,9 +64,9 @@ public class DocumentServiceImpl implements DocumentService {
 
 	public String retriveAgeProofDocumentForClientId(String id) throws JsonProcessingException {
 
-		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-        String idValue=(String) jsonJavaRootObject.get("id");
-        
+//		Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
+//        String idValue=(String) jsonJavaRootObject.get("id");
+        String idValue = id;
 			List<Documents> documents = documentsRepositiory.findById(idValue);
 			System.out.println("-->"+documents);
 			byte[] bytes = documents.get(0).getAgeProof();
