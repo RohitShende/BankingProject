@@ -162,6 +162,19 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		return branchManagerJson;
 	}
 
+	public String viewBranchManagersRange(int start,int end) throws JsonProcessingException
+	{
+		BasicQuery basicQuery= new BasicQuery("{}");
+		basicQuery.skip(start);
+		basicQuery.limit(end);
+		List<BranchManager> listOfBranchManagers = mongoOperations.find(basicQuery, BranchManager.class);
+		
+		String result=mapper.writeValueAsString(listOfBranchManagers);	
+		System.out.println(result);
+		return result;
+		
+	}
+	
 	public String logout(String userName) throws JsonProcessingException {
 		String branchManagerJson;
 		try {

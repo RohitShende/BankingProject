@@ -6,6 +6,7 @@ package com.inb.rest.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +58,12 @@ public class BranchManagerController {
 	public @ResponseBody String viewBranchManagers() throws JsonProcessingException
 	{
 		return branchManagerService.viewBranchManagers();
+	}
+	
+	@RequestMapping(value = "/{start}/{end}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewBranchManagersRange(@PathVariable("start") int start, @PathVariable("end") int end) throws JsonProcessingException {
+
+		return branchManagerService.viewBranchManagersRange(start, end);
 	}
 	
 //	@RequestMapping(value="/verifyUnregisteredUsers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
