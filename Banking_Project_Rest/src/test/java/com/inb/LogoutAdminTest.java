@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public class LogoutAdminTest {
@@ -28,16 +27,25 @@ public class LogoutAdminTest {
 	
 	@Test
 	public void testLogoutAdminSuccess(){
-		String input="{\"userName\": \"admin\"}";
-	    ClientResponse response=target.accept("application/json").type("application/json").put(ClientResponse.class,input);
-		assertEquals(200,response.getStatus());
+		String input="{\"role\": \"admin\",\"id\": \"567151b331130956e1028033\"}";
+		String result=target.accept("application/json").type("application/json").put(String.class,input);
+	    String expected="{ \"logoutMsg\" :\"success\"}";
+	    assertEquals(expected,result);
 	}
 	
 	@Test
-	public void testLogoutAdminFailure(){
-		String input="{\"userName\": \"rohitss\"}";
+	public void testLogoutAdminFailureDueToRole(){
+		String input="{\"role\": \"branchmanager\",\"id\": \"567151b331130956e1028033\"}";
 	    String result=target.accept("application/json").type("application/json").put(String.class,input);
-	    String expected="{ \"Exception\":\"USERNAME OR PASSWORD INCORRECT/rohitss\"}";
+	    String expected="{ \"logoutMsg\" :\"You Are Not Admin\"}";
+	    assertEquals(expected,result);
+	}
+	
+	@Test
+	public void testLogoutAdminFailureDueToNotLoggedIn(){
+		String input="{\"role\": \"admin\",\"id\": \"567151b331130956e1028033\"}";
+	    String result=target.accept("application/json").type("application/json").put(String.class,input);
+	    String expected="{ \"logoutMsg\" :\"You Are Not Logged In or Session Expired\"}";
 	    assertEquals(expected,result);
 	}
 }

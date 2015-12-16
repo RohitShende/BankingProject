@@ -1,11 +1,10 @@
 package com.inb.service.interfaces;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.mongo.collections.Admin;
 
 public interface AdminService {
 	String login(String username , String password);
 	String save(Admin admin);
 	Admin isAdmin(String id);
-	String logout() throws JsonProcessingException;
+	String logout(String role, String id);
 }

@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public class LogoutBranchManagerTest {
@@ -26,19 +25,35 @@ public class LogoutBranchManagerTest {
 	
 	@Test
 	public void testLogoutBranchManagerSuccess(){
-		String input="{\"userName\": \"palakh\"}";
-	    ClientResponse response=target.accept("application/json").type("application/json").put(ClientResponse.class,input);
-		assertEquals(200,response.getStatus());
+		String input="{\"role\": \"branchmanager\",\"id\": \"566e9deb31139801e4ae6532\"}";
+		String result=target.accept("application/json").type("application/json").put(String.class,input);
+	    String expected="{ \"logoutMsg\" :\"success\"}";
+	    assertEquals(expected,result);
 	}
 	
 	@Test
-	public void testLogoutBranchManagerFailure(){
-		String input="{\"userName\": \"rohitss\"}";
+	public void testLogoutBranchManagerFailureDueToRoleUI(){
+		String input="{\"role\": \"admin\",\"id\": \"566e9deb31139801e4ae6532\"}";
 	    String result=target.accept("application/json").type("application/json").put(String.class,input);
-	    String expected="{ \"Exception\":\"USERNAME OR PASSWORD INCORRECT/rohitss\"}";
+	    String expected="{ \"logoutMsg\" :\"You Are Not Branch Manager\"}";
 	    assertEquals(expected,result);
 	}
-
+	
+	@Test
+	public void testLogoutBranchManagerFailureDueToRoleDB(){
+		String input="{\"role\": \"branchmanager\",\"id\": \"566e9deb31139801e4ae65ee\"}";
+	    String result=target.accept("application/json").type("application/json").put(String.class,input);
+	    String expected="{ \"logoutMsg\" :\"You Are Not Branch Manager\"}";
+	    assertEquals(expected,result);
+	}
+	
+	@Test
+	public void testLogoutBranchManagerFailureDueToNotLoggedIn(){
+		String input="{\"role\": \"branchmanager\",\"id\": \"566e9deb31139801e4ae6532\"}";
+	    String result=target.accept("application/json").type("application/json").put(String.class,input);
+	    String expected="{ \"logoutMsg\" :\"You Are Not Logged In or Session Expired\"}";
+	    assertEquals(expected,result);
+	}
 }
 	
 	

@@ -29,14 +29,14 @@ public class LoginBranchManagerTest {
 	@Test
 	public void testLoginBranchManagerSuccess(){
 		String input="{\"userName\": \"palakh\",\"password\": \"Palakh\"}";
-	    ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+	    ClientResponse response=target.accept("application/json").type("application/json").put(ClientResponse.class,input);
 		assertEquals(200,response.getStatus());
 	}
 	
 	@Test
 	public void testLoginBranchManagerFailure(){
 		String input="{\"userName\": \"rohitss\",\"password\": \"12345678\"}";
-	    String result=target.accept("application/json").type("application/json").post(String.class,input);
+	    String result=target.accept("application/json").type("application/json").put(String.class,input);
 	    String expected="{ \"Exception\":\"USERNAME OR PASSWORD INCORRECT/rohitss\"}";
 	    assertEquals(expected,result);
 	}

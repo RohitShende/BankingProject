@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.rest.entity.AdminPOJO;
+import com.inb.rest.entity.LogoutDetails;
 import com.inb.service.interfaces.AdminService;
 
 /**
@@ -28,14 +29,14 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	@RequestMapping(value ="/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value ="/login", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginAdmin(@RequestBody AdminPOJO adminPOJO) throws JsonProcessingException {
 		return adminService.login(adminPOJO.getUserName(),
 				adminPOJO.getPassword());
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String logoutAdmin() throws JsonProcessingException {
-		return adminService.logout();
+	public @ResponseBody String logoutAdmin(@RequestBody LogoutDetails logoutDetails) throws JsonProcessingException {
+		return adminService.logout(logoutDetails.getRole(),logoutDetails.getId());
 	}
 }  

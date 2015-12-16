@@ -138,26 +138,37 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		
 	}
 	
-	public String logout(String userName) throws JsonProcessingException {
+	
+	public String logout(String role, String id){
 		String branchManagerJson;
-		try {
-				BasicQuery basicQuery= new BasicQuery("{\"userName\":\""+userName+"\"}");
+			if(role.equals("branchmanager"))
+			{
+				BasicQuery basicQuery= new BasicQuery("{ \"_id\" : \""+id+"\" }");
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{
-					branchManager.setLogin(false);
-					mongoOperations.save(branchManager);
-					branchManagerJson = mapper.writeValueAsString(branchManager);
+					if(branchManager.isLogin())
+					{
+						branchManager.setLogin(false);
+						mongoOperations.save(branchManager);
+						branchManagerJson = "{ \"logoutMsg\" :\"success\"}";
+					}
+					else
+					{
+						branchManagerJson = "{ \"logoutMsg\" :\"You Are Not Logged In or Session Expired\"}";
+					}
 				}
 				else
 				{
-					throw new NotBranchManagerException(userName);
+					branchManagerJson = "{ \"logoutMsg\" :\"You Are Not Branch Manager\"}";
 				}
-			}catch(NotBranchManagerException e)
-			{
-				branchManagerJson=e.toString();
 			}
-		return branchManagerJson;
+			else
+			{
+				branchManagerJson = "{ \"logoutMsg\" :\"You Are Not Branch Manager\"}";
+			}
+			return branchManagerJson;
 	}
+	
 	
 }

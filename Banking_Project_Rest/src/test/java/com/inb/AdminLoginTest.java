@@ -24,14 +24,14 @@ public class AdminLoginTest {
 	@Test
 	public void testLoginAdminSuccess() {
 		String input = "{\"userName\":\"admin\",\"password\":\"password123\"}";
-		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
+		ClientResponse response=target.accept("application/json").type("application/json").put(ClientResponse.class,input);
 		assertEquals(200,response.getStatus());
 	}
 
 	@Test
 	public void testLoginAdminFailure() {
 		String input = "{\"username\":\"nm\",\"password\":\"nmm\"}";
-		String result = target.accept("application/json").type("application/json").post(String.class, input);
+		String result = target.accept("application/json").type("application/json").put(String.class, input);
 		String expected = "{ \"error\" :100,\"message\": \"Invalid Credentials\"}";
 		assertEquals(expected, result);
 	}

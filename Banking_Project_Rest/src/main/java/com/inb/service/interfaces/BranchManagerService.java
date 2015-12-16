@@ -11,5 +11,5 @@ public interface BranchManagerService {
 	String insertBranchManager(BranchManager branchManager) throws JsonProcessingException;
 	String viewBranchManagers() throws JsonProcessingException ;
 	String viewBranchManagersRange(int start,int end) throws JsonProcessingException;
-	String logout(String userName) throws JsonProcessingException;
+	String logout(String role, String id);
 }

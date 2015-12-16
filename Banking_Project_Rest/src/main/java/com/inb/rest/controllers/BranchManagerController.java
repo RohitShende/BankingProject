@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.rest.entity.BranchManagerPOJO;
 import com.inb.rest.entity.LoginDetails;
+import com.inb.rest.entity.LogoutDetails;
 import com.inb.service.interfaces.BranchManagerService;
 
 /**
@@ -44,14 +45,14 @@ public class BranchManagerController {
 			return result;
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/login", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String logoutBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
-		return branchManagerService.logout(loginDetails.getUserName());
+	public @ResponseBody String logoutBranchManager(@RequestBody LogoutDetails logoutDetails){
+		return branchManagerService.logout(logoutDetails.getRole(),logoutDetails.getId());
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)

@@ -67,19 +67,28 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	public String logout() throws JsonProcessingException {
+	public String logout(String role, String id){
 		String adminJson = "";
-		try {
-			BasicQuery basicQuery= new BasicQuery("{ \"userName\" : \"admin\" }");
-			Admin admin=mongoOperations.findOne(basicQuery, Admin.class);
-			ObjectMapper mapper = new ObjectMapper();
-			admin.setLogin(false);
-			mongoOperations.save(admin);
-			adminJson = mapper.writeValueAsString(admin);
-		} catch (JsonProcessingException e) {
-			adminJson = "{ \"error\" :\"JsonProcessingException\",\"message\": \""
-					+ e.getMessage() + "\"}";
-		}
+			if(role.equals("admin"))
+			{
+				BasicQuery basicQuery= new BasicQuery("{ \"_id\" : \""+id+"\" }");
+				Admin admin=mongoOperations.findOne(basicQuery, Admin.class);
+				if(admin.isLogin())
+				{
+					admin.setLogin(false);
+					mongoOperations.save(admin);
+					adminJson = "{ \"logoutMsg\" :\"success\"}";
+				}
+				else
+				{
+					adminJson = "{ \"logoutMsg\" :\"You Are Not Logged In or Session Expired\"}";
+				}
+			}
+			else
+			{
+				adminJson = "{ \"logoutMsg\" :\"You Are Not Admin\"}";
+			}
+			
 		return adminJson;
 	}
 }
