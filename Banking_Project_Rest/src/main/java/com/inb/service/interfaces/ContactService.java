@@ -5,5 +5,5 @@ import com.inb.mongo.collections.Contact;
 
 public interface ContactService {
 
-	String insert(Contact contact) throws JsonProcessingException;
+	String add(Contact contact) throws JsonProcessingException;
 }

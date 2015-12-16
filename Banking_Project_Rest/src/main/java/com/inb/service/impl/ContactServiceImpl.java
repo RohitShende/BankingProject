@@ -17,7 +17,7 @@ public class ContactServiceImpl implements ContactService{
 	
 	ObjectMapper mapper = new ObjectMapper();
 	
-	public String insert(Contact contact) throws JsonProcessingException {
+	public String add(Contact contact) throws JsonProcessingException {
 		String contactJson;
 		
 			contactRepository.insert(contact);

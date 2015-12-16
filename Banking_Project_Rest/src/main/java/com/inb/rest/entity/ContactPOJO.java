@@ -2,11 +2,11 @@ package com.inb.rest.entity;
 
 public class ContactPOJO {
 
-	String firstName;
-	String lastName;
-	String email;
-	long phone;
-	String message;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private long phone;
+	private String message;
 	
 	
 	public ContactPOJO() {

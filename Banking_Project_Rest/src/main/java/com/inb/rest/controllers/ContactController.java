@@ -28,7 +28,7 @@ ObjectMapper mapper = new ObjectMapper();
 	@RequestMapping(value="/contact", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createContact(@RequestBody ContactPOJO contact) throws JsonProcessingException {
 			
-			String result=contactService.insert(new Contact(contact.getFirstName(),contact.getLastName(),
+			String result=contactService.add(new Contact(contact.getFirstName(),contact.getLastName(),
 					contact.getEmail(),contact.getPhone(),contact.getMessage()));
 			
 			return result;

@@ -6,4 +6,5 @@ import com.inb.mongo.collections.Contact;
 
 public interface ContactRepository extends MongoRepository<Contact, String>{
 
+
 }
