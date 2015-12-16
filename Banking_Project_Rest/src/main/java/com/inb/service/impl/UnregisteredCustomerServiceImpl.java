@@ -90,6 +90,7 @@ public class UnregisteredCustomerServiceImpl implements
 		unregisteredCustomer
 				.setLastName(unregisteredCustomerPOJO.getLastName());
 		unregisteredCustomer.setPhone(unregisteredCustomerPOJO.getPhone());
+		unregisteredCustomer.setApplicationStatus("Pending");
 		return unregisteredCustomer;
 	}
 
