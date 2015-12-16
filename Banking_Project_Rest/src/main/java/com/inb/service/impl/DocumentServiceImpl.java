@@ -45,7 +45,7 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	public boolean uploadDocument(Documents documents) {
-		Documents documents2 = documentsRepositiory.save(documents);
+		Documents documents2 = documentsRepositiory.insert(documents);
 		if (documents2.getId() == null) {
 			return false;
 		} else {
@@ -58,7 +58,7 @@ public class DocumentServiceImpl implements DocumentService {
 			throws JsonProcessingException {
 		String idValue = id;
 
-		List<Documents> documents = documentsRepositiory.findById(idValue);
+		List<Documents> documents = documentsRepositiory.findByUserId(idValue);
 		System.out.println("-->" + documents);
 		byte[] bytes = documents.get(0).getAddressProof();
 
@@ -71,7 +71,7 @@ public class DocumentServiceImpl implements DocumentService {
 			throws JsonProcessingException {
 
 		String idValue = id;
-		List<Documents> documents = documentsRepositiory.findById(idValue);
+		List<Documents> documents = documentsRepositiory.findByUserId(idValue);
 		System.out.println("-->" + documents);
 		byte[] bytes = documents.get(0).getAgeProof();
 

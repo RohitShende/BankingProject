@@ -29,7 +29,7 @@ public class UploadDocumemtsController {
 			@RequestParam("addressProof") MultipartFile addressProof,
 			@RequestParam("ageProof") MultipartFile ageProof,
 			@RequestParam("email") String email) {
-
+			System.out.println("-->"+email);
 		return documentService.uploadDocument(addressProof, ageProof,
 				unregisteredCustomerService.getUserByEmail(email).getId());
 
@@ -42,7 +42,7 @@ public class UploadDocumemtsController {
 	}
 
 	@RequestMapping(value = "/ageproofdocument/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String retrieveDocuments(@PathVariable String id)
+	public @ResponseBody String retrieveAgeProofDocuments(@PathVariable String id)
 			throws JsonProcessingException {
 
 		return documentService.retriveAgeProofDocumentForClientId(id);

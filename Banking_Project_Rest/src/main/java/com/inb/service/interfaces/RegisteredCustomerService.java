@@ -5,8 +5,9 @@ import com.inb.rest.entity.RegisteredCustomerPOJO;
 
 public interface RegisteredCustomerService {
 	String registerEnquiry(RegisteredCustomerPOJO registeredCustomerPOJO);
-	String getRegisteredUserById(String id);
-	
+	String getRegisteredUserByClientId(String id);
+	String getAuthorisationDataClientId(String id); 
+
 	public String viewRegisteredUserDetails(String id)
 			throws JsonProcessingException;
 	

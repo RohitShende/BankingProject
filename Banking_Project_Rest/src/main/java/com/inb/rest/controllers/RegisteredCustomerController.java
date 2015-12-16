@@ -40,7 +40,7 @@ public class RegisteredCustomerController {
 	public @ResponseBody String getCustomerById(
 			@PathVariable String id) {
 		return registeredCustomerService
-				.getRegisteredUserById(id);
+				.getRegisteredUserByClientId(id);
 	}
 
 	@RequestMapping(value="/details/{id}",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)

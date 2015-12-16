@@ -11,7 +11,7 @@ import com.inb.mongo.collections.UnregisteredCustomer;
 public interface RegisteredCustomerRepository extends
 		MongoRepository<RegisteredCustomer, String> {
 	@Query(value = "{customerId : ?0}")
-	public List<UnregisteredCustomer> findBycustomerId(long id);
+	public List<RegisteredCustomer> findBycustomerId(long id);
 	
 	@Query(value="{_id : ?0}")
 	public List<RegisteredCustomer> findById(String id);

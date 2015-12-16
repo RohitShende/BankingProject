@@ -124,10 +124,10 @@ public class UnregisteredCustomerServiceImpl implements
 	
 	public Customer  getUserByEmail(String email) {
 		String emailValue = email;
-		System.out.println("--->" + emailValue);
+		
 		List<Customer> list = unregisteredCustomerRepository
 				.getUserByEmail(emailValue);
-		System.out.println("--->" + list.size());
+		
 		if (list.size() != 0) {
 			
 			return list.get(0);
@@ -204,7 +204,7 @@ public String sendEmail(String id,String applicationStatus) {
 			}
 		
 			String receiverEmailId=registeredCustomer.getEmail();
-			System.out.println("message body "+emailMessageBody);
+			
 			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 			MailMail mm = (MailMail) context.getBean("mailMail");
 	        mm.sendMail("from@no-spam.com",

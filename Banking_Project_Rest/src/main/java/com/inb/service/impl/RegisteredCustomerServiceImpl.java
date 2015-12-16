@@ -89,8 +89,8 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return registeredCustomer;
 	}
 
-	public String getRegisteredUserById(String id) {
-		List<UnregisteredCustomer> list = registeredCustomerRepository
+	public String getRegisteredUserByClientId(String id) {
+		List<RegisteredCustomer> list = registeredCustomerRepository
 				.findBycustomerId(Long.parseLong(id));
 		String json = "";
 		if (list.size() == 0) {
@@ -136,6 +136,25 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 			registeredUsersJson = mapper.writeValueAsString(listOfUsers);
 		}
 		return registeredUsersJson;
+	}
+	public String getAuthorisationDataClientId(String id) {
+		List<RegisteredCustomer> list = registeredCustomerRepository
+				.findBycustomerId(Long.parseLong(id));
+		String json = "";
+		if (list.size() == 0) {
+			return "{ \"Exception\":\"InvaildClientId\" }";
+		} else {
+			json = "{\"id\":\"" + list.get(0).getId() + "\",\"image\":\""
+					+ list.get(0).getAuthorizedImageName() + "\",\"text\":\""
+					+ list.get(0).getAuthorizedImageText() + "\"}";
+		}
+		System.out.println(json);
+
+		// registeredCustomerRepository.save(new RegisteredCustomer("Navin",
+		// "Maheshwari", "nm@gmail.com", 123456, "address", new Date(), 12345,
+		// "NM", "nm", "one","navin is my name" ));
+		return json;
+
 	}
 	
 }

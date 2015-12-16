@@ -10,6 +10,6 @@ import com.inb.mongo.collections.Documents;
 public interface DocumentsRepositiory extends MongoRepository<Documents, String> {
 	
 	@Query(value="{userId : ?0}")
-	public List<Documents> findById(String Id);
+	public List<Documents> findByUserId(String Id);
 	
 }
