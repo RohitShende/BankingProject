@@ -4,16 +4,16 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.Customer;
+import com.inb.mongo.collections.Documents;
 import com.inb.mongo.collections.RegisteredCustomer;
 import com.inb.mongo.collections.UnregisteredCustomer;
+import com.inb.mongo.repositories.DocumentsRepositiory;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.Account;
@@ -41,7 +41,9 @@ public class UnregisteredCustomerServiceImpl implements
 	@Autowired
 	MongoOperations mongoOperations;
 	
-	
+
+	@Autowired
+	private DocumentsRepositiory documentsRepositiory;
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
@@ -64,17 +66,27 @@ public class UnregisteredCustomerServiceImpl implements
 
 	public String isEmailAlreadyExits(String email) {
 		
+
 		Customer customer = getUserByEmail(email);
 		String json = "";
 		if (customer != null) {
-			
+
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				json = mapper.writeValueAsString(customer);
+				List<Documents> list = documentsRepositiory.findByUserId(customer
+						.getId());
+				if (list.size() == 0) {
+					json = mapper.writeValueAsString(customer);
+
+				}else
+				{
+					json = "{\"Status\":\"DocumentSubmitted\",\"id\":\""+customer.getId()+"\"}";
+				}
+
 			} catch (JsonProcessingException e) {
 				return "{\"Exception\":\"Parsing Error\"}";
 			}
-			
+
 			return json;
 		}
 		return "{\"alreadyExists\" : \"false\"}";
@@ -141,101 +153,100 @@ public class UnregisteredCustomerServiceImpl implements
 
 public String sendEmail(String id,String applicationStatus) {
 		
-		List<Customer> listOfUnregisteredUsers=unregisteredCustomerRepository.findById(id);
-		Customer unregisteredPerson=listOfUnregisteredUsers.get(0);
-	
-		if(applicationStatus.equals("reject"))
-		{
-			UnregisteredCustomer unregisteredCustomer=(UnregisteredCustomer)unregisteredPerson;
-			unregisteredCustomer.setApplicationStatus("Rejected");
-			
-			unregisteredCustomerRepository.save(unregisteredCustomer);
-			String emailMessageBody="Your application has been rejected. Please contact your nearest branch "
-					+ "manager for more details";
-			
-			String receiverEmailId=unregisteredCustomer.getEmail();
-			
-//			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-//					MailMail mm = (MailMail) context.getBean("mailMail");
-			mailService.sendMail("from@no-spam.com",
-			        		receiverEmailId,
-			    		   "Verification Email for bank account",
-			    		   emailMessageBody);
-		}
-		else
-		{
-			RegisteredCustomer registeredCustomer=new RegisteredCustomer();
-			String emailMessageBody="";
-			
-			String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
-	
-			long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
-			
-			List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
-			
-				if(listOfRegisteredUsers.size()==0 || !(listOfRegisteredUsers.get(0).getId().equals(id)))
-				{
+	List<Customer> listOfUnregisteredUsers=unregisteredCustomerRepository.findById(id);
+	Customer unregisteredPerson=listOfUnregisteredUsers.get(0);
 
-					boolean checkResult=true;
-					long clientId=0;
-					while(checkResult)
-					{
-						clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
-						checkResult=checkClientId(clientId);
-						
-					}
-					
-					HashSet<Account> accounthash=new HashSet<Account>();
-					Account unregisteredCustomerAccount=new Account();
-					unregisteredCustomerAccount.setAccountNumber(accountNumber);
-					
-					accounthash.add(unregisteredCustomerAccount);
-					
-					registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
-						unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
-						unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
-					emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
-					
-					unregisteredCustomerRepository.delete(id);
-				}	
-				
-			
-			else
+	if(applicationStatus.equals("reject"))
+	{
+		UnregisteredCustomer unregisteredCustomer=(UnregisteredCustomer)unregisteredPerson;
+		unregisteredCustomer.setApplicationStatus("Rejected");
+		
+		unregisteredCustomerRepository.save(unregisteredCustomer);
+		String emailMessageBody="Your application has been rejected. Please contact your nearest branch "
+				+ "manager for more details";
+		
+		String receiverEmailId=unregisteredCustomer.getEmail();
+		
+//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+//				MailMail mm = (MailMail) context.getBean("mailMail");
+		mailService.sendMail("from@no-spam.com",
+		        		receiverEmailId,
+		    		   "Verification Email for bank account",
+		    		   emailMessageBody);
+	}
+	else
+	{
+		RegisteredCustomer registeredCustomer=new RegisteredCustomer();
+		String emailMessageBody="";
+		
+		String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
+
+		long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
+		
+		List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
+		
+			if(listOfRegisteredUsers.size()==0 || !(listOfRegisteredUsers.get(0).getId().equals(id)))
 			{
-				HashSet<Account> accounthash=listOfRegisteredUsers.get(0).getAccounthash();
+
+				boolean checkResult=true;
+				long clientId=0;
+				while(checkResult)
+				{
+					clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
+					checkResult=checkClientId(clientId);
+					
+				}
+				
+				HashSet<Account> accounthash=new HashSet<Account>();
 				Account unregisteredCustomerAccount=new Account();
 				unregisteredCustomerAccount.setAccountNumber(accountNumber);
+				
 				accounthash.add(unregisteredCustomerAccount);
 				
-				mongoOperations.save(listOfRegisteredUsers.get(0));
-				
-				emailMessageBody="Your Account Number is: " +accountNumber;
+				registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
+					unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
+					unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
+				emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
 				
 				unregisteredCustomerRepository.delete(id);
-			}
-		
-			String receiverEmailId=registeredCustomer.getEmail();
+			}	
 			
-//			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-//			MailMail mm = (MailMail) context.getBean("mailMail");
-			mailService.sendMail("ifno.inbbank@gmail.com",
-	        		receiverEmailId,
-	    		   "Verification Email for bank account",
-	    		   emailMessageBody);
-		}
 		
-		return "Success";
-	}
-
-	private boolean checkClientId(long customerId) 
-	{
-		List<RegisteredCustomer> listOfCustomers=registeredCustomerRepository.findBycustomerId(customerId);
-		if(listOfCustomers.size()!=0)
-		{
-			System.out.println(listOfCustomers.get(0).getCustomerId());
-			return true;
-		}
 		else
-			return false;
+		{
+			HashSet<Account> accounthash=listOfRegisteredUsers.get(0).getAccounthash();
+			Account unregisteredCustomerAccount=new Account();
+			unregisteredCustomerAccount.setAccountNumber(accountNumber);
+			accounthash.add(unregisteredCustomerAccount);
+			
+			mongoOperations.save(listOfRegisteredUsers.get(0));
+			
+			emailMessageBody="Your Account Number is: " +accountNumber;
+			
+			unregisteredCustomerRepository.delete(id);
+		}
+	
+		String receiverEmailId=registeredCustomer.getEmail();
+		
+//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+//		MailMail mm = (MailMail) context.getBean("mailMail");
+		mailService.sendMail("ifno.inbbank@gmail.com",
+        		receiverEmailId,
+    		   "Verification Email for bank account",
+    		   emailMessageBody);
 	}
+	
+	return "Success";
+}
+private boolean checkClientId(long customerId) 
+{
+	List<RegisteredCustomer> listOfCustomers=registeredCustomerRepository.findBycustomerId(customerId);
+	if(listOfCustomers.size()!=0)
+	{
+		System.out.println(listOfCustomers.get(0).getCustomerId());
+		return true;
+	}
+	else
+		return false;
+}
 }

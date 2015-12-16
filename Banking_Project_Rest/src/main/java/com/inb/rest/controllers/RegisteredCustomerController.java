@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.inb.rest.entity.LoginDetails;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
 import com.inb.service.interfaces.RegisteredCustomerService;
 
@@ -53,6 +55,12 @@ public class RegisteredCustomerController {
 	public @ResponseBody String viewRegisteredCustomers() throws JsonProcessingException
 	{
 		return registeredCustomerService.viewRegisteredCustomers();
+	}
+	
+	@RequestMapping(value="/login",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String checkLoginRegisteredUser(@RequestBody LoginDetails loginDetails) throws JsonProcessingException
+	{
+		return registeredCustomerService.checkLogin(loginDetails.getUserName() , loginDetails.getPassword());
 	}
 	
 }

@@ -37,7 +37,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				.save(registeredCustomerPOJOToPersonCollection(registeredCustomerPOJO));
 
 		registeredCustomerRepository
-				.save(registeredCustomerPOJOToRegisterCustomer(registeredCustomerPOJO));
+				.save((RegisteredCustomer) registeredCustomerPOJOToPersonCollection(registeredCustomerPOJO));
 
 		String json = "";
 		if (unregisteredCustomer == null) {
@@ -73,33 +73,16 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return registeredCustomer;
 	}
 
-	public RegisteredCustomer registeredCustomerPOJOToRegisterCustomer(
-			RegisteredCustomerPOJO registeredCustomerPOJO) {
-		RegisteredCustomer registeredCustomer = new RegisteredCustomer();
-		registeredCustomer.setAccounthash(registeredCustomerPOJO
-				.getAccounthash());
-		registeredCustomer.setFirstName(registeredCustomerPOJO.getFirstName());
-		registeredCustomer.setAddress(registeredCustomerPOJO.getAddress());
-		registeredCustomer.setDateOfBirth(registeredCustomerPOJO
-				.getDateOfBirth());
-		registeredCustomer.setEmail(registeredCustomerPOJO.getEmail());
-		registeredCustomer.setCustomerId(registeredCustomer.getCustomerId());
-		registeredCustomer.setLastName(registeredCustomerPOJO.getLastName());
-		registeredCustomer.setPhone(registeredCustomerPOJO.getPhone());
-		return registeredCustomer;
-	}
-
 	public String getRegisteredUserByClientId(String id) {
-		List<RegisteredCustomer> list = registeredCustomerRepository
-				.findBycustomerId(Long.parseLong(id));
-		String json = "";
-		if (list.size() == 0) {
+		RegisteredCustomer registeredCustomer = getRegisteredUserObjectByClientId(id);
+		String json;
+		if (registeredCustomer == null) {
 			return "{ \"Exception\":\"No such user\" }";
 		} else {
 			ObjectMapper mapper = new ObjectMapper();
 
 			try {
-				json = mapper.writeValueAsString(list.get(0));
+				json = mapper.writeValueAsString(registeredCustomer);
 			} catch (JsonProcessingException e) {
 				return "{\"Exception\":\"Parsing Error\"}";
 			}
@@ -107,8 +90,17 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 
 	}
-	
-	
+
+	public RegisteredCustomer getRegisteredUserObjectByClientId(String id) {
+		List<RegisteredCustomer> list = registeredCustomerRepository
+				.findBycustomerId(Long.parseLong(id));
+		if (list.size() == 0) {
+			return null;
+		} else {
+			return list.get(0);
+		}
+	}
+
 	public String viewRegisteredUserDetails(String id)
 			throws JsonProcessingException {
 		String registeredUsersJson = "{ \"Error\": \"No Requests\"}";
@@ -130,13 +122,15 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 	public String viewRegisteredCustomers() throws JsonProcessingException {
 
 		String registeredUsersJson = "No Results";
-		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository.findAll();
+		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository
+				.findAll();
 
 		if (listOfUsers != null) {
 			registeredUsersJson = mapper.writeValueAsString(listOfUsers);
 		}
 		return registeredUsersJson;
 	}
+
 	public String getAuthorisationDataClientId(String id) {
 		List<RegisteredCustomer> list = registeredCustomerRepository
 				.findBycustomerId(Long.parseLong(id));
@@ -144,9 +138,16 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		if (list.size() == 0) {
 			return "{ \"Exception\":\"InvaildClientId\" }";
 		} else {
-			json = "{\"id\":\"" + list.get(0).getId() + "\",\"image\":\""
-					+ list.get(0).getAuthorizedImageName() + "\",\"text\":\""
-					+ list.get(0).getAuthorizedImageText() + "\"}";
+			if(list.get(0).getAuthorizedImageText() == null)
+			{
+				json = "{\"id\":\"" + list.get(0).getCustomerId() + "\",\"firstTimeLogin\":\"true\"}";
+			}
+			else
+			{
+				json = "{\"id\":\"" + list.get(0).getId() + "\",\"image\":\""
+						+ list.get(0).getAuthorizedImageName() + "\",\"text\":\""
+						+ list.get(0).getAuthorizedImageText() + "\"}";
+			}
 		}
 		System.out.println(json);
 
@@ -156,5 +157,40 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 
 	}
-	
+
+	public String checkLogin(String clientId, String password) {
+		RegisteredCustomer registeredCustomer = getRegisteredUserObjectByClientId(clientId);
+		String json = "{\"Exception\":\"Invalid credentials\"}";
+		if (registeredCustomer != null
+				&& registeredCustomer.getPassword().equalsIgnoreCase(password)) {
+			ObjectMapper mapper = new ObjectMapper();
+
+			try {
+				json = mapper.writeValueAsString(registeredCustomer);
+			} catch (JsonProcessingException e) {
+				return "{\"Exception\":\"Parsing Error\"}";
+			}
+		}
+		return json;
+	}
+
+	public String setAuthorisationOfRegisteredUser(
+			RegisteredCustomer registeredCustomer) {
+		RegisteredCustomer tempRegisteredCustomer = getRegisteredUserObjectByClientId(""+registeredCustomer.getCustomerId());
+		tempRegisteredCustomer.setAuthorizedImageName(registeredCustomer.getAuthorizedImageName());
+		tempRegisteredCustomer.setAuthorizedImageText(registeredCustomer.getAuthorizedImageText());
+		tempRegisteredCustomer.setPassword(registeredCustomer.getPassword());
+		System.out.println("****"+registeredCustomer);
+		System.out.println("-->"+registeredCustomer.getPhone());
+		registeredCustomer =  registeredCustomerRepository.save(tempRegisteredCustomer);
+		String json="";
+		try {
+			json = mapper.writeValueAsString(registeredCustomer);
+		} catch (JsonProcessingException e) {
+			return "{\"Exception\":\"Parsing Error\"}";
+		}
+		return json;
+	}
+
+
 }
