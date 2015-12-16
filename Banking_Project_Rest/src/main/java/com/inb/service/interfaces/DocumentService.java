@@ -3,7 +3,6 @@ package com.inb.service.interfaces;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.inb.mongo.collections.Documents;
 
 public interface DocumentService {
 

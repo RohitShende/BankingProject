@@ -17,7 +17,6 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Autowired
 	private DocumentsRepositiory documentsRepositiory;
-	// private FileOutputStream fout;
 
 	ObjectMapper mapper = new ObjectMapper();
 
@@ -57,20 +56,12 @@ public class DocumentServiceImpl implements DocumentService {
 
 	public String retriveAddressProofDocumentForClientId(String id)
 			throws JsonProcessingException {
-
-		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		// String idValue=(String) jsonJavaRootObject.get("id");
 		String idValue = id;
 
 		List<Documents> documents = documentsRepositiory.findById(idValue);
 		System.out.println("-->" + documents);
 		byte[] bytes = documents.get(0).getAddressProof();
 
-		// fout = new FileOutputStream("D:/try.jpg");
-
-		// fout.write(bytes);
-		// System.out.println("copy done..");
-		// stream.close();
 		String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
 
 		return retrieveUserDocumentsJson;
@@ -79,18 +70,11 @@ public class DocumentServiceImpl implements DocumentService {
 	public String retriveAgeProofDocumentForClientId(String id)
 			throws JsonProcessingException {
 
-		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		// String idValue=(String) jsonJavaRootObject.get("id");
 		String idValue = id;
 		List<Documents> documents = documentsRepositiory.findById(idValue);
 		System.out.println("-->" + documents);
 		byte[] bytes = documents.get(0).getAgeProof();
 
-		// fout = new FileOutputStream("D:/try.jpg");
-
-		// fout.write(bytes);
-		// System.out.println("copy done..");
-		// stream.close();
 		String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
 
 		return retrieveUserDocumentsJson;

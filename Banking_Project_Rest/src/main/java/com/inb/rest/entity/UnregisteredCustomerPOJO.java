@@ -10,7 +10,8 @@ public class UnregisteredCustomerPOJO extends CustomerPOJO {
 	String id;
 	long enqId;
 	Account account;
-
+	String applicationStatus;
+	
 	public UnregisteredCustomerPOJO() {
 		super();
 	}
@@ -23,8 +24,23 @@ public class UnregisteredCustomerPOJO extends CustomerPOJO {
 		this.account = account;
 	}
 
+	public UnregisteredCustomerPOJO(String firstName, String lastName,
+			String email, long phone, String address, Date dateOfBirth,
+			long enqId, Account account,String applicationStatus) {
+		super(firstName, lastName, email, phone, address, dateOfBirth);
+		this.enqId = enqId;
+		this.account = account;
+		this.applicationStatus=applicationStatus;
+	}
 	
-	
+	public String getApplicationStatus() {
+		return applicationStatus;
+	}
+
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
+	}
+
 	public String getId() {
 		return id;
 	}

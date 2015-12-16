@@ -49,14 +49,6 @@ public class BranchServiceImpl implements BranchService{
 	}
 
 
-	/*public List<Branch> getAllBranchs() {
-		List<Branch> branch = new ArrayList<Branch>();
-		branch.add(new Branch("456","xyz", "indore",9875));
-		branch.add(new Branch("123","abc", "pune",12345));
-		return branch;
-		
-	}*/
-	
 	public String viewBranchRange(int start,int end) throws JsonProcessingException
 	{
 		BasicQuery basicQuery= new BasicQuery("{}");
@@ -71,7 +63,6 @@ public class BranchServiceImpl implements BranchService{
 	}
 
 	public String viewBranches() throws JsonProcessingException {
-//		String branchJson="No Branches";
 		
 		String branchJson = "{ \"Error\": \"No Branches\"}";
 		List<Branch> listOfBranches=branchRepository.findAll();

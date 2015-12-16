@@ -18,7 +18,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
-import com.inb.service.interfaces.DocumentService;
 import com.inb.service.interfaces.UnregisteredCustomerService;
 
 @CrossOrigin
@@ -28,8 +27,7 @@ public class UnregisteredCustomerController {
 
 	@Autowired
 	private UnregisteredCustomerService unregisteredCustomerService;
-	@Autowired
-	private DocumentService documentService;
+
 
 	@RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String registerEnquiry(
@@ -58,10 +56,10 @@ public class UnregisteredCustomerController {
 		return unregisteredCustomerService.viewUnregisteredUserDetails(id);
 	}
 
-	@RequestMapping(value = "/email/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String sendRegistrationEmail(@PathVariable String id)
-			throws JsonParseException, JsonMappingException, IOException {
-		unregisteredCustomerService.sendEmail(id);
+	@RequestMapping(value="/email/{id}/{status}", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String sendRegistrationEmail(@PathVariable String id,@PathVariable String status) throws JsonParseException, JsonMappingException, IOException
+	{
+		unregisteredCustomerService.sendEmail(id,status);
 		return id;
 	}
 }

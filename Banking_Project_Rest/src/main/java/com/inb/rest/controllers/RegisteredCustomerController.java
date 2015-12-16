@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
 import com.inb.service.interfaces.RegisteredCustomerService;
 
@@ -42,4 +43,16 @@ public class RegisteredCustomerController {
 				.getRegisteredUserById(id);
 	}
 
+	@RequestMapping(value="/details/{id}",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewRegisteredUsers(@PathVariable String id) throws JsonProcessingException
+	{
+		return registeredCustomerService.viewRegisteredUserDetails(id);
+	}
+	
+	@RequestMapping(value="/",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewRegisteredCustomers() throws JsonProcessingException
+	{
+		return registeredCustomerService.viewRegisteredCustomers();
+	}
+	
 }

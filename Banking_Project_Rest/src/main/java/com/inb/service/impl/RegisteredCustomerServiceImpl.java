@@ -18,7 +18,6 @@ import com.inb.service.interfaces.RegisteredCustomerService;
 @Service
 public class RegisteredCustomerServiceImpl implements RegisteredCustomerService {
 	ObjectMapper mapper = new ObjectMapper();
-	// private ApplicationContext context;
 	@Autowired
 	RegisteredCustomerRepository registeredCustomerRepository;
 	@Autowired
@@ -108,4 +107,35 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 
 	}
+	
+	
+	public String viewRegisteredUserDetails(String id)
+			throws JsonProcessingException {
+		String registeredUsersJson = "{ \"Error\": \"No Requests\"}";
+
+		String idValue = id;
+		List<RegisteredCustomer> listOfRegisteredUsers = registeredCustomerRepository
+				.findById(idValue);
+
+		if (listOfRegisteredUsers != null) {
+
+			if (listOfRegisteredUsers.size() != 0)
+				registeredUsersJson = mapper
+						.writeValueAsString(listOfRegisteredUsers);
+		}
+
+		return registeredUsersJson;
+	}
+
+	public String viewRegisteredCustomers() throws JsonProcessingException {
+
+		String registeredUsersJson = "No Results";
+		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository.findAll();
+
+		if (listOfUsers != null) {
+			registeredUsersJson = mapper.writeValueAsString(listOfUsers);
+		}
+		return registeredUsersJson;
+	}
+	
 }

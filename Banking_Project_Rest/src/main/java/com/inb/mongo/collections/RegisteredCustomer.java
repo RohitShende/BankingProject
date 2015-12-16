@@ -33,12 +33,12 @@ public class RegisteredCustomer extends Customer
 		this.authorizedImageName = authorizedImageName;
 		this.authorizedImageText = authorizedImageText;
 	}
-	public RegisteredCustomer(long customerId, String userName, String password, HashSet<Account> accounthash) {
-		super();
-		this.customerId = customerId;
-		this.userName = userName;
+	public RegisteredCustomer(String firstName, String lastName, String email,
+			long phone, String address, Date dateOfBirth,long customerId,String password,HashSet<Account> accounthash) {
+		super(firstName, lastName, email, phone, address, dateOfBirth);
+		this.customerId=customerId;
 		this.password = password;
-		this.accounthash = accounthash;
+		this.accounthash=accounthash;
 	}
 	public long getCustomerId() {
 		return customerId;

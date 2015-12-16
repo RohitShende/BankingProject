@@ -9,10 +9,6 @@ public interface BranchManagerService {
 	BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException,InvalidInputException;
 	String login(String username, String password)throws JsonProcessingException;
 	String insertBranchManager(BranchManager branchManager) throws JsonProcessingException;
-	
-//	String verifyUnregisteredUsers() throws JsonProcessingException ;
-//	String sendEmail(String id) throws JsonParseException, JsonMappingException, IOException;
-	
 	String viewBranchManagers() throws JsonProcessingException ;
 	String viewBranchManagersRange(int start,int end) throws JsonProcessingException;
 	String logout(String userName) throws JsonProcessingException;

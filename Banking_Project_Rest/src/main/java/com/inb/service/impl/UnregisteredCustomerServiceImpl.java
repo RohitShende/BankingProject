@@ -1,22 +1,26 @@
 package com.inb.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.inb.mongo.collections.Customer;
+import com.inb.mongo.collections.RegisteredCustomer;
 import com.inb.mongo.collections.UnregisteredCustomer;
+import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
+import com.inb.rest.entity.Account;
 import com.inb.rest.entity.UnregisteredCustomerPOJO;
 import com.inb.service.interfaces.UnregisteredCustomerService;
 import com.inb.util.MailMail;
+import com.inb.util.RandomNumberGenerator;
 
 @Service
 public class UnregisteredCustomerServiceImpl implements
@@ -27,6 +31,13 @@ public class UnregisteredCustomerServiceImpl implements
 	@Autowired
 	UnregisteredCustomerRepository unregisteredCustomerRepository;
 
+	@Autowired
+	RegisteredCustomerRepository registeredCustomerRepository;
+	
+	@Autowired
+	MongoOperations mongoOperations;
+	
+	
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
@@ -96,11 +107,6 @@ public class UnregisteredCustomerServiceImpl implements
 	public String viewUnregisteredUserDetails(String id)
 			throws JsonProcessingException {
 		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
-
-		//
-		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-
-		// String idValue = (String) jsonJavaRootObject.get("id");
 		String idValue = id;
 		List<Customer> listOfRequests = unregisteredCustomerRepository
 				.findById(idValue);
@@ -116,13 +122,10 @@ public class UnregisteredCustomerServiceImpl implements
 	}
 	
 	public Customer  getUserByEmail(String email) {
-		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(email, Map.class);
-		// String emailValue = (String) jsonJavaRootObject.get("email");
 		String emailValue = email;
 		System.out.println("--->" + emailValue);
 		List<Customer> list = unregisteredCustomerRepository
 				.getUserByEmail(emailValue);
-		String json="";
 		System.out.println("--->" + list.size());
 		if (list.size() != 0) {
 			
@@ -131,19 +134,86 @@ public class UnregisteredCustomerServiceImpl implements
 		return null;
 	}
 
-	public String sendEmail(String id) {
-
-		// Map<?, ?> jsonJavaRootObject = new Gson().fromJson(id, Map.class);
-		// String idValue = (String) jsonJavaRootObject.get("id");
-		String idValue = id;
-		List<Customer> list = unregisteredCustomerRepository.findById(idValue);
-		String receiverEmailId = list.get(0).getEmail();
-
-		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-		MailMail mm = (MailMail) context.getBean("mailMail");
-		mm.sendMail("from@no-spam.com", receiverEmailId,
-				"Verification Email for bank account",
-				"Click this link to complete your sign up process");
+public String sendEmail(String id,String applicationStatus) {
+		
+		List<Customer> listOfUnregisteredUsers=unregisteredCustomerRepository.findById(id);
+		Customer unregisteredPerson=listOfUnregisteredUsers.get(0);
+	
+		if(applicationStatus.equals("reject"))
+		{
+			UnregisteredCustomer unregisteredCustomer=(UnregisteredCustomer)unregisteredPerson;
+			unregisteredCustomer.setApplicationStatus("Rejected");
+			
+			unregisteredCustomerRepository.save(unregisteredCustomer);
+			String emailMessageBody="Your application has been rejected. Please contact your nearest branch "
+					+ "manager for more details";
+			
+			String receiverEmailId=unregisteredCustomer.getEmail();
+			
+			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+					MailMail mm = (MailMail) context.getBean("mailMail");
+			        mm.sendMail("from@no-spam.com",
+			        		receiverEmailId,
+			    		   "Verification Email for bank account",
+			    		   emailMessageBody);
+		}
+		else
+		{
+			RegisteredCustomer registeredCustomer=new RegisteredCustomer();
+			String emailMessageBody="";
+			
+			String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
+	
+			long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
+			long clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
+			
+			
+			List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
+			
+				if(listOfRegisteredUsers.size()==0 || !(listOfRegisteredUsers.get(0).getId().equals(id)))
+				{
+					
+					HashSet<Account> accounthash=new HashSet<Account>();
+					Account unregisteredCustomerAccount=new Account();
+					unregisteredCustomerAccount.setAccountNumber(accountNumber);
+					
+					accounthash.add(unregisteredCustomerAccount);
+					
+					registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
+						unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
+						unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
+					emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
+					
+					unregisteredCustomerRepository.delete(id);
+				}	
+				
+			
+			else
+			{
+				HashSet<Account> accounthash=listOfRegisteredUsers.get(0).getAccounthash();
+				Account unregisteredCustomerAccount=new Account();
+				unregisteredCustomerAccount.setAccountNumber(accountNumber);
+				accounthash.add(unregisteredCustomerAccount);
+				
+				mongoOperations.save(listOfRegisteredUsers.get(0));
+				
+				emailMessageBody="Your Account Number is: " +accountNumber;
+				
+				unregisteredCustomerRepository.delete(id);
+			}
+		
+			String receiverEmailId=registeredCustomer.getEmail();
+			System.out.println("message body "+emailMessageBody);
+			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+			MailMail mm = (MailMail) context.getBean("mailMail");
+	        mm.sendMail("from@no-spam.com",
+	        		receiverEmailId,
+	    		   "Verification Email for bank account",
+	    		   emailMessageBody);
+		}
+		
 		return "Success";
 	}
+
+
 }
