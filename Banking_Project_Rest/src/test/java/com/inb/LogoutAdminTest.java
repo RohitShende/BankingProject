@@ -27,13 +27,19 @@ public class LogoutAdminTest {
 	
 	
 	@Test
-	public void testLoginBranchManagerSuccess(){
+	public void testLogoutAdminSuccess(){
 		String input="{\"userName\": \"admin\"}";
 	    ClientResponse response=target.accept("application/json").type("application/json").put(ClientResponse.class,input);
 		assertEquals(200,response.getStatus());
 	}
 	
-
+	@Test
+	public void testLogoutAdminFailure(){
+		String input="{\"userName\": \"rohitss\"}";
+	    String result=target.accept("application/json").type("application/json").put(String.class,input);
+	    String expected="{ \"Exception\":\"USERNAME OR PASSWORD INCORRECT/rohitss\"}";
+	    assertEquals(expected,result);
+	}
 }
 	
 	
