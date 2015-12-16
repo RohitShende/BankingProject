@@ -59,12 +59,14 @@ public class DocumentServiceImpl implements DocumentService {
 		String idValue = id;
 
 		List<Documents> documents = documentsRepositiory.findByUserId(idValue);
-		System.out.println("-->" + documents);
-		byte[] bytes = documents.get(0).getAddressProof();
+		if(documents.get(0)!=null)	
+		{
+			byte[] bytes = documents.get(0).getAddressProof();
+			String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
 
-		String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
-
-		return retrieveUserDocumentsJson;
+			return retrieveUserDocumentsJson;
+		}
+		return "{\"Error\":\"No address proof document uploaded\"}";
 	}
 
 	public String retriveAgeProofDocumentForClientId(String id)
@@ -72,12 +74,13 @@ public class DocumentServiceImpl implements DocumentService {
 
 		String idValue = id;
 		List<Documents> documents = documentsRepositiory.findByUserId(idValue);
-		System.out.println("-->" + documents);
-		byte[] bytes = documents.get(0).getAgeProof();
-
-		String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
-
-		return retrieveUserDocumentsJson;
+		if(documents.get(0)!=null)	
+		{
+			byte[] bytes = documents.get(0).getAgeProof();
+			String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
+			return retrieveUserDocumentsJson;
+		}
+		return "{\"Error\":\"No age proof document uploaded\"}";
 	}
 
 }

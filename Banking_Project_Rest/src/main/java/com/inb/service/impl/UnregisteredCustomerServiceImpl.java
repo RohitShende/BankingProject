@@ -27,7 +27,11 @@ public class UnregisteredCustomerServiceImpl implements
 		UnregisteredCustomerService {
 
 	ObjectMapper mapper = new ObjectMapper();
-	private ApplicationContext context;
+//	private ApplicationContext context;
+	
+	@Autowired
+	MailMail mailService;
+	
 	@Autowired
 	UnregisteredCustomerRepository unregisteredCustomerRepository;
 
@@ -151,9 +155,9 @@ public String sendEmail(String id,String applicationStatus) {
 			
 			String receiverEmailId=unregisteredCustomer.getEmail();
 			
-			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-					MailMail mm = (MailMail) context.getBean("mailMail");
-			        mm.sendMail("from@no-spam.com",
+//			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+//					MailMail mm = (MailMail) context.getBean("mailMail");
+			mailService.sendMail("from@no-spam.com",
 			        		receiverEmailId,
 			    		   "Verification Email for bank account",
 			    		   emailMessageBody);
@@ -166,13 +170,20 @@ public String sendEmail(String id,String applicationStatus) {
 			String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
 	
 			long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
-			long clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
-			
 			
 			List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
 			
 				if(listOfRegisteredUsers.size()==0 || !(listOfRegisteredUsers.get(0).getId().equals(id)))
 				{
+
+					boolean checkResult=true;
+					long clientId=0;
+					while(checkResult)
+					{
+						clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
+						checkResult=checkClientId(clientId);
+						
+					}
 					
 					HashSet<Account> accounthash=new HashSet<Account>();
 					Account unregisteredCustomerAccount=new Account();
@@ -205,9 +216,9 @@ public String sendEmail(String id,String applicationStatus) {
 		
 			String receiverEmailId=registeredCustomer.getEmail();
 			
-			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-			MailMail mm = (MailMail) context.getBean("mailMail");
-	        mm.sendMail("from@no-spam.com",
+//			context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+//			MailMail mm = (MailMail) context.getBean("mailMail");
+			mailService.sendMail("ifno.inbbank@gmail.com",
 	        		receiverEmailId,
 	    		   "Verification Email for bank account",
 	    		   emailMessageBody);
@@ -216,5 +227,15 @@ public String sendEmail(String id,String applicationStatus) {
 		return "Success";
 	}
 
-
+	private boolean checkClientId(long customerId) 
+	{
+		List<RegisteredCustomer> listOfCustomers=registeredCustomerRepository.findBycustomerId(customerId);
+		if(listOfCustomers.size()!=0)
+		{
+			System.out.println(listOfCustomers.get(0).getCustomerId());
+			return true;
+		}
+		else
+			return false;
+	}
 }
