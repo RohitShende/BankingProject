@@ -56,7 +56,7 @@ public class UnregisteredCustomerController {
 		return unregisteredCustomerService.viewUnregisteredUserDetails(id);
 	}
 
-	@RequestMapping(value="/email/{id}/{status}", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/email/{id}/{status}", method=RequestMethod.PUT,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String sendRegistrationEmail(@PathVariable String id,@PathVariable String status) throws JsonParseException, JsonMappingException, IOException
 	{
 		unregisteredCustomerService.sendEmail(id,status);

@@ -59,7 +59,7 @@ public class DocumentServiceImpl implements DocumentService {
 		String idValue = id;
 
 		List<Documents> documents = documentsRepositiory.findByUserId(idValue);
-		if(documents.get(0)!=null)	
+		if(documents.size()!=0)	
 		{
 			byte[] bytes = documents.get(0).getAddressProof();
 			String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
@@ -74,7 +74,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 		String idValue = id;
 		List<Documents> documents = documentsRepositiory.findByUserId(idValue);
-		if(documents.get(0)!=null)	
+		if(documents.size()!=0)	
 		{
 			byte[] bytes = documents.get(0).getAgeProof();
 			String retrieveUserDocumentsJson = mapper.writeValueAsString(bytes);
