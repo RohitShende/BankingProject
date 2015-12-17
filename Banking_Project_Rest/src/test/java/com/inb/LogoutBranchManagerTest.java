@@ -27,7 +27,7 @@ public class LogoutBranchManagerTest {
 	public void testLogoutBranchManagerSuccess(){
 		String input="{\"role\": \"branchmanager\",\"id\": \"566e9deb31139801e4ae6532\"}";
 		String result=target.accept("application/json").type("application/json").put(String.class,input);
-	    String expected="{ \"logoutMsg\" :\"success\"}";
+	    String expected="{ \"logoutMsg\" :\"Successfully Logged Out\"}";
 	    assertEquals(expected,result);
 	}
 	
@@ -40,7 +40,7 @@ public class LogoutBranchManagerTest {
 	}
 	
 	@Test
-	public void testLogoutBranchManagerFailureDueToRoleDB(){
+	public void testLogoutBranchManagerFailureDueToRoleDB(){ 
 		String input="{\"role\": \"branchmanager\",\"id\": \"566e9deb31139801e4ae65ee\"}";
 	    String result=target.accept("application/json").type("application/json").put(String.class,input);
 	    String expected="{ \"logoutMsg\" :\"You Are Not Branch Manager\"}";

@@ -77,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
 				{
 					admin.setLogin(false);
 					mongoOperations.save(admin);
-					adminJson = "{ \"logoutMsg\" :\"success\"}";
+					adminJson = "{ \"logoutMsg\" :\"Successfully Logged Out\"}";
 				}
 				else
 				{

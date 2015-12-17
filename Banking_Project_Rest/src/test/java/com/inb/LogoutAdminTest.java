@@ -29,7 +29,7 @@ public class LogoutAdminTest {
 	public void testLogoutAdminSuccess(){
 		String input="{\"role\": \"admin\",\"id\": \"567151b331130956e1028033\"}";
 		String result=target.accept("application/json").type("application/json").put(String.class,input);
-	    String expected="{ \"logoutMsg\" :\"success\"}";
+	    String expected="{ \"logoutMsg\" :\"Successfully Logged Out\"}";
 	    assertEquals(expected,result);
 	}
 	

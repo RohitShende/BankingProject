@@ -132,8 +132,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		basicQuery.limit(end);
 		List<BranchManager> listOfBranchManagers = mongoOperations.find(basicQuery, BranchManager.class);
 		
-		String result=mapper.writeValueAsString(listOfBranchManagers);	
-		System.out.println(result);
+		String result=mapper.writeValueAsString(listOfBranchManagers);
 		return result;
 		
 	}
@@ -151,7 +150,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 					{
 						branchManager.setLogin(false);
 						mongoOperations.save(branchManager);
-						branchManagerJson = "{ \"logoutMsg\" :\"success\"}";
+						branchManagerJson = "{ \"logoutMsg\" :\"Successfully Logged Out\"}";
 					}
 					else
 					{
