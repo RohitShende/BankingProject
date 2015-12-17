@@ -148,11 +148,6 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 						+ list.get(0).getAuthorizedImageText() + "\"}";
 			}
 		}
-		
-
-		// registeredCustomerRepository.save(new RegisteredCustomer("Navin",
-		// "Maheshwari", "nm@gmail.com", 123456, "address", new Date(), 12345,
-		// "NM", "nm", "one","navin is my name" ));
 		return json;
 
 	}
@@ -187,6 +182,11 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 			return "{\"Exception\":\"Parsing Error\"}";
 		}
 		return json;
+	}
+
+	public String transferMoney(String clientId, String receiverID, float amount) {
+
+		return null;
 	}
 
 
