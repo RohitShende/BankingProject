@@ -44,10 +44,9 @@ public class UnregisteredCustomerController {
 		return unregisteredCustomerService.isEmailAlreadyExits(email);
 	}
 
-	@RequestMapping(value = "/{skip}/{limit}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getUnregisteredUsers(@PathVariable int skip,
-			@PathVariable int limit) throws JsonProcessingException {
-		return unregisteredCustomerService.verifyUnregisteredUsers(skip,limit);
+	@RequestMapping(value = "/details", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getUnregisteredUsers() throws JsonProcessingException {
+		return unregisteredCustomerService.verifyUnregisteredUsers();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

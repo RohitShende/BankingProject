@@ -115,7 +115,7 @@ public class UnregisteredCustomerServiceImpl implements
 		return unregisteredCustomer;
 	}
 
-	public String verifyUnregisteredUsers(int skip,int limit) throws JsonProcessingException {
+	public String verifyUnregisteredUsers() throws JsonProcessingException {
 
 		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
 		List<Customer> listOfUsers = unregisteredCustomerRepository.findAll();
