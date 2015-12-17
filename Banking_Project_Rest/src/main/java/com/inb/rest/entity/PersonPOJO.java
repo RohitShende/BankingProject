@@ -2,8 +2,6 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
-import com.inb.mongo.collections.Branch;
-
 abstract public class PersonPOJO {
 
 	private String firstName;

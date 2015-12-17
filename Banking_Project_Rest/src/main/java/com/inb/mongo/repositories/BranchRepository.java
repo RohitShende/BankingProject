@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.inb.mongo.collections.Branch;
-import com.inb.mongo.collections.RegisteredCustomer;
 
 public interface BranchRepository extends MongoRepository<Branch, String>{
 	

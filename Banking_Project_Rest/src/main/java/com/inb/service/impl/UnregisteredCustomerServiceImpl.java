@@ -43,6 +43,18 @@ public class UnregisteredCustomerServiceImpl implements
 
 	@Autowired
 	private DocumentsRepositiory documentsRepositiory;
+
+	@SuppressWarnings("unused")
+	private String emailMessageBody;
+
+	@SuppressWarnings("unused")
+	private String receiverEmailId;
+
+	@SuppressWarnings("unused")
+	private String emailMessageBody2;
+
+	@SuppressWarnings("unused")
+	private String receiverEmailId2;
 	public String registerEnquiry(
 
 	UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
@@ -171,11 +183,11 @@ public String sendEmail(String id,String applicationStatus) {
 			unregisteredCustomer.setApplicationStatus("Rejected");
 			
 			unregisteredCustomerRepository.save(unregisteredCustomer);
-			String emailMessageBody="Your application has been rejected. Please contact your nearest branch "
+			emailMessageBody = "Your application has been rejected. Please contact your nearest branch "
 					+ "manager for more details";
 			
 			result="{ \"Success\": \"Email sent\"}";
-			String receiverEmailId=unregisteredCustomer.getEmail();
+			receiverEmailId = unregisteredCustomer.getEmail();
 			
 //			mailService.sendMail("info.inbbank@gmail.com",
 //			        		receiverEmailId,
@@ -185,7 +197,7 @@ public String sendEmail(String id,String applicationStatus) {
 		else
 		{
 			RegisteredCustomer registeredCustomer=new RegisteredCustomer();
-			String emailMessageBody="";
+			emailMessageBody2 = "";
 			
 			String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
 	
@@ -221,7 +233,7 @@ public String sendEmail(String id,String applicationStatus) {
 					registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
 						unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
 						unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
-					emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword+". Your account number is: "+accountNumber;
+					emailMessageBody2="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword+". Your account number is: "+accountNumber;
 					result="{ \"Success\": \"Email sent\"}";
 					unregisteredCustomerRepository.delete(id);
 				}	
@@ -237,12 +249,12 @@ public String sendEmail(String id,String applicationStatus) {
 				
 				mongoOperations.save(listOfRegisteredUsers.get(0));
 				
-				emailMessageBody="Your account number is: " +accountNumber;
+				emailMessageBody2="Your account number is: " +accountNumber;
 				result="{ \"Success\": \"Email sent\"}";
 				unregisteredCustomerRepository.delete(id);
 			}
 		
-			String receiverEmailId=registeredCustomer.getEmail();
+			receiverEmailId2 = registeredCustomer.getEmail();
 			
 //			mailService.sendMail("info.inbbank@gmail.com",
 //	        		receiverEmailId,

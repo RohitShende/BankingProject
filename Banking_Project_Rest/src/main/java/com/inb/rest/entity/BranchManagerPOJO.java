@@ -2,8 +2,6 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
-import com.inb.mongo.collections.Branch;
-
 public class BranchManagerPOJO extends EmployeePOJO{
 
 	

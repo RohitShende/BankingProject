@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.inb.mongo.collections.RegisteredCustomer;
-import com.inb.mongo.collections.UnregisteredCustomer;
 
 public interface RegisteredCustomerRepository extends
 		MongoRepository<RegisteredCustomer, String> {

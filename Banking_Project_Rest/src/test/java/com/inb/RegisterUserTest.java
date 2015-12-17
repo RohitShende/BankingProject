@@ -1,6 +1,6 @@
 package com.inb;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class RegisterUserTest {
 
 	@Test
 	public void testApplyNewAccount() {
-		String id = "1432456";
+		//String id = "1432456";
 		String input="{\"account\": { \"accountType\" : \"SAVINGACCOUNT\"},\"address\" : \"nm\",\"branchPOJO\": {},\"dateOfBirth\": \"2015-12-07T18:30:00.000Z\",\"email\": \"nm1agdfssdf@gmail.com\",\"firstName\": \"gbdfh\",\"lastName\": \"sdfgdf\",\"phone\": 1234}";
 		ClientResponse response=target.accept("application/json").type("application/json").post(ClientResponse.class,input);
 		assertEquals(200,response.getStatus());
