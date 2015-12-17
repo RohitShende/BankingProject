@@ -3,6 +3,11 @@
  */
 package com.inb.rest.controllers;
 
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,10 +62,17 @@ public class RegisteredCustomerController {
 		return registeredCustomerService.viewRegisteredCustomers();
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/",method=RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginRegisteredUser(@RequestBody LoginDetails loginDetails) throws JsonProcessingException
 	{
 		return registeredCustomerService.checkLogin(loginDetails.getUserName() , loginDetails.getPassword());
 	}
+	
+	@RequestMapping(value="/transfer",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String transferMoney(JSONObject json) throws JSONException
+	{
+		return null;
+	}
+	
 	
 }

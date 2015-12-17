@@ -184,10 +184,14 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 	}
 
-	public String transferMoney(String clientId, String receiverID, float amount) {
-
+	public String transferMoney(String accountNo, String receiverAccount,
+			float amount) {
+		System.out.println("-->"+accountNo);
+		System.out.println("-->"+receiverAccount);
+		System.out.println("-->"+amount);
 		return null;
 	}
+
 
 
 }

@@ -10,6 +10,8 @@ public interface RegisteredCustomerService {
 	String getAuthorisationDataClientId(String id); 
 	String checkLogin(String clientId , String password);
 	RegisteredCustomer getRegisteredUserObjectByClientId(String id);
+	String transferMoney(String accountNo,String receiverAccount,float amount);
+	
 	
 	String setAuthorisationOfRegisteredUser(RegisteredCustomer registeredCustomer);
 	public String viewRegisteredUserDetails(String id)
