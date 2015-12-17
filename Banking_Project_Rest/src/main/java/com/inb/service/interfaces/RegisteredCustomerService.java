@@ -3,6 +3,7 @@ package com.inb.service.interfaces;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.mongo.collections.RegisteredCustomer;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
+import com.inb.rest.entity.TransferPOJO;
 
 public interface RegisteredCustomerService {
 	String registerEnquiry(RegisteredCustomerPOJO registeredCustomerPOJO);
@@ -10,7 +11,7 @@ public interface RegisteredCustomerService {
 	String getAuthorisationDataClientId(String id); 
 	String checkLogin(String clientId , String password);
 	RegisteredCustomer getRegisteredUserObjectByClientId(String id);
-	String transferMoney(String accountNo,String receiverAccount,float amount);
+	String transferMoney(TransferPOJO transfer);
 	
 	
 	String setAuthorisationOfRegisteredUser(RegisteredCustomer registeredCustomer);

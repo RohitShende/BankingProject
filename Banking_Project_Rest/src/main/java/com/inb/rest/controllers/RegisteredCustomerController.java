@@ -4,7 +4,6 @@
 package com.inb.rest.controllers;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.rest.entity.LoginDetails;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
+import com.inb.rest.entity.TransferPOJO;
 import com.inb.service.interfaces.RegisteredCustomerService;
 
 /**
@@ -64,10 +64,11 @@ public class RegisteredCustomerController {
 		return registeredCustomerService.checkLogin(loginDetails.getUserName() , loginDetails.getPassword());
 	}
 	
-	@RequestMapping(value="/transfer",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String transferMoney(JSONObject json) throws JSONException
+	@RequestMapping(value="/transfer",method=RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String transferMoney(@RequestBody TransferPOJO transfer) throws JSONException
 	{
-		return null;
+		System.out.println(transfer);
+		return registeredCustomerService.transferMoney(transfer);
 	}
 	
 	@RequestMapping(value="/account/{id}",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)

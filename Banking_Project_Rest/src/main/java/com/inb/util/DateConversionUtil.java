@@ -17,5 +17,14 @@ public class DateConversionUtil {
 		return isoDate;
 	}
 	
+	public static Date changeDateFormat(Date date)
+	{
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		Calendar calendar2=new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)+1);
+		Date isoDate=calendar2.getTime();
+		return isoDate;
+	}
+	
 
 }

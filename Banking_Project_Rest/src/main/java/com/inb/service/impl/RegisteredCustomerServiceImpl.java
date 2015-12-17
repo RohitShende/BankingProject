@@ -1,5 +1,6 @@
 package com.inb.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import com.inb.mongo.collections.Customer;
 import com.inb.mongo.collections.RegisteredCustomer;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
+import com.inb.rest.entity.Account;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
+import com.inb.rest.entity.TransferPOJO;
 import com.inb.service.interfaces.RegisteredCustomerService;
 
 @Service
@@ -137,14 +140,13 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		if (list.size() == 0) {
 			return "{ \"Exception\":\"InvaildClientId\" }";
 		} else {
-			if(list.get(0).getAuthorizedImageText() == null)
-			{
-				json = "{\"id\":\"" + list.get(0).getCustomerId() + "\",\"firstTimeLogin\":\"true\"}";
-			}
-			else
-			{
+			if (list.get(0).getAuthorizedImageText() == null) {
+				json = "{\"id\":\"" + list.get(0).getCustomerId()
+						+ "\",\"firstTimeLogin\":\"true\"}";
+			} else {
 				json = "{\"id\":\"" + list.get(0).getId() + "\",\"image\":\""
-						+ list.get(0).getAuthorizedImageName() + "\",\"text\":\""
+						+ list.get(0).getAuthorizedImageName()
+						+ "\",\"text\":\""
 						+ list.get(0).getAuthorizedImageText() + "\"}";
 			}
 		}
@@ -170,12 +172,16 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 
 	public String setAuthorisationOfRegisteredUser(
 			RegisteredCustomer registeredCustomer) {
-		RegisteredCustomer tempRegisteredCustomer = getRegisteredUserObjectByClientId(""+registeredCustomer.getCustomerId());
-		tempRegisteredCustomer.setAuthorizedImageName(registeredCustomer.getAuthorizedImageName());
-		tempRegisteredCustomer.setAuthorizedImageText(registeredCustomer.getAuthorizedImageText());
+		RegisteredCustomer tempRegisteredCustomer = getRegisteredUserObjectByClientId(""
+				+ registeredCustomer.getCustomerId());
+		tempRegisteredCustomer.setAuthorizedImageName(registeredCustomer
+				.getAuthorizedImageName());
+		tempRegisteredCustomer.setAuthorizedImageText(registeredCustomer
+				.getAuthorizedImageText());
 		tempRegisteredCustomer.setPassword(registeredCustomer.getPassword());
-		registeredCustomer =  registeredCustomerRepository.save(tempRegisteredCustomer);
-		String json="";
+		registeredCustomer = registeredCustomerRepository
+				.save(tempRegisteredCustomer);
+		String json = "";
 		try {
 			json = mapper.writeValueAsString(registeredCustomer);
 		} catch (JsonProcessingException e) {
@@ -184,25 +190,80 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 	}
 
-	public String transferMoney(String accountNo, String receiverAccount,
-			float amount) {
-		System.out.println("-->"+accountNo);
-		System.out.println("-->"+receiverAccount);
-		System.out.println("-->"+amount);
-		return null;
+	public String transferMoney(TransferPOJO transfer) {
+
+		List<RegisteredCustomer> list = registeredCustomerRepository
+				.findByAccountNumber(transfer.getClientAccount());
+		RegisteredCustomer registeredCustomerSender = list.size() == 0 ? null
+				: list.get(0);
+		System.out.println(registeredCustomerSender);
+		list = registeredCustomerRepository.findByAccountNumber(transfer
+				.getRecevierAccount());
+		RegisteredCustomer registeredCustomerReciver = list.size() == 0 ? null
+				: list.get(0);
+		System.out.println(registeredCustomerReciver);
+		if (registeredCustomerReciver == null
+				|| registeredCustomerSender == null) {
+			return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+		}
+
+		Iterator<Account> clientAccounts = registeredCustomerSender
+				.getAccounthash().iterator();
+		boolean fineFlag = true;
+		Account senderAccount = null;
+
+		while (clientAccounts.hasNext()) {
+			Account temp = clientAccounts.next();
+
+			if (temp.getAccountNumber() == transfer.getClientAccount()) {
+				senderAccount = temp;
+				System.out.println("--0>" + temp.getBalance());
+				if (temp.getBalance() < transfer.getAmount()) {
+					fineFlag = false;
+					return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+				}
+				break;
+			}
+		}
+
+		Iterator<Account> reciverAccountsIterator = registeredCustomerReciver
+				.getAccounthash().iterator();
+		Account reciverAccount = null;
+		while (reciverAccountsIterator.hasNext()) {
+			Account temp = reciverAccountsIterator.next();
+
+			if (temp.getAccountNumber() == transfer.getRecevierAccount()) {
+				reciverAccount = temp;
+				break;
+			}
+		}
+		System.out.println("TRANSCTION STARTED..");
+		if (fineFlag) {
+			senderAccount.setBalance(senderAccount.getBalance()
+					- transfer.getAmount());
+			reciverAccount.setBalance(reciverAccount.getBalance()
+					+ transfer.getAmount());
+
+			if (registeredCustomerRepository.save(registeredCustomerSender) != null) {
+				registeredCustomerRepository.save(registeredCustomerReciver);
+				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
+			}
+		}
+
+		return "{\"Status\":\"Failed\", \"Message\":\"Invaild Details4\"}";
 	}
 
 	public String viewAccountDetails(long id) throws JsonProcessingException {
-		String accountDetailsJson="{\"Error\":\"No accounts to display\"}";
-		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository.findBycustomerId(id);
+		String accountDetailsJson = "{\"Error\":\"No accounts to display\"}";
+		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository
+				.findBycustomerId(id);
 
-		if (listOfUsers.size()!=0) {
-			accountDetailsJson = mapper.writeValueAsString(listOfUsers.get(0).getAccounthash());
+		if (listOfUsers.size() != 0) {
+			accountDetailsJson = mapper.writeValueAsString(listOfUsers.get(0)
+					.getAccounthash());
 		}
 		return accountDetailsJson;
-		
+
 	}
-
-
 
 }
