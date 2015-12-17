@@ -2,6 +2,8 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
+import com.inb.mongo.collections.Branch;
+
 public abstract class EmployeePOJO extends PersonPOJO {
 	
 	private String userName;
@@ -18,6 +20,14 @@ public abstract class EmployeePOJO extends PersonPOJO {
 			long phone, String address, Date dateOfBirth, String userName,
 			String password) {
 		super(firstName, lastName, email, phone, address, dateOfBirth);
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	public EmployeePOJO(String firstName, String lastName, String email,
+			long phone, String address, Date dateOfBirth, String userName,
+			String password, BranchPOJO branchPOJO) {
+		super(firstName, lastName, email, phone, address, dateOfBirth, branchPOJO);
 		this.userName = userName;
 		this.password = password;
 	}

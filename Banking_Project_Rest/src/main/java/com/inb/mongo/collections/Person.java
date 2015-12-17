@@ -16,6 +16,7 @@ abstract public class Person {
 	private String address;
 	private Date dateOfBirth;
 	private Branch branch;
+	
 	private boolean isLogin;
 	
 	public boolean isLogin() {
@@ -47,7 +48,17 @@ abstract public class Person {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	
+	public Person(String firstName, String lastName, String email, long phone, String address,
+			Date dateOfBirth, Branch branch) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.dateOfBirth = dateOfBirth;
+		this.branch = branch;
+	}
 
 	public String getId() {
 		return id;

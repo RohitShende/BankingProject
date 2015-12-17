@@ -2,6 +2,8 @@ package com.inb.rest.entity;
 
 import java.util.Date;
 
+import com.inb.mongo.collections.Branch;
+
 abstract public class PersonPOJO {
 
 	private String firstName;
@@ -54,7 +56,17 @@ abstract public class PersonPOJO {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-
+	public PersonPOJO(String firstName, String lastName, String email, long phone, String address,
+			Date dateOfBirth, BranchPOJO branchPOJO) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.dateOfBirth = dateOfBirth;
+		this.branchPOJO = branchPOJO;
+	}
 
 	public String getFirstName() {
 		return firstName;

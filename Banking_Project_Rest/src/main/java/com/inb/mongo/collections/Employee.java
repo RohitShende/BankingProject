@@ -22,6 +22,13 @@ public abstract class Employee extends Person {
 		this.password = password;
 	}
 
+	public Employee(String firstName, String lastName, String email,
+			long phone, String address, Date dateOfBirth, String userName,
+			String password, Branch branch) {
+		super(firstName, lastName, email, phone, address, dateOfBirth, branch);
+		this.userName = userName;
+		this.password = password;
+	}
 
 	public String getUserName() {
 		return userName;

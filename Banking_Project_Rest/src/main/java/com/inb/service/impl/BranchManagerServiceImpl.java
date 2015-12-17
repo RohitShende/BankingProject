@@ -14,10 +14,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.exceptions.BranchManagerExistsException;
 import com.inb.exceptions.InvalidInputException;
 import com.inb.exceptions.NotBranchManagerException;
+import com.inb.mongo.collections.Branch;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchManagerRepository;
+import com.inb.rest.entity.BranchManagerPOJO;
+import com.inb.rest.entity.BranchPOJO;
 import com.inb.service.interfaces.BranchManagerService;
 import com.inb.util.DateConversionUtil;
+import com.inb.util.MailMail;
 
 @Service
 public class BranchManagerServiceImpl implements BranchManagerService {
@@ -25,6 +29,9 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	private BranchManagerRepository branchManagerRepository;
+	
+	@Autowired
+	MailMail mailService;
 	
 	@Autowired
 	private MongoOperations mongoOperations;
@@ -52,6 +59,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 		{
 			
 			branchManager=branchManagerRepository.insert(branchManager);
+			sendEmail(branchManager);
 			flag=2;
 		}
 		if(flag==1)
@@ -66,9 +74,26 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	}
 	
 	
-	public String insertBranchManager(BranchManager branchManager) throws JsonProcessingException
+	private void sendEmail(BranchManager branchManager) {
+		
+		System.out.println("Sending mail...........");
+		mailService.sendMail("info.inbbank@gmail.com",
+        		branchManager.getEmail(),
+    		   "Branch Manager Account Details",
+    		   "Your username is: "+branchManager.getUserName()+" and password is: "+branchManager.getPassword());
+		
+	}
+
+
+	public String insertBranchManager(BranchManagerPOJO branchManagerPOJO) throws JsonProcessingException
 	{
 	
+		Branch branch=convertBranchPOJOToBranch(branchManagerPOJO.getBranchPOJO());
+		
+		BranchManager branchManager=new BranchManager(branchManagerPOJO.getFirstName(), branchManagerPOJO.getLastName(), branchManagerPOJO.getEmail(),
+				branchManagerPOJO.getPhone(), branchManagerPOJO.getAddress(), branchManagerPOJO.getDateOfBirth(), branchManagerPOJO.getUserName(), 
+				branchManagerPOJO.getPassword(),branch);
+		
 		Date isoDate=DateConversionUtil.changeDateFormat(branchManager);
 		branchManager.setDateOfBirth(isoDate);
 		
@@ -84,6 +109,14 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 				String str = "{ \"Exception\": \""+ e.getMessage() + "\"}";
 				return str;
 			}
+	}
+	
+	
+	public Branch convertBranchPOJOToBranch(BranchPOJO branchPOJO)
+	{
+		Branch branch=new Branch();
+		branch.setBranchName(branchPOJO.getBranchName());
+		return branch;
 	}
 	
 	

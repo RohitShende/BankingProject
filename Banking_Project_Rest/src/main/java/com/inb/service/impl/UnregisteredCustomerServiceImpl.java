@@ -177,7 +177,7 @@ public String sendEmail(String id,String applicationStatus) {
 			result="{ \"Success\": \"Email sent\"}";
 			String receiverEmailId=unregisteredCustomer.getEmail();
 			
-//			mailService.sendMail("from@no-spam.com",
+//			mailService.sendMail("info.inbbank@gmail.com",
 //			        		receiverEmailId,
 //			    		   "Verification Email for bank account",
 //			    		   emailMessageBody);
@@ -221,7 +221,7 @@ public String sendEmail(String id,String applicationStatus) {
 					registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
 						unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
 						unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
-					emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
+					emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword+". Your account number is: "+accountNumber;
 					result="{ \"Success\": \"Email sent\"}";
 					unregisteredCustomerRepository.delete(id);
 				}	
@@ -237,14 +237,14 @@ public String sendEmail(String id,String applicationStatus) {
 				
 				mongoOperations.save(listOfRegisteredUsers.get(0));
 				
-				emailMessageBody="Your Account Number is: " +accountNumber;
+				emailMessageBody="Your account number is: " +accountNumber;
 				result="{ \"Success\": \"Email sent\"}";
 				unregisteredCustomerRepository.delete(id);
 			}
 		
 			String receiverEmailId=registeredCustomer.getEmail();
 			
-//			mailService.sendMail("ifno.inbbank@gmail.com",
+//			mailService.sendMail("info.inbbank@gmail.com",
 //	        		receiverEmailId,
 //	    		   "Verification Email for bank account",
 //	    		   emailMessageBody);
