@@ -29,7 +29,7 @@ public class CustomerAuthorisationController {
 		
 	}
 	
-	@RequestMapping( method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String setAuthoriseDetailsCustomerById(@RequestBody RegisteredCustomer registeredCustomer) {
 		return registeredCustomerService.setAuthorisationOfRegisteredUser(registeredCustomer);
 	}
