@@ -27,7 +27,6 @@ public class UnregisteredCustomerServiceImpl implements
 		UnregisteredCustomerService {
 
 	ObjectMapper mapper = new ObjectMapper();
-//	private ApplicationContext context;
 	
 	@Autowired
 	MailMail mailService;
@@ -160,92 +159,92 @@ public class UnregisteredCustomerServiceImpl implements
 public String sendEmail(String id,String applicationStatus) {
 		
 	List<Customer> listOfUnregisteredUsers=unregisteredCustomerRepository.findById(id);
-	Customer unregisteredPerson=listOfUnregisteredUsers.get(0);
-
-	if(applicationStatus.equals("reject"))
+	String result="{ \"Error\": \"Email not sent\"}";
+	if(listOfUnregisteredUsers.size()!=0)
 	{
-		UnregisteredCustomer unregisteredCustomer=(UnregisteredCustomer)unregisteredPerson;
-		unregisteredCustomer.setApplicationStatus("Rejected");
+	
+		Customer unregisteredPerson=listOfUnregisteredUsers.get(0);
 		
-		unregisteredCustomerRepository.save(unregisteredCustomer);
-		String emailMessageBody="Your application has been rejected. Please contact your nearest branch "
-				+ "manager for more details";
-		
-		String receiverEmailId=unregisteredCustomer.getEmail();
-		
-//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-//				MailMail mm = (MailMail) context.getBean("mailMail");
-//		mailService.sendMail("from@no-spam.com",
-//		        		receiverEmailId,
-//		    		   "Verification Email for bank account",
-//		    		   emailMessageBody);
-		
-		System.out.println("-->"+emailMessageBody);
-	}
-	else
-	{
-		RegisteredCustomer registeredCustomer=new RegisteredCustomer();
-		String emailMessageBody="";
-		
-		String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
-
-		long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
-		
-		List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
-		
-			if(listOfRegisteredUsers.size()==0 || !(listOfRegisteredUsers.get(0).getId().equals(id)))
-			{
-
-				boolean checkResult=true;
-				long clientId=0;
-				while(checkResult)
-				{
-					clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
-					checkResult=checkClientId(clientId);
-					
-				}
-				
-				HashSet<Account> accounthash=new HashSet<Account>();
-				Account unregisteredCustomerAccount=new Account();
-				unregisteredCustomerAccount.setAccountNumber(accountNumber);
-				
-				accounthash.add(unregisteredCustomerAccount);
-				
-				registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
-					unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
-					unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
-				emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
-				
-				unregisteredCustomerRepository.delete(id);
-			}	
+		if(applicationStatus.equals("reject"))
+		{
+			UnregisteredCustomer unregisteredCustomer=(UnregisteredCustomer)unregisteredPerson;
+			unregisteredCustomer.setApplicationStatus("Rejected");
 			
-		
+			unregisteredCustomerRepository.save(unregisteredCustomer);
+			String emailMessageBody="Your application has been rejected. Please contact your nearest branch "
+					+ "manager for more details";
+			
+			result="{ \"Success\": \"Email sent\"}";
+			String receiverEmailId=unregisteredCustomer.getEmail();
+			
+			mailService.sendMail("from@no-spam.com",
+			        		receiverEmailId,
+			    		   "Verification Email for bank account",
+			    		   emailMessageBody);
+		}
 		else
 		{
-			HashSet<Account> accounthash=listOfRegisteredUsers.get(0).getAccounthash();
-			Account unregisteredCustomerAccount=new Account();
-			unregisteredCustomerAccount.setAccountNumber(accountNumber);
-			accounthash.add(unregisteredCustomerAccount);
+			RegisteredCustomer registeredCustomer=new RegisteredCustomer();
+			String emailMessageBody="";
 			
-			mongoOperations.save(listOfRegisteredUsers.get(0));
-			
-			emailMessageBody="Your Account Number is: " +accountNumber;
-			
-			unregisteredCustomerRepository.delete(id);
-		}
+			String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
 	
-		String receiverEmailId=registeredCustomer.getEmail();
+			long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
+			
+			List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
+			
+				if(listOfRegisteredUsers.size()==0 || !(listOfRegisteredUsers.get(0).getId().equals(id)))
+				{
+	
+					boolean checkResult=true;
+					long clientId=0;
+					while(checkResult)
+					{
+						clientId=RandomNumberGenerator.randomWithRange(3000, 500000);
+						checkResult=checkClientId(clientId);
+						
+					}
+					
+					HashSet<Account> accounthash=new HashSet<Account>();
+					Account unregisteredCustomerAccount=new Account();
+					unregisteredCustomerAccount.setAccountNumber(accountNumber);
+					unregisteredCustomerAccount.setBalance(5000);
+					accounthash.add(unregisteredCustomerAccount);
+					
+					registeredCustomer=registeredCustomerRepository.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(), unregisteredPerson.getLastName(), 
+						unregisteredPerson.getEmail(), unregisteredPerson.getPhone(),unregisteredPerson.getAddress(), 
+						unregisteredPerson.getDateOfBirth(),clientId, oneTimePassword,accounthash));
+					emailMessageBody="Your Client Id is: "+clientId+" and one time password: "+oneTimePassword;
+					result="{ \"Success\": \"Email sent\"}";
+					unregisteredCustomerRepository.delete(id);
+				}	
+				
+			
+			else
+			{
+				HashSet<Account> accounthash=listOfRegisteredUsers.get(0).getAccounthash();
+				Account registeredCustomerAccount=new Account();
+				registeredCustomerAccount.setAccountNumber(accountNumber);
+				registeredCustomerAccount.setBalance(5000);
+				accounthash.add(registeredCustomerAccount);
+				
+				mongoOperations.save(listOfRegisteredUsers.get(0));
+				
+				emailMessageBody="Your Account Number is: " +accountNumber;
+				result="{ \"Success\": \"Email sent\"}";
+				unregisteredCustomerRepository.delete(id);
+			}
 		
-//		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-//		MailMail mm = (MailMail) context.getBean("mailMail");
-//		mailService.sendMail("ifno.inbbank@gmail.com",
-//        		receiverEmailId,
-//    		   "Verification Email for bank account",
-//    		   emailMessageBody);
-		System.out.println("-->"+emailMessageBody);
+			String receiverEmailId=registeredCustomer.getEmail();
+			
+			mailService.sendMail("ifno.inbbank@gmail.com",
+	        		receiverEmailId,
+	    		   "Verification Email for bank account",
+	    		   emailMessageBody);
+			
+		}
 	}
-	
-	return "Success";
+	return result;
 }
 private boolean checkClientId(long customerId) 
 {

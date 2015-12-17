@@ -59,7 +59,7 @@ public class UnregisteredCustomerController {
 	@RequestMapping(value="/email/{id}/{status}", method=RequestMethod.PUT,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String sendRegistrationEmail(@PathVariable String id,@PathVariable String status) throws JsonParseException, JsonMappingException, IOException
 	{
-		unregisteredCustomerService.sendEmail(id,status);
-		return id;
+		return unregisteredCustomerService.sendEmail(id,status);
+		
 	}
 }
