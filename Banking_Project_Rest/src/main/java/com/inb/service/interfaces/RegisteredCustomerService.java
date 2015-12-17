@@ -19,4 +19,6 @@ public interface RegisteredCustomerService {
 	
 	public String viewRegisteredCustomers()
 			throws JsonProcessingException;
+	
+	String viewAccountDetails(long id) throws JsonProcessingException;
 }

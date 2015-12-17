@@ -70,5 +70,9 @@ public class RegisteredCustomerController {
 		return null;
 	}
 	
-	
+	@RequestMapping(value="/account/{id}",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String viewAccountDetails(@PathVariable long id) throws JsonProcessingException
+	{
+		return registeredCustomerService.viewAccountDetails(id);
+	}
 }

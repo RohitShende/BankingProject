@@ -192,6 +192,17 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return null;
 	}
 
+	public String viewAccountDetails(long id) throws JsonProcessingException {
+		String accountDetailsJson="{\"Error\":\"No accounts to display\"}";
+		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository.findBycustomerId(id);
+
+		if (listOfUsers.size()!=0) {
+			accountDetailsJson = mapper.writeValueAsString(listOfUsers.get(0).getAccounthash());
+		}
+		return accountDetailsJson;
+		
+	}
+
 
 
 }
