@@ -88,6 +88,12 @@ public class UnregisteredCustomerServiceImpl implements
 			}
 
 			return json;
+		}else
+		{
+			List<RegisteredCustomer> listRegisteredCustomers = registeredCustomerRepository.findByEmail(email);
+			if (listRegisteredCustomers.size() != 0) {
+				return "{\"AlreadyUser\" : \"true\"}";
+			}
 		}
 		return "{\"alreadyExists\" : \"false\"}";
 	}
@@ -169,10 +175,12 @@ public String sendEmail(String id,String applicationStatus) {
 		
 //		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 //				MailMail mm = (MailMail) context.getBean("mailMail");
-		mailService.sendMail("from@no-spam.com",
-		        		receiverEmailId,
-		    		   "Verification Email for bank account",
-		    		   emailMessageBody);
+//		mailService.sendMail("from@no-spam.com",
+//		        		receiverEmailId,
+//		    		   "Verification Email for bank account",
+//		    		   emailMessageBody);
+		
+		System.out.println("-->"+emailMessageBody);
 	}
 	else
 	{
@@ -230,10 +238,11 @@ public String sendEmail(String id,String applicationStatus) {
 		
 //		context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
 //		MailMail mm = (MailMail) context.getBean("mailMail");
-		mailService.sendMail("ifno.inbbank@gmail.com",
-        		receiverEmailId,
-    		   "Verification Email for bank account",
-    		   emailMessageBody);
+//		mailService.sendMail("ifno.inbbank@gmail.com",
+//        		receiverEmailId,
+//    		   "Verification Email for bank account",
+//    		   emailMessageBody);
+		System.out.println("-->"+emailMessageBody);
 	}
 	
 	return "Success";

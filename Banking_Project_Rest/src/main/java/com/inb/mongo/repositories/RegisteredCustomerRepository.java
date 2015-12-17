@@ -16,5 +16,7 @@ public interface RegisteredCustomerRepository extends
 	@Query(value="{_id : ?0}")
 	public List<RegisteredCustomer> findById(String id);
 	
+	@Query(value="{email: ?0}")
+	public List<RegisteredCustomer> findByEmail(String email);
 
 }
