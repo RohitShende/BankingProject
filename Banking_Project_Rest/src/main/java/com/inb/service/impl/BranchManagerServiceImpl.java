@@ -17,6 +17,7 @@ import com.inb.exceptions.NotBranchManagerException;
 import com.inb.mongo.collections.Branch;
 import com.inb.mongo.collections.BranchManager;
 import com.inb.mongo.repositories.BranchManagerRepository;
+import com.inb.mongo.repositories.BranchRepository;
 import com.inb.rest.entity.BranchManagerPOJO;
 import com.inb.rest.entity.BranchPOJO;
 import com.inb.service.interfaces.BranchManagerService;
@@ -29,6 +30,9 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	private BranchManagerRepository branchManagerRepository;
+	
+	@Autowired
+	private BranchRepository branchRepository;
 	
 	@Autowired
 	MailMail mailService;
@@ -76,7 +80,6 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	private void sendEmail(BranchManager branchManager) {
 		
-		System.out.println("Sending mail...........");
 		mailService.sendMail("info.inbbank@gmail.com",
         		branchManager.getEmail(),
     		   "Branch Manager Account Details",
@@ -113,11 +116,12 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	
 	
 	public Branch convertBranchPOJOToBranch(BranchPOJO branchPOJO)
-	{
-		Branch branch=new Branch();
-		branch.setBranchName(branchPOJO.getBranchName());
-		return branch;
+	{	
+		List<Branch> branchDetails=branchRepository.findByBranchName(branchPOJO.getBranchName());
+		return branchDetails.get(0);
 	}
+	
+	
 	
 	
 	public String login(String userName, String password) throws JsonProcessingException {
