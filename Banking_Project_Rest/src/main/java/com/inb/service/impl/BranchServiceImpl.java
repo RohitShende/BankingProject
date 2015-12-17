@@ -49,7 +49,7 @@ public class BranchServiceImpl implements BranchService{
 	}
 
 
-	public String viewBranchRange(int start,int end) throws JsonProcessingException
+	public String viewBranchesRange(int start,int end) throws JsonProcessingException
 	{
 		BasicQuery basicQuery= new BasicQuery("{}");
 		basicQuery.skip(start);
@@ -57,9 +57,7 @@ public class BranchServiceImpl implements BranchService{
 		List<Branch> listOfBranches = mongoOperations.find(basicQuery, Branch.class);
 		
 		String result=mapper.writeValueAsString(listOfBranches);	
-		System.out.println(result);
 		return result;
-		
 	}
 
 	public String viewBranches() throws JsonProcessingException {

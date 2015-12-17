@@ -40,9 +40,9 @@ public class BranchController {
 	}
 	
 	@RequestMapping(value = "/{start}/{end}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String viewBranchRange(@PathVariable("start") int start, @PathVariable("end") int end) throws JsonProcessingException {
+	public @ResponseBody String viewBranchesRange(@PathVariable("start") int start, @PathVariable("end") int end) throws JsonProcessingException {
 
-		return branchService.viewBranchRange(start, end);
+		return branchService.viewBranchesRange(start, end);
 	}
 
 	
