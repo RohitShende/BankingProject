@@ -115,7 +115,7 @@ public class UnregisteredCustomerServiceImpl implements
 		return unregisteredCustomer;
 	}
 
-	public String verifyUnregisteredUsers() throws JsonProcessingException {
+	public String verifyUnregisteredUsers(int skip,int limit) throws JsonProcessingException {
 
 		String unregisteredUsersJson = "{ \"Error\": \"No Requests\"}";
 		List<Customer> listOfUsers = unregisteredCustomerRepository.findAll();
@@ -177,10 +177,10 @@ public String sendEmail(String id,String applicationStatus) {
 			result="{ \"Success\": \"Email sent\"}";
 			String receiverEmailId=unregisteredCustomer.getEmail();
 			
-			mailService.sendMail("from@no-spam.com",
-			        		receiverEmailId,
-			    		   "Verification Email for bank account",
-			    		   emailMessageBody);
+//			mailService.sendMail("from@no-spam.com",
+//			        		receiverEmailId,
+//			    		   "Verification Email for bank account",
+//			    		   emailMessageBody);
 		}
 		else
 		{
@@ -189,7 +189,14 @@ public String sendEmail(String id,String applicationStatus) {
 			
 			String oneTimePassword=Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
 	
-			long accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
+			long accountNumber=477332;
+			boolean checkUniqueAccountNumber=true;
+			while(checkUniqueAccountNumber)
+			{
+				checkUniqueAccountNumber=checkAccountNumber(accountNumber);
+				accountNumber=RandomNumberGenerator.randomWithRange(1000, 500000);
+			}
+			
 			
 			List<RegisteredCustomer> listOfRegisteredUsers=registeredCustomerRepository.findById(id);
 			
@@ -237,10 +244,10 @@ public String sendEmail(String id,String applicationStatus) {
 		
 			String receiverEmailId=registeredCustomer.getEmail();
 			
-			mailService.sendMail("ifno.inbbank@gmail.com",
-	        		receiverEmailId,
-	    		   "Verification Email for bank account",
-	    		   emailMessageBody);
+//			mailService.sendMail("ifno.inbbank@gmail.com",
+//	        		receiverEmailId,
+//	    		   "Verification Email for bank account",
+//	    		   emailMessageBody);
 			
 		}
 	}
@@ -251,10 +258,23 @@ private boolean checkClientId(long customerId)
 	List<RegisteredCustomer> listOfCustomers=registeredCustomerRepository.findBycustomerId(customerId);
 	if(listOfCustomers.size()!=0)
 	{
-		System.out.println(listOfCustomers.get(0).getCustomerId());
 		return true;
 	}
 	else
 		return false;
 }
+
+private boolean checkAccountNumber(long accountNumber) 
+{
+	System.out.println("inside function"+accountNumber);
+	List<RegisteredCustomer> listOfCustomers=registeredCustomerRepository.findByAccountNumber(accountNumber);
+	if(listOfCustomers.size()!=0)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+
 }

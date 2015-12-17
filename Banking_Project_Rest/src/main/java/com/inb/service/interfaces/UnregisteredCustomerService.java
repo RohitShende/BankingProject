@@ -7,7 +7,7 @@ import com.inb.rest.entity.UnregisteredCustomerPOJO;
 public interface UnregisteredCustomerService {
 	String registerEnquiry(UnregisteredCustomerPOJO unregisteredCustomerPOJO);
 	public String isEmailAlreadyExits(String email);
-	String verifyUnregisteredUsers() throws JsonProcessingException;
+	String verifyUnregisteredUsers(int skip, int limit) throws JsonProcessingException;
 	String viewUnregisteredUserDetails(String id) throws JsonProcessingException;
 	public Customer  getUserByEmail(String email);
 	String sendEmail(String id,String applicationStatus);

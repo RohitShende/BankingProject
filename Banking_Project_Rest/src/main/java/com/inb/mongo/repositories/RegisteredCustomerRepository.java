@@ -18,5 +18,8 @@ public interface RegisteredCustomerRepository extends
 	
 	@Query(value="{email: ?0}")
 	public List<RegisteredCustomer> findByEmail(String email);
+	
+	@Query(value = "{accounthash.accountNumber : ?0}")
+	public List<RegisteredCustomer> findByAccountNumber(long accountNumber);
 
 }
