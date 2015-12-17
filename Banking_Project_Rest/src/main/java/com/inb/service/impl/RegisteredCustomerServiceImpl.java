@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inb.mongo.collections.Customer;
 import com.inb.mongo.collections.RegisteredCustomer;
-import com.inb.mongo.collections.UnregisteredCustomer;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
@@ -149,7 +148,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 						+ list.get(0).getAuthorizedImageText() + "\"}";
 			}
 		}
-		System.out.println(json);
+		
 
 		// registeredCustomerRepository.save(new RegisteredCustomer("Navin",
 		// "Maheshwari", "nm@gmail.com", 123456, "address", new Date(), 12345,
@@ -180,8 +179,6 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		tempRegisteredCustomer.setAuthorizedImageName(registeredCustomer.getAuthorizedImageName());
 		tempRegisteredCustomer.setAuthorizedImageText(registeredCustomer.getAuthorizedImageText());
 		tempRegisteredCustomer.setPassword(registeredCustomer.getPassword());
-		System.out.println("****"+registeredCustomer);
-		System.out.println("-->"+registeredCustomer.getPhone());
 		registeredCustomer =  registeredCustomerRepository.save(tempRegisteredCustomer);
 		String json="";
 		try {

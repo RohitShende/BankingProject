@@ -58,7 +58,7 @@ public class RegisteredCustomerController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String checkLoginRegisteredUser(@RequestBody LoginDetails loginDetails) throws JsonProcessingException
+	public @ResponseBody String loginRegisteredUser(@RequestBody LoginDetails loginDetails) throws JsonProcessingException
 	{
 		return registeredCustomerService.checkLogin(loginDetails.getUserName() , loginDetails.getPassword());
 	}
