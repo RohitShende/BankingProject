@@ -166,13 +166,29 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 		return null;
 	}
 
-	public String sendEmail(String id, String applicationStatus) {
-
+	public String sendEmail(String id, String applicationStatus) throws ClassNotFoundException {
+		
+		
+		
 		List<Customer> listOfUnregisteredUsers = unregisteredCustomerRepository.findById(id);
+		long existingClientId = 0l;
+		System.out.println(listOfUnregisteredUsers.get(0).getClass().equals(Class.forName("com.inb.mongo.collections.RegisteredCustomer")));
+		if(listOfUnregisteredUsers.get(0).getClass().equals(Class.forName("com.inb.mongo.collections.RegisteredCustomer")))
+		{
+			System.out.println("injsidejedfjkdseif" );
+			existingClientId=(((RegisteredCustomer)listOfUnregisteredUsers.get(0)).getCustomerId());
+		}
+		String accountTypeString="";
+
+		
+		System.out.println(existingClientId);
+		
+		
 		String result = "{ \"Error\": \"Email not sent\"}";
 		if (listOfUnregisteredUsers.size() != 0) {
 
-			UnregisteredCustomer unregisteredPerson = (UnregisteredCustomer) listOfUnregisteredUsers.get(0);
+			Customer unregisteredPerson = listOfUnregisteredUsers.get(0);
+			//UnregisteredCustomer unregisteredPerson = (UnregisteredCustomer) listOfUnregisteredUsers.get(0);
 
 			if (applicationStatus.equals("reject")) {
 				UnregisteredCustomer unregisteredCustomer = (UnregisteredCustomer) unregisteredPerson;
@@ -195,17 +211,18 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 
 				String oneTimePassword = Integer.toString(RandomNumberGenerator.randomWithRange(1000, 5000));
 
-				long accountNumber = 477332;
+				long accountNumber = 0;
 				boolean checkUniqueAccountNumber = true;
 				while (checkUniqueAccountNumber) {
 					checkUniqueAccountNumber = checkAccountNumber(accountNumber);
 					accountNumber = RandomNumberGenerator.randomWithRange(1000, 500000);
 				}
 
-				List<RegisteredCustomer> listOfRegisteredUsers = registeredCustomerRepository.findById(id);
-
+				
+				List<RegisteredCustomer> listOfRegisteredUsers = registeredCustomerRepository.findBycustomerId(existingClientId);
+				System.out.println("*** "+listOfRegisteredUsers);
 				/* Case 1: New user */
-				if (listOfRegisteredUsers.size() == 0 || !(listOfRegisteredUsers.get(0).getId().equals(id))) {
+				if (listOfRegisteredUsers.size() == 0 || !(listOfRegisteredUsers.get(0).getCustomerId()==existingClientId)) {
 
 					boolean checkResult = true;
 					long clientId = 0;
@@ -220,8 +237,12 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 					Account unregisteredCustomerAccount = new Account();
 					unregisteredCustomerAccount.setAccountNumber(accountNumber);
 					unregisteredCustomerAccount.setBalance(5000);
-					unregisteredCustomerAccount.setAccountType(unregisteredPerson.getAccount().getAccountType());
 					accounthash.add(unregisteredCustomerAccount);
+					
+					UnregisteredCustomer unregisteredCustomerRequest= (UnregisteredCustomer)unregisteredPerson;
+					
+					unregisteredCustomerAccount.setAccountType(unregisteredCustomerRequest.getAccount().getAccountType());
+					
 
 					registeredCustomer = registeredCustomerRepository
 							.insert(new RegisteredCustomer(unregisteredPerson.getFirstName(),
@@ -236,15 +257,21 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 
 				/* Case 2: Registered Customer who has an account */
 				else {
+					
+					System.out.println("inside else");
+					
 					HashSet<Account> accounthash = listOfRegisteredUsers.get(0).getAccounthash();
 					Account registeredCustomerAccount = new Account();
 					registeredCustomerAccount.setAccountNumber(accountNumber);
 					registeredCustomerAccount.setBalance(5000);
-					registeredCustomerAccount.setAccountType(unregisteredPerson.getAccount().getAccountType());
+					
+					//UnregisteredCustomer unregisteredCustomerRequest= (UnregisteredCustomer)unregisteredPerson;
+					
+					//registeredCustomerAccount.setAccountType(unregisteredCustomerRequest.getAccount().getAccountType());
 					accounthash.add(registeredCustomerAccount);
 
-					mongoOperations.save(listOfRegisteredUsers.get(0));
-
+					//mongoOperations.save(listOfRegisteredUsers.get(0));
+					registeredCustomerRepository.save(listOfRegisteredUsers.get(0));
 					emailMessageBody2 = "Your account number is: " + accountNumber;
 					result = "{ \"Success\": \"Email sent\"}";
 					unregisteredCustomerRepository.delete(id);

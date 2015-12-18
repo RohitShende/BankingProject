@@ -58,7 +58,7 @@ public class UnregisteredCustomerController {
 
 	/*--------------Sending Registration Email--------------*/
 	@RequestMapping(value="/email/{id}/{status}", method=RequestMethod.PUT,produces= MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String sendRegistrationEmail(@PathVariable String id,@PathVariable String status) throws JsonParseException, JsonMappingException, IOException
+	public @ResponseBody String sendRegistrationEmail(@PathVariable String id,@PathVariable String status) throws JsonParseException, JsonMappingException, IOException, ClassNotFoundException
 	{
 		return unregisteredCustomerService.sendEmail(id,status);
 		

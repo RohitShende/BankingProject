@@ -10,5 +10,5 @@ public interface UnregisteredCustomerService {
 	String verifyUnregisteredUsers() throws JsonProcessingException;
 	String viewUnregisteredUserDetails(String id) throws JsonProcessingException;
 	public Customer  getUserByEmail(String email);
-	String sendEmail(String id,String applicationStatus);
+	String sendEmail(String id,String applicationStatus) throws ClassNotFoundException;
 }			
