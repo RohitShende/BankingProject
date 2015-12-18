@@ -68,6 +68,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		registeredCustomer.setPhone(registeredCustomerPOJO.getPhone());
 		registeredCustomer
 				.setCustomerId(registeredCustomerPOJO.getCustomerId());
+		registeredCustomer.setApplicationStatus("Pending");
 		return registeredCustomer;
 	}
 
