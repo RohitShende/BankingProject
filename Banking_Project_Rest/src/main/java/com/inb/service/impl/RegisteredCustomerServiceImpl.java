@@ -130,21 +130,27 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 	}
 
 	public String getAuthorisationDataClientId(String id) {
-		List<RegisteredCustomer> list = registeredCustomerRepository
-				.findBycustomerId(Long.parseLong(id));
 		String json = "";
-		if (list.size() == 0) {
-			return "{ \"Exception\":\"Invaild Customer Id\" }";
-		} else {
-			if (list.get(0).getAuthorizedImageText() == null) {
-				json = "{\"id\":\"" + list.get(0).getCustomerId()
-						+ "\",\"firstTimeLogin\":\"true\"}";
+		try {
+			List<RegisteredCustomer> list = registeredCustomerRepository
+					.findBycustomerId(Long.parseLong(id));
+
+			if (list.size() == 0) {
+				return "{ \"Exception\":\"Invaild Customer Id\" }";
 			} else {
-				json = "{\"id\":\"" + list.get(0).getId() + "\",\"image\":\""
-						+ list.get(0).getAuthorizedImageName()
-						+ "\",\"text\":\""
-						+ list.get(0).getAuthorizedImageText() + "\"}";
+				if (list.get(0).getAuthorizedImageText() == null) {
+					json = "{\"id\":\"" + list.get(0).getCustomerId()
+							+ "\",\"firstTimeLogin\":\"true\"}";
+				} else {
+					json = "{\"id\":\"" + list.get(0).getId()
+							+ "\",\"image\":\""
+							+ list.get(0).getAuthorizedImageName()
+							+ "\",\"text\":\""
+							+ list.get(0).getAuthorizedImageText() + "\"}";
+				}
 			}
+		} catch (Exception e) {
+			return "{ \"Exception\":\"Invaild Customer Id\" }";
 		}
 		return json;
 
@@ -241,10 +247,13 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 					- transfer.getAmount());
 			reciverAccount.setBalance(reciverAccount.getBalance()
 					+ transfer.getAmount());
-			{
+			if(fineFlag){
 				registeredCustomerRepository.save(registeredCustomerSender);
 				registeredCustomerRepository.save(registeredCustomerReciver);
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
+			}else
+			{
+				return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
 			}
 		} else // (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId())
 				// // if client is transfering to his own account
@@ -275,9 +284,12 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 					- transfer.getAmount());
 			reciverAccount.setBalance(reciverAccount.getBalance()
 					+ transfer.getAmount());
-			{
+			if(fineFlag){
 				registeredCustomerRepository.save(registeredCustomerSender);
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
+			}else
+			{
+				return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
 			}
 		}
 
