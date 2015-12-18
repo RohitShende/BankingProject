@@ -23,6 +23,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	MongoOperations mongoOperations;
 	
+	/*--------------Admin Login Service--------------*/
 	public String login(String userName, String password) {
 		String adminJson = "";
 		try {
@@ -47,12 +48,14 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return adminJson;
 	}
-
+	
+	/*--------------Checking Admin Service--------------*/
 	public Admin isAdmin(String id) {
 		List<Admin> list = adminRepository.findById(id);
 		return list == null ? null : list.get(0);
 	}
 
+	/*--------------Creating Admin Service--------------*/
 	public String save(Admin admin) {
 		ObjectMapper mapper = new ObjectMapper();
 		String adminJson = "";
@@ -67,6 +70,7 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	/*--------------Admin Logout Service--------------*/
 	public String logout(String role, String id){
 		String adminJson = "";
 			if(role.equals("admin"))
