@@ -60,6 +60,15 @@ public class Account implements Comparable<Account> {
 		return 1;
 	}
 
+	
+	
+	@Override
+	public String toString() {
+		return "Account [accountType=" + accountType + ", accountNumber="
+				+ accountNumber + ", balance=" + balance + ", interestRate="
+				+ interestRate + "]";
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Account account = (Account) obj;

@@ -81,7 +81,7 @@ public class RegisteredCustomer extends Customer
 		return "RegisteredCustomer [customerId=" + customerId + ", userName="
 				+ userName + ", password=" + password
 				+ ", authorizedImageName=" + authorizedImageName
-				+ ", authorizedImageText=" + authorizedImageText + "]"+"["+super.toString()+"]";
+				+ ", authorizedImageText=" + authorizedImageText +"["+accounthash+"]"+ "]"+"["+super.toString()+"]";
 	}
 
 	

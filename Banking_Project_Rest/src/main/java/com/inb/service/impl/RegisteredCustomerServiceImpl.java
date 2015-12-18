@@ -37,10 +37,6 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 
 		Customer unregisteredCustomer = unregisteredCustomerRepository
 				.save(registeredCustomerPOJOToPersonCollection(registeredCustomerPOJO));
-
-		registeredCustomerRepository
-				.save((RegisteredCustomer) registeredCustomerPOJOToPersonCollection(registeredCustomerPOJO));
-
 		String json = "";
 		if (unregisteredCustomer == null) {
 			return "{ \"Exception\":\"User already Exist\" }";
@@ -190,6 +186,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 	}
 
+
 	public String transferMoney(TransferPOJO transfer) {
 
 		List<RegisteredCustomer> list = registeredCustomerRepository
@@ -197,16 +194,23 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		RegisteredCustomer registeredCustomerSender = list.size() == 0 ? null
 				: list.get(0);
 		System.out.println(registeredCustomerSender);
+
+		RegisteredCustomer registeredCustomerReciver;
+		
 		list = registeredCustomerRepository.findByAccountNumber(transfer
 				.getRecevierAccount());
-		RegisteredCustomer registeredCustomerReciver = list.size() == 0 ? null
-				: list.get(0);
-		System.out.println(registeredCustomerReciver);
+
+		registeredCustomerReciver = list.size() == 0 ? null : list.get(0);
 		if (registeredCustomerReciver == null
 				|| registeredCustomerSender == null) {
 			return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
 		}
 
+		
+		if (registeredCustomerReciver!=registeredCustomerSender) { //if client is transferring to others account
+			
+		System.out.println(registeredCustomerReciver);
+		
 		Iterator<Account> clientAccounts = registeredCustomerSender
 				.getAccounthash().iterator();
 		boolean fineFlag = true;
@@ -237,21 +241,67 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				break;
 			}
 		}
+
+		
+		
 		System.out.println("TRANSCTION STARTED..");
-		if (fineFlag) {
+		System.out.println("sender-->" + senderAccount.getBalance());
+		System.out.println("reciver-->" + reciverAccount.getBalance());
 			senderAccount.setBalance(senderAccount.getBalance()
 					- transfer.getAmount());
+			System.out.println("sender-->" + senderAccount.getBalance());
 			reciverAccount.setBalance(reciverAccount.getBalance()
 					+ transfer.getAmount());
-
-			if (registeredCustomerRepository.save(registeredCustomerSender) != null) {
+			System.out.println("reciver-->" + reciverAccount.getBalance());
+			{
+				registeredCustomerRepository.save(registeredCustomerSender);
 				registeredCustomerRepository.save(registeredCustomerReciver);
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
 			}
-		}
+		}else if(registeredCustomerReciver==registeredCustomerSender) // if client is transfering to his own account
+		{
 
+			Iterator<Account> clientAccounts = registeredCustomerSender
+					.getAccounthash().iterator();
+			boolean fineFlag = true;
+			Account senderAccount = null;
+			Account reciverAccount = null;
+			while (clientAccounts.hasNext()) {
+				Account temp = clientAccounts.next();
+				
+				if (temp.getAccountNumber() == transfer.getClientAccount()) {
+					senderAccount = temp;
+					System.out.println("--0>" + temp.getBalance());
+					if (temp.getBalance() < transfer.getAmount()) {
+						fineFlag = false;
+						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+					}
+					
+				}
+				if (temp.getAccountNumber() == transfer.getRecevierAccount()) {
+					reciverAccount = temp;
+					break;
+				}
+			}	
+			
+			System.out.println("TRANSCTION STARTED..");
+			System.out.println("sender-->" + senderAccount.getBalance());
+			System.out.println("reciver-->" + reciverAccount.getBalance());
+				senderAccount.setBalance(senderAccount.getBalance()
+						- transfer.getAmount());
+				System.out.println("sender-->" + senderAccount.getBalance());
+				reciverAccount.setBalance(reciverAccount.getBalance()
+						+ transfer.getAmount());
+				System.out.println("reciver-->" + reciverAccount.getBalance());
+				{
+					registeredCustomerRepository.save(registeredCustomerSender);
+					return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
+				}
+		}
 		return "{\"Status\":\"Failed\", \"Message\":\"Invaild Details4\"}";
+
 	}
+
 
 	public String viewAccountDetails(long id) throws JsonProcessingException {
 		String accountDetailsJson = "{\"Error\":\"No accounts to display\"}";
