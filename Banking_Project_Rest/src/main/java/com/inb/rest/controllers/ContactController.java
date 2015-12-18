@@ -25,6 +25,7 @@ ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	private ContactService contactService;
 	
+	/*--------------Submit Feedback by Guest User/ Registered User--------------*/
 	@RequestMapping(value="/contact", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createContact(@RequestBody ContactPOJO contact) throws JsonProcessingException {
 			

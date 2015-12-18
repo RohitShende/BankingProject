@@ -28,33 +28,35 @@ public class UnregisteredCustomerController {
 	@Autowired
 	private UnregisteredCustomerService unregisteredCustomerService;
 
-
+	/*--------------Register User Application--------------*/
 	@RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String registerEnquiry(
-			@RequestBody UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
+	public @ResponseBody String registerEnquiry(@RequestBody UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
 
 		return unregisteredCustomerService
 				.registerEnquiry(unregisteredCustomerPOJO);
 	}
 
+	/*--------------Check for Already Registered Email--------------*/
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String getCustomersByEmail(
-			@QueryParam("email") String email) {
+	public @ResponseBody String getCustomersByEmail(@QueryParam("email") String email) {
 
 		return unregisteredCustomerService.isEmailAlreadyExits(email);
 	}
 
+	/*--------------Verify Unregistered Users--------------*/
 	@RequestMapping(value = "/details", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getUnregisteredUsers() throws JsonProcessingException {
 		return unregisteredCustomerService.verifyUnregisteredUsers();
 	}
 
+	/*--------------View Details of Rejected Application--------------*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewUnregisteredUserDetails(
 			@PathVariable String id) throws JsonProcessingException {
 		return unregisteredCustomerService.viewUnregisteredUserDetails(id);
 	}
 
+	/*--------------Sending Registration Email--------------*/
 	@RequestMapping(value="/email/{id}/{status}", method=RequestMethod.PUT,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String sendRegistrationEmail(@PathVariable String id,@PathVariable String status) throws JsonParseException, JsonMappingException, IOException
 	{

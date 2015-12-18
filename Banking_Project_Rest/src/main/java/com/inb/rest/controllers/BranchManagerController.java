@@ -34,31 +34,34 @@ public class BranchManagerController {
 	@Autowired
 	private BranchManagerService branchManagerService;
 	
+	/*--------------Create Branch Manager by Admin--------------*/
 	@RequestMapping(value="/", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranchManager(@RequestBody BranchManagerPOJO branchManager) throws JsonProcessingException {
 			
-		
 			String result=branchManagerService.insertBranchManager(branchManager);
-			
 			return result;
 	}
 	
+	/*--------------Login by Branch Manager--------------*/
 	@RequestMapping(value="/login", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginBranchManager(@RequestBody LoginDetails loginDetails) throws JsonProcessingException{
 		return branchManagerService.login(loginDetails.getUserName(), loginDetails.getPassword());
 	}
 	
+	/*--------------Logout by Branch Manager--------------*/
 	@RequestMapping(value="/logout", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String logoutBranchManager(@RequestBody LogoutDetails logoutDetails){
 		return branchManagerService.logout(logoutDetails.getRole(),logoutDetails.getId());
 	}
 	
+	/*--------------View Branch Managers by Admin--------------*/
 	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranchManagers() throws JsonProcessingException
 	{
 		return branchManagerService.viewBranchManagers();
 	}
 	
+	/*--------------View Branch Managers within Range by Admin--------------*/
 	@RequestMapping(value = "/{start}/{end}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranchManagersRange(@PathVariable("start") int start, @PathVariable("end") int end) throws JsonProcessingException {
 

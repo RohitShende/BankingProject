@@ -21,7 +21,7 @@ public class CustomerAuthorisationController {
 	@Autowired
 	private RegisteredCustomerService registeredCustomerService;
 	
-	
+	/*--------------View Customers By Id--------------*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getAuthoriseDetailsCustomerById(
 			@PathVariable String id) {
@@ -29,6 +29,7 @@ public class CustomerAuthorisationController {
 		
 	}
 	
+	/*--------------Set Customers By Id--------------*/
 	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String setAuthoriseDetailsCustomerById(@RequestBody RegisteredCustomer registeredCustomer) {
 		return registeredCustomerService.setAuthorisationOfRegisteredUser(registeredCustomer);

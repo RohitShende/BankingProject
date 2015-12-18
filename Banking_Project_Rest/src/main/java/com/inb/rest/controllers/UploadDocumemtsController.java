@@ -24,23 +24,27 @@ public class UploadDocumemtsController {
 	@Autowired
 	private DocumentService documentService;
 
+	/*--------------Upload Document--------------*/
 	@RequestMapping(value = "/document", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String uploadDocuments(
 			@RequestParam("addressProof") MultipartFile addressProof,
 			@RequestParam("ageProof") MultipartFile ageProof,
 			@RequestParam("email") String email) {
-			System.out.println("-->"+email);
+			
+		//System.out.println("-->"+email);
 		return documentService.uploadDocument(addressProof, ageProof,
 				unregisteredCustomerService.getUserByEmail(email).getId());
 
 	}
 
+	/*--------------View Address Proof Documents--------------*/
 	@RequestMapping(value = "/addressproofdocument/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String retrieveAddressProofDocuments(
 			@PathVariable String id) throws JsonProcessingException {
 		return documentService.retriveAddressProofDocumentForClientId(id);
 	}
 
+	/*--------------View Age Proof Documents--------------*/
 	@RequestMapping(value = "/ageproofdocument/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String retrieveAgeProofDocuments(@PathVariable String id)
 			throws JsonProcessingException {

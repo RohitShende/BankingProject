@@ -29,12 +29,14 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	/*--------------Login Admin--------------*/
 	@RequestMapping(value ="/login", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginAdmin(@RequestBody AdminPOJO adminPOJO) throws JsonProcessingException {
 		return adminService.login(adminPOJO.getUserName(),
 				adminPOJO.getPassword());
 	}
 	
+	/*--------------Logout Admin--------------*/
 	@RequestMapping(value = "/logout", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String logoutAdmin(@RequestBody LogoutDetails logoutDetails) throws JsonProcessingException {
 		return adminService.logout(logoutDetails.getRole(),logoutDetails.getId());
