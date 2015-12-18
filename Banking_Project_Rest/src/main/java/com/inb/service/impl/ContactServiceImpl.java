@@ -17,6 +17,7 @@ public class ContactServiceImpl implements ContactService{
 	
 	ObjectMapper mapper = new ObjectMapper();
 	
+	/*--------------Creating Feedback Service--------------*/
 	public String add(Contact contact) throws JsonProcessingException {
 		String contactJson;
 		

@@ -25,7 +25,7 @@ public class BranchServiceImpl implements BranchService{
 	
 	ObjectMapper mapper = new ObjectMapper();
 
-	
+	/*--------------Creating Branch Service--------------*/
 	public String insert(Branch branch) throws JsonProcessingException {
 		String branchJson;
 		try{
@@ -48,7 +48,7 @@ public class BranchServiceImpl implements BranchService{
 		return branchJson;
 	}
 
-
+	/*--------------View Branch Service--------------*/
 	public String viewBranchesRange(int start,int end) throws JsonProcessingException
 	{
 		BasicQuery basicQuery= new BasicQuery("{}");
@@ -60,6 +60,7 @@ public class BranchServiceImpl implements BranchService{
 		return result;
 	}
 
+	/*--------------View Branch within Range Service--------------*/
 	public String viewBranches() throws JsonProcessingException {
 		
 		String branchJson = "{ \"Error\": \"No Branches\"}";

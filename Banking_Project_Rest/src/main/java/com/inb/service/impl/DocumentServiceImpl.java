@@ -20,6 +20,8 @@ public class DocumentServiceImpl implements DocumentService {
 
 	ObjectMapper mapper = new ObjectMapper();
 
+	
+	/*--------------Upload Document Service--------------*/
 	public String uploadDocument(MultipartFile addressProof,
 			MultipartFile ageProof, String id) {
 
@@ -54,6 +56,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 	}
 
+	/*--------------View Address Proof Document Service--------------*/
 	public String retriveAddressProofDocumentForClientId(String id)
 			throws JsonProcessingException {
 		String idValue = id;
@@ -69,6 +72,7 @@ public class DocumentServiceImpl implements DocumentService {
 		return "{\"Error\":\"No address proof document uploaded\"}";
 	}
 
+	/*--------------View Age Proof Document Service--------------*/
 	public String retriveAgeProofDocumentForClientId(String id)
 			throws JsonProcessingException {
 
