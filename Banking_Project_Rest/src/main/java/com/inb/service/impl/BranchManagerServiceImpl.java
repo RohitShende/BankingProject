@@ -114,16 +114,7 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 			}
 	}
 	
-	
-	public Branch convertBranchPOJOToBranch(BranchPOJO branchPOJO)
-	{	
-		List<Branch> branchDetails=branchRepository.findByBranchName(branchPOJO.getBranchName());
-		return branchDetails.get(0);
-	}
-	
-	
-	
-	
+
 	public String login(String userName, String password) throws JsonProcessingException {
 		String branchManagerJson;
 		try {
@@ -204,6 +195,12 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 				branchManagerJson = "{ \"logoutMsg\" :\"You Are Not Branch Manager\"}";
 			}
 			return branchManagerJson;
+	}
+	
+	private Branch convertBranchPOJOToBranch(BranchPOJO branchPOJO)
+	{	
+		List<Branch> branchDetails=branchRepository.findByBranchName(branchPOJO.getBranchName());
+		return branchDetails.get(0);
 	}
 	
 	

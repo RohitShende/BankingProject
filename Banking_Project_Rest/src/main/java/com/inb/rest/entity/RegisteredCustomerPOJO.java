@@ -12,7 +12,7 @@ public class RegisteredCustomerPOJO extends PersonPOJO {
 	String authorizedImageName;
 	String authorizedImageText;
 	HashSet<Account> accounthash;
-	
+	String applicationStatus;
 	
 	public RegisteredCustomerPOJO() {
 		super();
@@ -73,6 +73,12 @@ public class RegisteredCustomerPOJO extends PersonPOJO {
 	}
 	public void setAccounthash(HashSet<Account> accounthash) {
 		this.accounthash = accounthash;
+	}
+	public String getApplicationStatus() {
+		return applicationStatus;
+	}
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
 	}
 	@Override
 	public String toString() {

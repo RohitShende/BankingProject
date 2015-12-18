@@ -18,7 +18,7 @@ public class RegisteredCustomer extends Customer
 	String authorizedImageName;
 	String authorizedImageText;
 	HashSet<Account> accounthash;
-	
+	String applicationStatus;
 	
 	public RegisteredCustomer() {
 		super();
@@ -40,6 +40,15 @@ public class RegisteredCustomer extends Customer
 		this.password = password;
 		this.accounthash=accounthash;
 	}
+	
+	public RegisteredCustomer(String firstName, String lastName, String email,
+			long phone, String address, Date dateOfBirth,long customerId,String password,HashSet<Account> accounthash, Branch branch) {
+		super(firstName, lastName, email, phone, address, dateOfBirth, branch);
+		this.customerId=customerId;
+		this.password = password;
+		this.accounthash=accounthash;
+	}
+	
 	public long getCustomerId() {
 		return customerId;
 	}
@@ -75,6 +84,12 @@ public class RegisteredCustomer extends Customer
 	}
 	public void setAccounthash(HashSet<Account> accounthash) {
 		this.accounthash = accounthash;
+	}
+	public String getApplicationStatus() {
+		return applicationStatus;
+	}
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
 	}
 	@Override
 	public String toString() {
