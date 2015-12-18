@@ -11,7 +11,6 @@ import com.sun.jersey.api.client.WebResource;
 public class RegisteredCustomerTest {
 	
 	
-	
 	static Client client;
 	static WebResource target;
 	
@@ -34,6 +33,7 @@ public class RegisteredCustomerTest {
 		ClientResponse response=target.path("/").accept("application/json").type("application/json").get(ClientResponse.class);
 	   Assert.assertEquals(200,response.getStatus());
 	}
+	
 }
 	
 	
