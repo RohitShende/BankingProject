@@ -10,7 +10,13 @@ public abstract class Customer extends Person {
 		super(firstName, lastName, email, phone, address, dateOfBirth);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public Customer(String firstName, String lastName, String email,
+			long phone, String address, Date dateOfBirth, Branch branch) {
+		super(firstName, lastName, email, phone, address, dateOfBirth, branch);
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub

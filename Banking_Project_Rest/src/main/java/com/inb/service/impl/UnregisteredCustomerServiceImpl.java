@@ -278,7 +278,6 @@ private boolean checkClientId(long customerId)
 
 private boolean checkAccountNumber(long accountNumber) 
 {
-	System.out.println("inside function"+accountNumber);
 	List<RegisteredCustomer> listOfCustomers=registeredCustomerRepository.findByAccountNumber(accountNumber);
 	if(listOfCustomers.size()!=0)
 	{

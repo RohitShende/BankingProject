@@ -134,7 +134,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				.findBycustomerId(Long.parseLong(id));
 		String json = "";
 		if (list.size() == 0) {
-			return "{ \"Exception\":\"InvaildClientId\" }";
+			return "{ \"Exception\":\"Invaild Customer Id\" }";
 		} else {
 			if (list.get(0).getAuthorizedImageText() == null) {
 				json = "{\"id\":\"" + list.get(0).getCustomerId()

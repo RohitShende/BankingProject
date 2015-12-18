@@ -41,6 +41,15 @@ public class UnregisteredCustomer extends Customer {
 		this.applicationStatus=applicationStatus;
 	}
 	
+	public UnregisteredCustomer(String firstName, String lastName,
+			String email, long phone, String address, Date dateOfBirth,
+			long enqId, Account account,String applicationStatus,Branch branch) {
+		super(firstName, lastName, email, phone, address, dateOfBirth, branch);
+		this.enqId = enqId;
+		this.account = account;
+		this.applicationStatus=applicationStatus;
+	}
+	
 	public String getApplicationStatus() {
 		return applicationStatus;
 	}

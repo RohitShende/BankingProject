@@ -33,6 +33,15 @@ public class UnregisteredCustomerPOJO extends CustomerPOJO {
 		this.applicationStatus=applicationStatus;
 	}
 	
+	public UnregisteredCustomerPOJO(String firstName, String lastName,
+			String email, long phone, String address, Date dateOfBirth,
+			long enqId, Account account,String applicationStatus,BranchPOJO branchPOJO) {
+		super(firstName, lastName, email, phone, address, dateOfBirth,branchPOJO);
+		this.enqId = enqId;
+		this.account = account;
+		this.applicationStatus=applicationStatus;
+	}
+	
 	public String getApplicationStatus() {
 		return applicationStatus;
 	}

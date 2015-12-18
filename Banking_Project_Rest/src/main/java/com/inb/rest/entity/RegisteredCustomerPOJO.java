@@ -27,6 +27,17 @@ public class RegisteredCustomerPOJO extends PersonPOJO {
 		this.authorizedImageName = authorizedImageName;
 		this.authorizedImageText = authorizedImageText;
 	}
+	
+	public RegisteredCustomerPOJO(String firstName, String lastName, String email,
+			long phone, String address, Date dateOfBirth, long customerId, String userName, String password,
+			String authorizedImageName, String authorizedImageText,BranchPOJO branchPOJO) {
+		super(firstName, lastName, email, phone, address, dateOfBirth,branchPOJO);
+		this.customerId = customerId;
+		this.userName = userName;
+		this.password = password;
+		this.authorizedImageName = authorizedImageName;
+		this.authorizedImageText = authorizedImageText;
+	} 
 	public long getCustomerId() {
 		return customerId;
 	}
