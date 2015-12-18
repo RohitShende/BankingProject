@@ -186,17 +186,15 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return json;
 	}
 
-
 	public String transferMoney(TransferPOJO transfer) {
 
 		List<RegisteredCustomer> list = registeredCustomerRepository
 				.findByAccountNumber(transfer.getClientAccount());
 		RegisteredCustomer registeredCustomerSender = list.size() == 0 ? null
 				: list.get(0);
-		System.out.println(registeredCustomerSender);
 
 		RegisteredCustomer registeredCustomerReciver;
-		
+
 		list = registeredCustomerRepository.findByAccountNumber(transfer
 				.getRecevierAccount());
 
@@ -206,59 +204,50 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 			return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
 		}
 
-		
-		if (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId()) { //if client is transferring to others account
-			
-		System.out.println(registeredCustomerReciver);
-		
-		Iterator<Account> clientAccounts = registeredCustomerSender
-				.getAccounthash().iterator();
-		boolean fineFlag = true;
-		Account senderAccount = null;
+		if (registeredCustomerReciver.getCustomerId() != registeredCustomerSender
+				.getCustomerId()) { // if client is transferring to others
+									// account
 
-		while (clientAccounts.hasNext()) {
-			Account temp = clientAccounts.next();
+			Iterator<Account> clientAccounts = registeredCustomerSender
+					.getAccounthash().iterator();
+			boolean fineFlag = true;
+			Account senderAccount = null;
 
-			if (temp.getAccountNumber() == transfer.getClientAccount()) {
-				senderAccount = temp;
-				System.out.println("--0>" + temp.getBalance());
-				if (temp.getBalance() < transfer.getAmount()) {
-					fineFlag = false;
-					return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+			while (clientAccounts.hasNext()) {
+				Account temp = clientAccounts.next();
+
+				if (temp.getAccountNumber() == transfer.getClientAccount()) {
+					senderAccount = temp;
+					if (temp.getBalance() < transfer.getAmount()) {
+						fineFlag = false;
+						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+					}
+					break;
 				}
-				break;
 			}
-		}
 
-		Iterator<Account> reciverAccountsIterator = registeredCustomerReciver
-				.getAccounthash().iterator();
-		Account reciverAccount = null;
-		while (reciverAccountsIterator.hasNext()) {
-			Account temp = reciverAccountsIterator.next();
+			Iterator<Account> reciverAccountsIterator = registeredCustomerReciver
+					.getAccounthash().iterator();
+			Account reciverAccount = null;
+			while (reciverAccountsIterator.hasNext()) {
+				Account temp = reciverAccountsIterator.next();
 
-			if (temp.getAccountNumber() == transfer.getRecevierAccount()) {
-				reciverAccount = temp;
-				break;
+				if (temp.getAccountNumber() == transfer.getRecevierAccount()) {
+					reciverAccount = temp;
+					break;
+				}
 			}
-		}
-
-		
-		
-		System.out.println("TRANSCTION STARTED..");
-		System.out.println("sender-->" + senderAccount.getBalance());
-		System.out.println("reciver-->" + reciverAccount.getBalance());
 			senderAccount.setBalance(senderAccount.getBalance()
 					- transfer.getAmount());
-			System.out.println("sender-->" + senderAccount.getBalance());
 			reciverAccount.setBalance(reciverAccount.getBalance()
 					+ transfer.getAmount());
-			System.out.println("reciver-->" + reciverAccount.getBalance());
 			{
 				registeredCustomerRepository.save(registeredCustomerSender);
 				registeredCustomerRepository.save(registeredCustomerReciver);
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
 			}
-		}else  // (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId()) // if client is transfering to his own account
+		} else // (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId())
+				// // if client is transfering to his own account
 		{
 
 			Iterator<Account> clientAccounts = registeredCustomerSender
@@ -268,44 +257,37 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 			Account reciverAccount = null;
 			while (clientAccounts.hasNext()) {
 				Account temp = clientAccounts.next();
-				
+
 				if (temp.getAccountNumber() == transfer.getClientAccount()) {
 					senderAccount = temp;
-					System.out.println("--0>" + temp.getBalance());
 					if (temp.getBalance() < transfer.getAmount()) {
 						fineFlag = false;
 						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
 					}
-					
+
 				}
 				if (temp.getAccountNumber() == transfer.getRecevierAccount()) {
 					reciverAccount = temp;
 				}
-			}	
-			
-			System.out.println("TRANSCTION STARTED..");
-			System.out.println("sender-->" + senderAccount.getBalance());
-			System.out.println("reciver-->" + reciverAccount.getBalance());
-				senderAccount.setBalance(senderAccount.getBalance()
-						- transfer.getAmount());
-				System.out.println("sender-->" + senderAccount.getBalance());
-				reciverAccount.setBalance(reciverAccount.getBalance()
-						+ transfer.getAmount());
-				System.out.println("reciver-->" + reciverAccount.getBalance());
-				{
-					registeredCustomerRepository.save(registeredCustomerSender);
-					return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
-				}
+			}
+
+			senderAccount.setBalance(senderAccount.getBalance()
+					- transfer.getAmount());
+			reciverAccount.setBalance(reciverAccount.getBalance()
+					+ transfer.getAmount());
+			{
+				registeredCustomerRepository.save(registeredCustomerSender);
+				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
+			}
 		}
 
 	}
-
 
 	public String viewAccountDetails(long id) throws JsonProcessingException {
 		String accountDetailsJson = "{\"Error\":\"No accounts to display\"}";
 		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository
 				.findBycustomerId(id);
-		if (listOfUsers.get(0).getAccounthash()!= null) {
+		if (listOfUsers.get(0).getAccounthash() != null) {
 			accountDetailsJson = mapper.writeValueAsString(listOfUsers.get(0)
 					.getAccounthash());
 		}

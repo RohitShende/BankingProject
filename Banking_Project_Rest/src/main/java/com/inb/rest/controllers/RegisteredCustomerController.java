@@ -67,7 +67,6 @@ public class RegisteredCustomerController {
 	@RequestMapping(value="/transfer",method=RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String transferMoney(@RequestBody TransferPOJO transfer) throws JSONException
 	{
-		System.out.println(transfer);
 		return registeredCustomerService.transferMoney(transfer);
 	}
 	
