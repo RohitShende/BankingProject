@@ -15,7 +15,6 @@ public class Admin extends Employee {
 			String address, Date dateOfBirth, String userName, String password) {
 		super(firstName, lastName, email, phone, address, dateOfBirth, userName,
 				password);
-		// TODO Auto-generated constructor stub
 	}
 
 	

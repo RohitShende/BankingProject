@@ -13,7 +13,6 @@ public class Documents {
 
 	public Documents() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Documents(String clientId, byte[] addressProof, byte[] ageProof) {
