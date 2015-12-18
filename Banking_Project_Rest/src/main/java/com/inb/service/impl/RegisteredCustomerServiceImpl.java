@@ -207,7 +207,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		}
 
 		
-		if (registeredCustomerReciver!=registeredCustomerSender) { //if client is transferring to others account
+		if (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId()) { //if client is transferring to others account
 			
 		System.out.println(registeredCustomerReciver);
 		
@@ -258,7 +258,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				registeredCustomerRepository.save(registeredCustomerReciver);
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
 			}
-		}else if(registeredCustomerReciver==registeredCustomerSender) // if client is transfering to his own account
+		}else  // (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId()) // if client is transfering to his own account
 		{
 
 			Iterator<Account> clientAccounts = registeredCustomerSender
@@ -280,7 +280,6 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				}
 				if (temp.getAccountNumber() == transfer.getRecevierAccount()) {
 					reciverAccount = temp;
-					break;
 				}
 			}	
 			
@@ -298,7 +297,6 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 					return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
 				}
 		}
-		return "{\"Status\":\"Failed\", \"Message\":\"Invaild Details4\"}";
 
 	}
 
