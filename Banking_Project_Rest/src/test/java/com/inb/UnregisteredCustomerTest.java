@@ -24,9 +24,7 @@ public class UnregisteredCustomerTest {
 	
 	@Test
 	public void testGetUnregisteredUsers(){
-		int skip=1;
-		int limit=10;
-		ClientResponse response=target.path("/"+skip+"/"+limit).accept("application/json").type("application/json").get(ClientResponse.class);
+		ClientResponse response=target.path("/details").accept("application/json").type("application/json").get(ClientResponse.class);
 	   Assert.assertEquals(200,response.getStatus());
 	   
 	}

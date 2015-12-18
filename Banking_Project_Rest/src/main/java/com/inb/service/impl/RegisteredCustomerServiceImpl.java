@@ -123,7 +123,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 
 	public String viewRegisteredCustomers() throws JsonProcessingException {
 
-		String registeredUsersJson = "No Results";
+		String registeredUsersJson = "{ \"Error\": \"No Results\"}";
 		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository
 				.findAll();
 
@@ -257,13 +257,11 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		String accountDetailsJson = "{\"Error\":\"No accounts to display\"}";
 		List<RegisteredCustomer> listOfUsers = registeredCustomerRepository
 				.findBycustomerId(id);
-
-		if (listOfUsers.size() != 0) {
+		if (listOfUsers.get(0).getAccounthash()!= null) {
 			accountDetailsJson = mapper.writeValueAsString(listOfUsers.get(0)
 					.getAccounthash());
 		}
 		return accountDetailsJson;
-
 	}
 
 }

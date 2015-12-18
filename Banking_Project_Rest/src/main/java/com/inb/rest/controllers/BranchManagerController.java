@@ -65,18 +65,5 @@ public class BranchManagerController {
 		return branchManagerService.viewBranchManagersRange(start, end);
 	}
 	
-//	@RequestMapping(value="/verifyUnregisteredUsers", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody String verifyUnregisteredUsers() throws JsonProcessingException
-//	{
-//		return branchManagerService.verifyUnregisteredUsers();
-//	}
-	
-//	@RequestMapping(value="/sendRegistrationEmail", method=RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE,consumes= MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody String sendRegistrationEmail(@RequestBody String id) throws JsonParseException, JsonMappingException, IOException
-//	{
-//		System.out.println(id);
-//		branchManagerService.sendEmail(id);
-//		return id;
-//	}
 	
 }
