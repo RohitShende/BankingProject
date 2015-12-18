@@ -208,7 +208,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		registeredCustomerReciver = list.size() == 0 ? null : list.get(0);
 		if (registeredCustomerReciver == null
 				|| registeredCustomerSender == null) {
-			return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+			return "{\"Status\":\"Failed\", \"Message\":\"Invalid Account Number\"}";
 		}
 
 		if (registeredCustomerReciver.getCustomerId() != registeredCustomerSender
@@ -227,7 +227,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 					senderAccount = temp;
 					if (temp.getBalance() < transfer.getAmount()) {
 						fineFlag = false;
-						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance\"}";
 					}
 					break;
 				}
@@ -254,7 +254,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
 			}else
 			{
-				return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+				return "{\"Status\":\"Failed\", \"Message\":\"Invalid Data\"}";
 			}
 		} else // (registeredCustomerReciver.getCustomerId()!=registeredCustomerSender.getCustomerId())
 				// // if client is transfering to his own account
@@ -272,7 +272,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 					senderAccount = temp;
 					if (temp.getBalance() < transfer.getAmount()) {
 						fineFlag = false;
-						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+						return "{\"Status\":\"Failed\", \"Message\":\"Low Balance\"}";
 					}
 
 				}
@@ -290,7 +290,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 				return "{\"Status\":\"Success\", \"Message\":\"Done Successfully\"}";
 			}else
 			{
-				return "{\"Status\":\"Failed\", \"Message\":\"Low Balance1\"}";
+				return "{\"Status\":\"Failed\", \"Message\":\"Invalid Data\"}";
 			}
 		}
 
