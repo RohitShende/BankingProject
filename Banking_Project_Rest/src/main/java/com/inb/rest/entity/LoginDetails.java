@@ -4,7 +4,16 @@ public class LoginDetails {
 	
 	String userName;
 	String password;
+	String branchName;
 	
+	
+	
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
 	public String getUserName() {
 		return userName;
 	}

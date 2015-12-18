@@ -8,7 +8,7 @@ import com.inb.rest.entity.BranchManagerPOJO;
 
 public interface BranchManagerService {
 	BranchManager insert(BranchManager branchManager) throws BranchManagerExistsException,InvalidInputException;
-	String login(String username, String password)throws JsonProcessingException;
+	String login(String username, String password, String branchName)throws JsonProcessingException;
 	String insertBranchManager(BranchManagerPOJO branchManager) throws JsonProcessingException;
 	String viewBranchManagers() throws JsonProcessingException ;
 	String viewBranchManagersRange(int start,int end) throws JsonProcessingException;

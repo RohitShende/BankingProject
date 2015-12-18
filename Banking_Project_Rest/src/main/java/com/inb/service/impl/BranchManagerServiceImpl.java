@@ -115,10 +115,11 @@ public class BranchManagerServiceImpl implements BranchManagerService {
 	}
 	
 
-	public String login(String userName, String password) throws JsonProcessingException {
+	public String login(String userName, String password, String branchName) throws JsonProcessingException {
 		String branchManagerJson;
+	//	System.out.println("branch"+ branchName);
 		try {
-				BasicQuery basicQuery= new BasicQuery("{ userName : \""+userName+"\" , password : \""+password+"\" }");
+				BasicQuery basicQuery= new BasicQuery("{ userName : \""+userName+"\" , password : \""+password+"\" , branch.branchName : \""+branchName+"\" }");
 				BranchManager branchManager= mongoOperations.findOne(basicQuery,BranchManager.class);
 				if(branchManager!=null)
 				{
