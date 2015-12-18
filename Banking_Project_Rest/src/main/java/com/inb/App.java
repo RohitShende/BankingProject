@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 import com.inb.util.AdminUtil;
 
 /**
- * Hello world!
+ * iNB App main
  *
  */
 @SpringBootApplication
