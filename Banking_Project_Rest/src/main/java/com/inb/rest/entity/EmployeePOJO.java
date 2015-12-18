@@ -17,6 +17,7 @@ public abstract class EmployeePOJO extends PersonPOJO {
 	public EmployeePOJO(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, String userName,
 			String password) {
+		
 		super(firstName, lastName, email, phone, address, dateOfBirth);
 		this.userName = userName;
 		this.password = password;
@@ -25,6 +26,7 @@ public abstract class EmployeePOJO extends PersonPOJO {
 	public EmployeePOJO(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, String userName,
 			String password, BranchPOJO branchPOJO) {
+		
 		super(firstName, lastName, email, phone, address, dateOfBirth, branchPOJO);
 		this.userName = userName;
 		this.password = password;

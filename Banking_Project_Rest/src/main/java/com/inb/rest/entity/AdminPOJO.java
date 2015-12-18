@@ -4,19 +4,21 @@ import java.util.Date;
 
 public class AdminPOJO extends EmployeePOJO {
 
-	public AdminPOJO() {
+	public AdminPOJO() 
+	{
 		super();
 	}
 
 	public AdminPOJO(String firstName, String lastName, String email, long phone,
-			String address, Date dateOfBirth, String userName, String password) {
+			String address, Date dateOfBirth, String userName, String password) 
+	{
 		super(firstName, lastName, email, phone, address, dateOfBirth, userName,
 				password);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Admin ["+super.toString()+"]";
 	}
 

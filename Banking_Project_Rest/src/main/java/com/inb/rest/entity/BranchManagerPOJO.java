@@ -12,6 +12,7 @@ public class BranchManagerPOJO extends EmployeePOJO{
 	public BranchManagerPOJO(String firstName, String lastName, String email,
 			long phone, String address, Date dateOfBirth, String userName,
 			String password) {
+		
 		super(firstName, lastName, email, phone, address, dateOfBirth,
 				userName, password);
 	
@@ -20,6 +21,7 @@ public class BranchManagerPOJO extends EmployeePOJO{
 	public BranchManagerPOJO(String firstName, String lastName, String email,
 			long phone, String address,Date dateOfBirth, String userName,
 			String password,BranchPOJO branchPOJO) {
+		
 		super(firstName, lastName, email, phone, address, dateOfBirth,
 				userName, password,branchPOJO);
 	
@@ -27,6 +29,7 @@ public class BranchManagerPOJO extends EmployeePOJO{
 	
 	@Override
 	public String toString() {
+		
 		return "BranchManagerPOJO ["+super.toString()+"]";
 	}
 

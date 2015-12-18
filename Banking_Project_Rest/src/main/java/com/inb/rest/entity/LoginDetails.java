@@ -19,7 +19,6 @@ public class LoginDetails {
 	}
 	public LoginDetails() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

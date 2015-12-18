@@ -8,7 +8,6 @@ public class DocumentPOJO {
 
 	public DocumentPOJO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public DocumentPOJO(String userId, byte[] addressProof, byte[] ageProof) {
