@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.inb.rest.entity.ChangePasswordPOJO;
 import com.inb.rest.entity.LoginDetails;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
 import com.inb.rest.entity.TransferPOJO;
@@ -63,7 +64,7 @@ public class RegisteredCustomerController {
 	}
 	
 	/*--------------Login Customer--------------*/
-	@RequestMapping(value="/",method=RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="",method=RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loginRegisteredUser(@RequestBody LoginDetails loginDetails) throws JsonProcessingException
 	{
 		return registeredCustomerService.checkLogin(loginDetails.getUserName() , loginDetails.getPassword());
@@ -81,5 +82,12 @@ public class RegisteredCustomerController {
 	public @ResponseBody String viewAccountDetails(@PathVariable long id) throws JsonProcessingException
 	{
 		return registeredCustomerService.viewAccountDetails(id);
+	}
+
+	/*--------------Change Password--------------*/
+	@RequestMapping(value="/changepassword",method=RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String changePassword(@RequestBody ChangePasswordPOJO changePasswordPOJO) throws JsonProcessingException
+	{
+		return registeredCustomerService.changePassword(changePasswordPOJO);
 	}
 }

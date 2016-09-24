@@ -1,7 +1,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/data/mongo
+http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+
+
+<mongo:mongo host="localhost" port="27017" />
+	<mongo:db-factory dbname="banking" />
+
+<!-- 
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+</bean>
+ -->
+ 
 
 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	<property name="host" value="smtp.gmail.com" />

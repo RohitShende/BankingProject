@@ -32,7 +32,7 @@ public class BranchController {
 	private BranchService branchService;
 	
 	/*--------------Create Branch by Admin--------------*/
-	@RequestMapping(value="/", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String createBranch(@RequestBody BranchPOJO branchPOJO) throws JsonProcessingException
 	{
 		
@@ -48,7 +48,7 @@ public class BranchController {
 	}
 
 	/*--------------View Branches by Admin--------------*/
-	@RequestMapping(value="/", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String viewBranches() throws JsonProcessingException
 	{
 		return branchService.viewBranches();

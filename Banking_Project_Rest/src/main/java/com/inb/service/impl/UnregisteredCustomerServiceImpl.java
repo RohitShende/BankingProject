@@ -171,6 +171,9 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 		
 		
 		List<Customer> listOfUnregisteredUsers = unregisteredCustomerRepository.findById(id);
+		if(listOfUnregisteredUsers==null || listOfUnregisteredUsers.size() == 0) {
+			return "{ \"Failed\": \"Invalid id: " + id + "}";
+		}
 		long existingClientId = 0l;
 		System.out.println(listOfUnregisteredUsers.get(0).getClass().equals(Class.forName("com.inb.mongo.collections.RegisteredCustomer")));
 		if(listOfUnregisteredUsers.get(0).getClass().equals(Class.forName("com.inb.mongo.collections.RegisteredCustomer")))
@@ -251,6 +254,11 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 									unregisteredPerson.getDateOfBirth(), clientId, oneTimePassword, accounthash,unregisteredPerson.getBranch()));
 					emailMessageBody2 = "Your Client Id is: " + clientId + " and one time password: " + oneTimePassword
 							+ ". Your account number is: " + accountNumber;
+					mailService.sendMail("anand.pune38@gmail.com",
+							unregisteredPerson.getEmail(),
+			    		   "User Account Details",
+			    		   emailMessageBody2);
+					
 					result = "{ \"Success\": \"Email sent\"}";
 					unregisteredCustomerRepository.delete(id);
 				}

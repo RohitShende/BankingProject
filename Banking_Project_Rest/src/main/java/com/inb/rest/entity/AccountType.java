@@ -1,6 +1,8 @@
 package com.inb.rest.entity;
 
-public enum AccountType {
+import java.io.Serializable;
+
+public enum AccountType implements Serializable {
 
 	SAVINGACCOUNT(1), CURRENTACCOUNT(2);
 	int val;

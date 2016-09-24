@@ -13,6 +13,7 @@ import com.inb.mongo.collections.RegisteredCustomer;
 import com.inb.mongo.repositories.RegisteredCustomerRepository;
 import com.inb.mongo.repositories.UnregisteredCustomerRepository;
 import com.inb.rest.entity.Account;
+import com.inb.rest.entity.ChangePasswordPOJO;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
 import com.inb.rest.entity.TransferPOJO;
 import com.inb.service.interfaces.RegisteredCustomerService;
@@ -68,6 +69,7 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		registeredCustomer.setPhone(registeredCustomerPOJO.getPhone());
 		registeredCustomer
 				.setCustomerId(registeredCustomerPOJO.getCustomerId());
+		registeredCustomer.setPassword(registeredCustomerPOJO.getPassword());		
 		registeredCustomer.setApplicationStatus("Pending");
 		return registeredCustomer;
 	}
@@ -307,4 +309,15 @@ public class RegisteredCustomerServiceImpl implements RegisteredCustomerService 
 		return accountDetailsJson;
 	}
 
+	public String changePassword(ChangePasswordPOJO changePasswordPOJO) {
+		List<RegisteredCustomer> listOfRegisteredCustomers = registeredCustomerRepository
+				.findBycustomerId(changePasswordPOJO.getCustomerId());
+		if(listOfRegisteredCustomers == null || listOfRegisteredCustomers.size() == 0) {
+			return "{\"Error\":\"Invalid customerId: " + changePasswordPOJO.getCustomerId() + "\"}";
+		}
+		RegisteredCustomer registeredCustomer = listOfRegisteredCustomers.get(0);
+		registeredCustomer.setPassword(changePasswordPOJO.getNewPassword());
+		registeredCustomerRepository.save(registeredCustomer);
+		return "{\"Success\":\"Password changed successfully for customerId: " + changePasswordPOJO.getCustomerId() + "\"}";
+	}
 }

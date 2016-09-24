@@ -29,7 +29,7 @@ public class UnregisteredCustomerController {
 	private UnregisteredCustomerService unregisteredCustomerService;
 
 	/*--------------Register User Application--------------*/
-	@RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String registerEnquiry(@RequestBody UnregisteredCustomerPOJO unregisteredCustomerPOJO) {
 
 		return unregisteredCustomerService

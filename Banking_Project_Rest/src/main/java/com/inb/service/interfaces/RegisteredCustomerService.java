@@ -2,6 +2,7 @@ package com.inb.service.interfaces;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.inb.mongo.collections.RegisteredCustomer;
+import com.inb.rest.entity.ChangePasswordPOJO;
 import com.inb.rest.entity.RegisteredCustomerPOJO;
 import com.inb.rest.entity.TransferPOJO;
 
@@ -22,4 +23,5 @@ public interface RegisteredCustomerService {
 			throws JsonProcessingException;
 	
 	String viewAccountDetails(long id) throws JsonProcessingException;
+	String changePassword(ChangePasswordPOJO changePasswordPOJO);
 }
