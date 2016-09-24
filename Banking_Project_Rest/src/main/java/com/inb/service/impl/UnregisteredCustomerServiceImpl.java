@@ -254,7 +254,7 @@ public class UnregisteredCustomerServiceImpl implements UnregisteredCustomerServ
 									unregisteredPerson.getDateOfBirth(), clientId, oneTimePassword, accounthash,unregisteredPerson.getBranch()));
 					emailMessageBody2 = "Your Client Id is: " + clientId + " and one time password: " + oneTimePassword
 							+ ". Your account number is: " + accountNumber;
-					mailService.sendMail("anand.pune38@gmail.com",
+					mailService.sendMail("info.inbbank@gmail.com",
 							unregisteredPerson.getEmail(),
 			    		   "User Account Details",
 			    		   emailMessageBody2);
